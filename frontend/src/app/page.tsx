@@ -85,10 +85,10 @@ export default function LandingPage() {
             V2.0 is now live
           </div>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-on-surface mb-8 max-w-4xl leading-[1.1]">
-            Refine your vision into <span className="text-primary italic">Architectural</span> precision.
+            Your PRD might not be ready. <span className="text-primary italic">Find out</span> in seconds.
           </h1>
           <p className="text-on-surface-variant text-lg md:text-xl max-w-2xl mb-12 leading-relaxed">
-            The ultimate platform for product managers to transform raw ideas into production-ready specifications with AI-driven rigor.
+            Because bad PRDs create bad products. Upload yours and get objective scoring, insights, and actionable feedback.
           </p>
 
           {/* Language Selection */}
