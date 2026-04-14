@@ -91,54 +91,77 @@ export default function LandingPage() {
             Because bad PRDs create bad products. Upload yours and get objective scoring, insights, and actionable feedback.
           </p>
 
-          {/* Language Selection */}
-          <div className="mb-10 w-full max-w-xs text-left">
-            <label htmlFor="lang-select" className="block text-[10px] font-bold uppercase tracking-[0.3em] text-on-surface-variant mb-4 ml-1">
-                Report Language
-            </label>
-            <div className="relative group">
-                <select
-                    id="lang-select"
-                    value={selectedLang}
-                    onChange={(e) => setSelectedLang(e.target.value)}
-                    className="w-full bg-surface-container-high text-on-surface text-sm font-medium py-3 px-4 rounded-lg border border-outline-variant/20 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 appearance-none cursor-pointer transition-all outline-none"
-                >
-                    {LANGUAGES.map(lang => (
-                        <option key={lang.code} value={lang.code} className="bg-surface-container-high">{lang.name}</option>
-                    ))}
-                </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">
-                    <span className="material-symbols-outlined text-sm">expand_more</span>
+          {/* Drag and Drop Zone Container */}
+          <div className="relative w-full max-w-3xl mt-16 group">
+            
+            {/* Floating Language Selector (Pills) */}
+            <div className="absolute -top-5 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-[#1a1a1a]/95 backdrop-blur-2xl p-1.5 rounded-full border border-outline-variant/20 shadow-2xl z-20 whitespace-nowrap">
+                {LANGUAGES.filter(l => ['en', 'id', 'ja'].includes(l.code)).map((lang) => (
+                    <button
+                        key={lang.code}
+                        onClick={(e) => { e.stopPropagation(); setSelectedLang(lang.code); }}
+                        className={`px-6 py-2 rounded-full text-xs font-bold tracking-tight transition-all duration-300 ${
+                            selectedLang === lang.code 
+                            ? 'bg-primary text-on-primary shadow-lg shadow-primary/30 scale-105' 
+                            : 'text-on-surface-variant hover:text-on-surface hover:bg-white/5'
+                        }`}
+                    >
+                        {lang.name}
+                    </button>
+                ))}
+                
+                {/* Custom "More" Dropdown Pill */}
+                <div className="relative">
+                    <select
+                        value={['en', 'id', 'ja'].includes(selectedLang) ? "" : selectedLang}
+                        onChange={(e) => setSelectedLang(e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
+                        className={`pl-5 pr-9 py-2 rounded-full text-xs font-bold tracking-tight transition-all duration-300 outline-none appearance-none cursor-pointer ${
+                            !['en', 'id', 'ja'].includes(selectedLang) 
+                            ? 'bg-primary text-on-primary shadow-lg shadow-primary/30' 
+                            : 'bg-transparent text-on-surface-variant hover:text-on-surface hover:bg-white/10'
+                        }`}
+                    >
+                        <option value="" disabled hidden>More</option>
+                        {LANGUAGES.filter(l => !['en', 'id', 'ja'].includes(l.code)).map(lang => (
+                            <option key={lang.code} value={lang.code} className="bg-[#1a1a1a] text-on-surface">
+                                {lang.name}
+                            </option>
+                        ))}
+                    </select>
+                    <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-sm pointer-events-none opacity-60">
+                        expand_more
+                    </span>
                 </div>
             </div>
-          </div>
-          
-          {/* Drag and Drop Zone */}
-          <div 
-            {...getRootProps()}
-            className={`w-full max-w-3xl aspect-[16/7] bg-surface-container-low rounded-xl border-2 border-dashed ${isDragActive ? 'border-primary/80' : 'border-outline-variant/30 hover:border-primary/50'} flex flex-col items-center justify-center p-8 group transition-colors cursor-pointer relative overflow-hidden`}
-          >
-            <input {...getInputProps()} />
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <span className={`material-symbols-outlined text-4xl mb-4 transition-colors ${isUploading ? 'text-primary animate-bounce' : 'text-on-surface-variant group-hover:text-primary'}`}>
-              {isUploading ? 'hourglass_empty' : (uploadedFile ? 'task' : 'upload_file')}
-            </span>
-            <h3 className="text-on-surface font-semibold text-lg mb-2 relative z-10">
-              {isUploading ? 'Analyzing Document...' : (uploadedFile ? uploadedFile.name : (isDragActive ? 'Drop it here!' : 'Drop your draft PRD here'))}
-            </h3>
-            <p className="text-on-surface-variant text-sm relative z-10 text-center">
-              {isUploading ? 'Running Neural Engine...' : 'Supports PDF, DOCX, and Markdown (Max 10MB)'}
-            </p>
-            {!isUploading && !uploadedFile && (
-              <>
-                <div className="mt-6 flex items-center gap-3 relative z-10">
-                  <span className="h-px w-8 bg-outline-variant"></span>
-                  <span className="text-xs uppercase tracking-widest text-on-surface-variant font-bold">or</span>
-                  <span className="h-px w-8 bg-outline-variant"></span>
-                </div>
-                <button className="mt-6 bg-surface-container-high text-on-surface px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-surface-bright transition-colors relative z-10">Browse files</button>
-              </>
-            )}
+
+            {/* Main Drop Zone */}
+            <div 
+              {...getRootProps()}
+              className={`w-full aspect-[16/7] bg-surface-container-low rounded-xl border-2 border-dashed ${isDragActive ? 'border-primary/80' : 'border-outline-variant/30 hover:border-primary/50'} flex flex-col items-center justify-center p-8 group transition-all duration-500 cursor-pointer relative overflow-hidden`}
+            >
+              <input {...getInputProps()} />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <span className={`material-symbols-outlined text-4xl mb-4 transition-colors ${isUploading ? 'text-primary animate-bounce' : 'text-on-surface-variant group-hover:text-primary'}`}>
+                {isUploading ? 'hourglass_empty' : (uploadedFile ? 'task' : 'upload_file')}
+              </span>
+              <h3 className="text-on-surface font-semibold text-lg mb-2 relative z-10">
+                {isUploading ? 'Analyzing Document...' : (uploadedFile ? uploadedFile.name : (isDragActive ? 'Drop it here!' : 'Drop your draft PRD here'))}
+              </h3>
+              <p className="text-on-surface-variant text-sm relative z-10 text-center">
+                {isUploading ? 'Running Neural Engine...' : 'Supports PDF, DOCX, and Markdown (Max 10MB)'}
+              </p>
+              {!isUploading && !uploadedFile && (
+                <>
+                  <div className="mt-6 flex items-center gap-3 relative z-10">
+                    <span className="h-px w-8 bg-outline-variant"></span>
+                    <span className="text-xs uppercase tracking-widest text-on-surface-variant font-bold">or</span>
+                    <span className="h-px w-8 bg-outline-variant"></span>
+                  </div>
+                  <button className="mt-6 bg-surface-container-high text-on-surface px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-surface-bright transition-colors relative z-10">Browse files</button>
+                </>
+              )}
+            </div>
           </div>
         </section>
 
