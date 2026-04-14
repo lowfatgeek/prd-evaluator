@@ -4,21 +4,27 @@ import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/navigation';
-
+import { uploadDocument, startEvaluation } from '@/lib/api';
 export default function LandingPage() {
   const router = useRouter();
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
       setUploadedFile(acceptedFiles[0]);
       setIsUploading(true);
       
-      // Mock API call to navigate to result page after 2 seconds
-      setTimeout(() => {
-        router.push('/result/123');
-      }, 2000);
+      try {
+        const uploadId = await uploadDocument(acceptedFiles[0]);
+        const evalId = await startEvaluation(uploadId, 'en');
+        router.push(`/result/${evalId}`);
+      } catch (err) {
+        console.error(err);
+        alert(err instanceof Error ? err.message : 'Upload failed.');
+        setIsUploading(false);
+        setUploadedFile(null);
+      }
     }
   }, [router]);
 
