@@ -152,7 +152,7 @@ export default function LandingPage() {
                 </div>
                 <h3 className="text-xl font-bold text-on-surface mb-4">Rapid Analysis</h3>
                 <p className="text-on-surface-variant leading-relaxed text-sm">
-                    Our LLM-native core processes complex documents in seconds, identifying logical gaps and structural weaknesses before they hit development.
+                    Our AI Agent processes complex documents in seconds, identifying logical gaps and structural weaknesses before they hit development.
                 </p>
               </div>
               <div className="bg-surface-container-high p-10 rounded-xl flex flex-col items-start hover:translate-y-[-4px] transition-transform duration-300">
@@ -170,7 +170,7 @@ export default function LandingPage() {
                 </div>
                 <h3 className="text-xl font-bold text-on-surface mb-4">Strict Guidelines</h3>
                 <p className="text-on-surface-variant leading-relaxed text-sm">
-                    Enforce industry-standard frameworks like BRD, PRD, and User Stories with automated compliance checking for every draft.
+                    Evaluations follow proven structured framework standards used by product teams and startups.
                 </p>
               </div>
             </div>
