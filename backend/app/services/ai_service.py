@@ -21,7 +21,7 @@ MOCK_RESPONSE = {
     "improvement_suggestions": ["Add pricing model.", "Clarify SLAs."]
 }
 
-SYSTEM_PROMPT = """
+BASE_SYSTEM_PROMPT = """
 You are an expert Product Manager and Technical Reviewer specialized in evaluating Product Requirements Documents (PRDs).
 
 Your task is to evaluate a PRD document objectively and produce a structured evaluation report.
@@ -121,28 +121,27 @@ MANDATORY SCORING RULES (hard caps):
 - If non-functional requirements are missing -> Non-functional score MUST be <= 5.
 
 OUTPUT FORMAT (STRICT JSON):
-{
-  "category_scores": {
-    "product_clarity": { "score": 0, "explanation": "", "evidence": "" },
-    "user_understanding": { "score": 0, "explanation": "", "evidence": "" },
-    "feature_definition": { "score": 0, "explanation": "", "evidence": "" },
-    "ai_design": { "score": 0, "explanation": "", "evidence": "", "applicable": true },
-    "technical_architecture": { "score": 0, "explanation": "", "evidence": "" },
-    "product_viability": { "score": 0, "explanation": "", "evidence": "" },
-    "execution_readiness": { "score": 0, "explanation": "", "evidence": "" },
-    "user_flow": { "score": 0, "explanation": "", "evidence": "" },
-    "non_functional_requirements": { "score": 0, "explanation": "", "evidence": "" }
-  },
+{{
+  "category_scores": {{
+    "product_clarity": {{ "score": 0, "explanation": "", "evidence": "" }},
+    "user_understanding": {{ "score": 0, "explanation": "", "evidence": "" }},
+    "feature_definition": {{ "score": 0, "explanation": "", "evidence": "" }},
+    "ai_design": {{ "score": 0, "explanation": "", "evidence": "", "applicable": true }},
+    "technical_architecture": {{ "score": 0, "explanation": "", "evidence": "" }},
+    "product_viability": {{ "score": 0, "explanation": "", "evidence": "" }},
+    "execution_readiness": {{ "score": 0, "explanation": "", "evidence": "" }},
+    "user_flow": {{ "score": 0, "explanation": "", "evidence": "" }},
+    "non_functional_requirements": {{ "score": 0, "explanation": "", "evidence": "" }}
+  }},
   "strengths": ["", "", ""],
   "weaknesses": ["", "", ""],
   "missing_sections": [""],
   "improvement_suggestions": ["", "", ""]
-}
+}}
 
-IMPORTANT:
-Return ONLY valid JSON. 
-If you are translating content, ensure that the JSON KEYS (category names, "score", "explanation", "evidence", "applicable", "strengths", "weaknesses", "missing_sections", "improvement_suggestions") remain EXACTLY as specified in English, but the VALUES (explanations, suggested actions, etc.) should be in the requested language.
-Do not add any text or explanation outside the JSON object.
+Return ONLY valid JSON. Do not add any text or explanation outside the JSON object.
+JSON keys MUST remain exactly as specified above in English. Never translate the keys.
+{language_instruction}
 """
 
 LANGUAGE_MAP = {
@@ -163,21 +162,38 @@ LANGUAGE_MAP = {
     "vi": "Vietnamese"
 }
 
+def build_system_prompt(output_language: str = "en") -> str:
+    """Builds the system prompt, injecting language instructions when needed."""
+    lang_name = LANGUAGE_MAP.get(output_language, "English")
+    if output_language != "en":
+        language_instruction = f"""\nCRITICAL LANGUAGE REQUIREMENT:
+You MUST write ALL text values in {lang_name}.
+This applies to: "explanation", "evidence", every string in "strengths", "weaknesses", "missing_sections", and "improvement_suggestions".
+The JSON keys stay in English. Only the text content values must be in {lang_name}.
+Example for {lang_name}:
+"explanation": "<your explanation written in {lang_name}>"
+"evidence": "<your evidence written in {lang_name}>"
+"strengths": ["<strength in {lang_name}>", "<strength in {lang_name}>"]"""
+    else:
+        language_instruction = ""
+    return BASE_SYSTEM_PROMPT.format(language_instruction=language_instruction)
+
 def generate_user_prompt(text: str, output_language: str = "en") -> str:
     lang_name = LANGUAGE_MAP.get(output_language, "English")
-    
-    # Base instruction for language
-    lang_instruction = ""
-    if output_language != "en":
-        lang_instruction = f"IMPORTANT: provide ALL text content (explanations, evidence, strengths, weaknesses, suggestions, missing_sections) in the {lang_name} language.\n\n"
 
-    return f"""{lang_instruction}Evaluate the following PRD document.
+    # Language reminder placed AFTER the document content — this is the last thing
+    # the model reads before generating, making it far more effective.
+    lang_reminder = ""
+    if output_language != "en":
+        lang_reminder = f"""\n\nREMINDER: You MUST write all explanation, evidence, strengths, weaknesses, missing_sections, and improvement_suggestions text values in {lang_name}. Do NOT use English for these values. Use {lang_name} only."""
+
+    return f"""Evaluate the following PRD document.
 
 PRD CONTENT:
 \"\"\"
 {text[:15000]}
 \"\"\"
-"""
+{lang_reminder}"""
 
 def compute_final_score_and_verdict(result_json: dict) -> dict:
     if not isinstance(result_json, dict):
@@ -252,7 +268,7 @@ async def evaluate_prd_text(text: str, output_language: str = "en") -> dict:
         "model": settings.OPENROUTER_MODEL,
         "response_format": {"type": "json_object"},
         "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": build_system_prompt(output_language)},
             {"role": "user", "content": user_prompt}
         ],
         "temperature": 0.2
