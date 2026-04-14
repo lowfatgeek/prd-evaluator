@@ -81,7 +81,7 @@ export default function LandingPage() {
         {/* Hero Section */}
         <section className="max-w-6xl mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high text-xs font-medium tracking-widest uppercase mb-8 border border-outline-variant/10">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
             V2.0 is now live
           </div>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-on-surface mb-8 max-w-4xl leading-[1.1]">
