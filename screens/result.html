@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evaluation Result | 2026 AI PRD</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+                "cyber-cyan": "#00f5ff",
+                "cyber-orange": "#f77f00",
+                "surface": "#000a12",
+                "panel": "rgba(10, 25, 41, 0.6)",
+            },
+            fontFamily: {
+                sans: ["Plus Jakarta Sans", "Inter", "sans-serif"],
+                mono: ["JetBrains Mono", "monospace"],
+            },
+            backgroundImage: {
+                'grid-pattern': "radial-gradient(rgba(0, 245, 255, 0.1) 1px, transparent 1px)",
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #000a12;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 245, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(247, 127, 0, 0.08) 0%, transparent 40%),
+                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        .glass-bento {
+            background: rgba(10, 25, 41, 0.4);
+            backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .glass-bento:hover {
+            border-color: rgba(0, 245, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px 0 rgba(0, 245, 255, 0.1);
+        }
+
+        .neon-border {
+            position: relative;
+        }
+
+        .neon-border::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(135deg, #00f5ff, transparent, #f77f00);
+            z-index: -1;
+            border-radius: inherit;
+            opacity: 0.3;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+
+        .radar-glow {
+            filter: drop-shadow(0 0 12px rgba(247, 127, 0, 0.4));
+        }
+
+        .donut-gauge {
+            transform: rotate(-90deg);
+        }
+
+        .glow-cyan { filter: drop-shadow(0 0 8px rgba(0, 245, 255, 0.6)); }
+        .glow-orange { filter: drop-shadow(0 0 8px rgba(247, 127, 0, 0.6)); }
+    </style>
+</head>
+<body class="text-slate-100 font-sans selection:bg-cyber-cyan selection:text-surface overflow-x-hidden">
+<!-- Futuristic Nav -->
+<header class="sticky top-0 z-[100] border-b border-white/5 bg-surface/80 backdrop-blur-xl">
+<div class="max-w-[1600px] mx-auto flex justify-between items-center px-8 py-4">
+<div class="flex items-center gap-12">
+<div class="flex items-center gap-2 group cursor-pointer">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyber-cyan to-cyber-orange p-[1px]">
+<div class="w-full h-full bg-surface rounded-[7px] flex items-center justify-center">
+<span class="material-symbols-outlined text-cyber-cyan text-xl">AIG</span>
+</div>
+</div>
+<span class="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">PRD.AI</span>
+</div>
+<nav class="hidden lg:flex gap-10 items-center">
+<a class="text-sm font-medium text-white/40 hover:text-cyber-cyan transition-colors" href="#">Terminal</a>
+<a class="text-sm font-medium text-cyber-cyan flex items-center gap-2" href="#">
+<span class="w-1 h-1 rounded-full bg-cyber-cyan"></span>Archive
+                    </a>
+<a class="text-sm font-medium text-white/40 hover:text-cyber-cyan transition-colors" href="#">Neural Net</a>
+<a class="text-sm font-medium text-white/40 hover:text-cyber-cyan transition-colors" href="#">Configuration</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="px-6 py-2 text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white transition-all">Export_Report</button>
+<button class="px-6 py-2.5 bg-white text-surface text-xs font-black uppercase tracking-widest rounded-full hover:bg-cyber-cyan transition-all active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)]">New Analysis</button>
+<div class="w-10 h-10 rounded-full border border-white/10 p-0.5">
+<img alt="User" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJQ34Z7IGMOpGHqbxYI75ywR2AI2n4iXFBDdLd0jhuF48dkZ9PPZ-9D5OwSfwSP3bu-zOlJOiOECbSHoMOWKqzkZ3Cjjcso5qztovFcadiu7j5XlvPy5wZWL1gqfnR8oeRt0uyxcvCu3iJaUjr_07GrRDkHNXIm1ZXwThJE0ioitue_NvDpFuvRARTchTyeooWF8Q6TEzET_grjcGc6dM0rlOqk2s_r7e7oqHEPye5RMxZxBTbwxXfDOb0lSvGtP1CD4pgst-q_bk"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[1600px] mx-auto px-8 py-12">
+<!-- Fluid Bento Grid -->
+<div class="grid grid-cols-12 grid-rows-6 gap-6 h-[1400px] md:h-[1200px] lg:h-[900px]">
+<!-- Header & Main Score (Bento Cell) -->
+<div class="col-span-12 lg:col-span-8 row-span-2 glass-bento rounded-[2rem] p-10 flex flex-col justify-between relative pb-16 min-h-[500px]">
+<div class="absolute top-0 right-0 w-96 h-96 bg-cyber-cyan/10 blur-[100px] -mr-48 -mt-48"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 text-cyber-cyan/60 font-mono text-xs mb-4 uppercase tracking-[0.2em]">
+<span class="material-symbols-outlined text-sm">fingerprint</span>
+                        ID: E-COMMERCE_V1.4.0
+                    </div>
+<h1 class="text-7xl font-black tracking-tighter leading-none mb-4">
+                        Analytical<br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/20">Synthesis</span>
+</h1>
+</div>
+<div class="flex items-end justify-between relative z-10">
+<div class="space-y-4">
+<div class="flex gap-2">
+<span class="px-4 py-1.5 rounded-full bg-cyber-cyan/10 text-cyber-cyan text-[10px] font-black uppercase tracking-widest border border-cyber-cyan/20">Architecturally Sound</span>
+<span class="px-4 py-1.5 rounded-full bg-white/5 text-white/40 text-[10px] font-black uppercase tracking-widest border border-white/5">Neural Verified</span>
+</div>
+<p class="text-white/40 max-w-sm text-sm leading-relaxed">
+                            PRD analysis complete. Structural integrity meets Tier 1 enterprise standards with localized anomalies in logistics logic.
+                        </p>
+</div>
+<div class="text-right group" style="display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;">
+<div class="text-[10px] font-black text-cyber-cyan uppercase tracking-[0.3em] mb-2 mr-2">Core Index</div>
+<div class="flex items-baseline gap-2">
+<span class="text-[12rem] font-black tracking-tighter glow-text bg-clip-text text-transparent bg-gradient-to-b from-white to-cyber-cyan/40 leading-none pb-4">7.8</span>
+<span class="text-4xl font-light text-white/20">/10</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Radar Focal Point (Bento Cell) -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 row-span-4 glass-bento rounded-[2rem] p-8 flex flex-col items-center justify-center relative neon-border">
+<h3 class="absolute top-8 left-8 text-[10px] font-bold uppercase tracking-[0.4em] text-white/40">Multi-Axis Signal</h3>
+<div class="w-full aspect-square relative flex items-center justify-center max-w-[340px]">
+<svg class="w-full h-full radar-glow opacity-80" viewbox="0 0 100 100">
+<defs>
+<radialgradient cx="50%" cy="50%" id="grad1" r="50%">
+<stop offset="0%" style="stop-color:rgba(0, 245, 255, 0.2);stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:rgba(0, 245, 255, 0);stop-opacity:1"></stop>
+</radialgradient>
+</defs>
+<circle cx="50" cy="50" fill="none" r="45" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2 2" stroke-width="0.5"></circle>
+<circle cx="50" cy="50" fill="none" r="30" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2 2" stroke-width="0.5"></circle>
+<circle cx="50" cy="50" fill="none" r="15" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2 2" stroke-width="0.5"></circle>
+<polygon fill="url(#grad1)" points="50,5 95,25 95,75 50,95 5,75 5,25" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"></polygon>
+<polygon fill="rgba(247,127,0,0.15)" points="50,15 88,32 80,70 50,88 15,68 22,28" stroke="#f77f00" stroke-linejoin="round" stroke-width="1.5"></polygon>
+<polygon fill="none" opacity="0.5" points="50,15 88,32 80,70 50,88 15,68 22,28" stroke="#00f5ff" stroke-width="0.5" transform="scale(1.1) translate(-4.5, -4.5)"></polygon>
+</svg>
+<div class="absolute top-0 text-[9px] font-bold text-cyber-cyan uppercase tracking-widest">Scalability</div>
+<div class="absolute bottom-0 text-[9px] font-bold text-white/40 uppercase tracking-widest">Security</div>
+<div class="absolute left-0 top-1/2 -translate-y-1/2 -rotate-90 text-[9px] font-bold text-white/40 uppercase tracking-widest">Clarity</div>
+<div class="absolute right-0 top-1/2 -translate-y-1/2 rotate-90 text-[9px] font-bold text-white/40 uppercase tracking-widest">Viability</div>
+</div>
+<div class="mt-8 grid grid-cols-2 gap-8 w-full">
+<div class="border-l border-cyber-orange/40 pl-4">
+<div class="text-[10px] text-white/30 uppercase tracking-widest mb-1">Architecture</div>
+<div class="text-lg font-bold text-cyber-orange">High Flow</div>
+</div>
+<div class="border-l border-cyber-cyan/40 pl-4">
+<div class="text-[10px] text-white/30 uppercase tracking-widest mb-1">Redundancy</div>
+<div class="text-lg font-bold text-cyber-cyan">92.4%</div>
+</div>
+</div>
+</div>
+<!-- Strengths (Bento Cell) -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 row-span-2 glass-bento rounded-[2rem] p-8 flex flex-col justify-between group overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl">verified</span>
+</div>
+<h3 class="text-[10px] font-bold uppercase tracking-[0.4em] text-cyber-cyan mb-6">Neural Positives</h3>
+<ul class="space-y-4 relative z-10">
+<li class="flex items-start gap-4">
+<div class="w-1.5 h-1.5 rounded-full bg-cyber-cyan mt-2 shadow-[0_0_8px_rgba(0,245,255,1)]"></div>
+<p class="text-sm font-medium leading-relaxed">Robust technical definition for API rate limiting and edge cases.</p>
+</li>
+<li class="flex items-start gap-4">
+<div class="w-1.5 h-1.5 rounded-full bg-cyber-cyan mt-2 shadow-[0_0_8px_rgba(0,245,255,1)]"></div>
+<p class="text-sm font-medium leading-relaxed">Exceptional user persona mapping for the 'Enterprise Buyer' journey.</p>
+</li>
+</ul>
+</div>
+<!-- Weaknesses (Bento Cell) -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 row-span-2 glass-bento rounded-[2rem] p-8 flex flex-col justify-between group overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl text-cyber-orange">warning</span>
+</div>
+<h3 class="text-[10px] font-bold uppercase tracking-[0.4em] text-cyber-orange mb-6">Entropy Alerts</h3>
+<ul class="space-y-4 relative z-10">
+<li class="flex items-start gap-4">
+<div class="w-1.5 h-1.5 rounded-full bg-cyber-orange mt-2 shadow-[0_0_8px_rgba(247,127,0,1)]"></div>
+<p class="text-sm font-medium leading-relaxed">Vague data retention policy for GDPR compliance under Section 4.</p>
+</li>
+<li class="flex items-start gap-4">
+<div class="w-1.5 h-1.5 rounded-full bg-cyber-orange mt-2 shadow-[0_0_8px_rgba(247,127,0,1)]"></div>
+<p class="text-sm font-medium leading-relaxed">Missing 'Success Metrics' for the checkout conversion funnel.</p>
+</li>
+</ul>
+</div>
+</div>
+<!-- Category Evaluation List -->
+<section class="mt-12 space-y-6">
+<!-- Cat 1 -->
+<div class="glass-bento rounded-[2.5rem] p-8 flex flex-col md:flex-row gap-8 items-center relative overflow-hidden group border-white/10">
+<!-- Left Side: Donut Gauge -->
+<div class="w-full md:w-1/4 flex justify-center items-center relative">
+<div class="relative w-40 h-40">
+<svg class="donut-gauge w-full h-full" viewbox="0 0 100 100">
+<circle class="text-white/5" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-cyber-cyan glow-cyan" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-dasharray="264" stroke-dashoffset="26.4" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-4xl font-black text-white leading-none">09</span>
+<span class="text-[10px] font-bold text-white/30 uppercase tracking-widest mt-1">/ 10</span>
+</div>
+</div>
+</div>
+<!-- Right Side: Content -->
+<div class="w-full md:w-3/4 flex flex-col">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-cyber-cyan text-2xl">blur_on</span>
+<h4 class="text-2xl font-black uppercase tracking-tight text-white/90">Value Prop</h4>
+</div>
+<p class="text-base text-white/50 leading-relaxed mb-6">The problem statement is articulated with high precision, addressing specific pain points in the existing checkout workflow.</p>
+<div class="bg-white/5 rounded-2xl p-4 border border-white/5 font-mono text-xs text-cyber-cyan/70 backdrop-blur-sm">
+<span class="text-white/20 mr-2">EVIDENCE_LOG:</span> "Reduce abandonment by 15% via headless gateway implementation and edge-cached state management."
+                    </div>
+</div>
+</div>
+<!-- Cat 2 -->
+<div class="glass-bento rounded-[2.5rem] p-8 flex flex-col md:flex-row gap-8 items-center relative overflow-hidden group border-cyber-orange/20">
+<!-- Left Side: Donut Gauge -->
+<div class="w-full md:w-1/4 flex justify-center items-center relative">
+<div class="relative w-40 h-40">
+<svg class="donut-gauge w-full h-full" viewbox="0 0 100 100">
+<circle class="text-white/5" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-cyber-orange glow-orange" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-dasharray="264" stroke-dashoffset="158.4" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-4xl font-black text-white leading-none">04</span>
+<span class="text-[10px] font-bold text-white/30 uppercase tracking-widest mt-1">/ 10</span>
+</div>
+</div>
+</div>
+<!-- Right Side: Content -->
+<div class="w-full md:w-3/4 flex flex-col">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-cyber-orange text-2xl">hub</span>
+<h4 class="text-2xl font-black uppercase tracking-tight text-white/90">Scalability</h4>
+</div>
+<p class="text-base text-white/50 leading-relaxed mb-6">Significant ambiguity in load balancing strategy and database sharding protocols for peak traffic periods.</p>
+<div class="bg-white/5 rounded-2xl p-4 border border-white/5 font-mono text-xs text-cyber-orange/70 backdrop-blur-sm">
+<span class="text-white/20 mr-2">EVIDENCE_LOG:</span> "Handle users without significant lag..." — Lacks technical SLAs or specific hardware acceleration requirements.
+                    </div>
+</div>
+</div>
+<!-- Cat 3 -->
+<div class="glass-bento rounded-[2.5rem] p-8 flex flex-col md:flex-row gap-8 items-center relative overflow-hidden group border-white/10">
+<!-- Left Side: Donut Gauge -->
+<div class="w-full md:w-1/4 flex justify-center items-center relative">
+<div class="relative w-40 h-40">
+<svg class="donut-gauge w-full h-full" viewbox="0 0 100 100">
+<circle class="text-white/5" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-white/60" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-dasharray="264" stroke-dashoffset="79.2" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-4xl font-black text-white leading-none">07</span>
+<span class="text-[10px] font-bold text-white/30 uppercase tracking-widest mt-1">/ 10</span>
+</div>
+</div>
+</div>
+<!-- Right Side: Content -->
+<div class="w-full md:w-3/4 flex flex-col">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-white/40 text-2xl">encrypted</span>
+<h4 class="text-2xl font-black uppercase tracking-tight text-white/90">Data Privacy</h4>
+</div>
+<p class="text-base text-white/50 leading-relaxed mb-6">Good SOC2 mention and encryption standards, though it lacks specific EU localization details for GDRP compliance.</p>
+<div class="bg-white/5 rounded-2xl p-4 border border-white/5 font-mono text-xs text-white/40 backdrop-blur-sm">
+<span class="text-white/20 mr-2">EVIDENCE_LOG:</span> "Sensitive data encrypted at rest AES-256 with key rotation every 90 days via KMS."
+                    </div>
+</div>
+</div>
+<!-- Cat 4 -->
+<div class="glass-bento rounded-[2.5rem] p-8 flex flex-col md:flex-row gap-8 items-center relative overflow-hidden group border-white/10">
+<!-- Left Side: Donut Gauge -->
+<div class="w-full md:w-1/4 flex justify-center items-center relative">
+<div class="relative w-40 h-40">
+<svg class="donut-gauge w-full h-full" viewbox="0 0 100 100">
+<circle class="text-white/5" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-white/40" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-dasharray="264" stroke-dashoffset="105.6" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-4xl font-black text-white leading-none">06</span>
+<span class="text-[10px] font-bold text-white/30 uppercase tracking-widest mt-1">/ 10</span>
+</div>
+</div>
+</div>
+<!-- Right Side: Content -->
+<div class="w-full md:w-3/4 flex flex-col">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-white/40 text-2xl">query_stats</span>
+<h4 class="text-2xl font-black uppercase tracking-tight text-white/90">KPI Definition</h4>
+</div>
+<p class="text-base text-white/50 leading-relaxed mb-6">Success metrics are defined but not clearly mapped against quarterly business targets or stakeholder ROI.</p>
+<div class="bg-white/5 rounded-2xl p-4 border border-white/5 font-mono text-xs text-white/40 backdrop-blur-sm">
+<span class="text-white/20 mr-2">EVIDENCE_LOG:</span> "Metrics include MAU growth, conversion lift, and LTV cohorts."
+                    </div>
+</div>
+</div>
+</section>
+<!-- Roadmap Section -->
+<section class="mt-16">
+<div class="flex items-center gap-4 mb-8">
+<h2 class="text-2xl font-black tracking-tight flex items-center gap-3 text-white/80">
+<span class="w-10 h-0.5 bg-gradient-to-r from-cyber-cyan to-transparent"></span>
+                    Improvement Roadmap
+                </h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Missing Nodes -->
+<div class="space-y-4">
+<h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 ml-2">Missing Nodes</h3>
+<div class="glass-bento rounded-2xl p-6 border-l-2 border-cyber-orange">
+<div class="flex gap-4 items-start">
+<span class="material-symbols-outlined text-cyber-orange mt-1">error_med</span>
+<div>
+<div class="font-bold text-sm mb-1">Post-Launch Support Plan</div>
+<div class="text-xs text-white/40 leading-relaxed">Critical gap. PRD terminates at deployment. No V1.1 maintenance or triage strategy identified.</div>
+</div>
+</div>
+</div>
+<div class="glass-bento rounded-2xl p-6 border-l-2 border-cyber-orange">
+<div class="flex gap-4 items-start">
+<span class="material-symbols-outlined text-cyber-orange mt-1">wifi_off</span>
+<div>
+<div class="font-bold text-sm mb-1">Edge Case Mapping</div>
+<div class="text-xs text-white/40 leading-relaxed">No definitions for offline latency or low-bandwidth states for mobile endpoints.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Smart Suggestions -->
+<div class="space-y-4">
+<h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 ml-2">Optimizer Suggestions</h3>
+<div class="glass-bento rounded-2xl p-6 border-l-2 border-cyber-cyan">
+<div class="flex gap-4 items-start">
+<span class="material-symbols-outlined text-cyber-cyan mt-1">bolt</span>
+<div>
+<div class="font-bold text-sm mb-1">Quantify Performance</div>
+<div class="text-xs text-white/40 leading-relaxed">Replace "fast loading" with "LCP under 1.2s on 4G networks" to ensure measurable SLAs.</div>
+</div>
+</div>
+</div>
+<div class="glass-bento rounded-2xl p-6 border-l-2 border-cyber-cyan">
+<div class="flex gap-4 items-start">
+<span class="material-symbols-outlined text-cyber-cyan mt-1">groups</span>
+<div>
+<div class="font-bold text-sm mb-1">Clarify Stakeholders</div>
+<div class="text-xs text-white/40 leading-relaxed">Explicitly identify 'Legal' as a primary validator for Section 4 data governance.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Actions -->
+<div class="mt-16 flex flex-col md:flex-row gap-6 justify-center">
+<button class="px-10 py-5 glass-bento rounded-full text-xs font-black uppercase tracking-widest hover:bg-white/5 transition-all">
+                Download_PDF.sys
+            </button>
+<button class="px-12 py-5 bg-gradient-to-r from-cyber-cyan to-cyber-orange rounded-full text-surface text-xs font-black uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_30px_rgba(0,245,255,0.3)]">
+                Analyze_New_PRD
+            </button>
+</div>
+</main>
+<footer class="mt-20 border-t border-white/5 bg-surface/80 backdrop-blur-xl">
+<div class="max-w-[1600px] mx-auto px-8 py-10 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-2">
+<span class="text-sm font-black tracking-widest text-white/20 uppercase">PRD.AI ARCHITECT</span>
+</div>
+<div class="flex gap-10">
+<a class="text-xs font-bold text-white/20 hover:text-cyber-cyan transition-colors" href="#">Manifesto</a>
+<a class="text-xs font-bold text-white/20 hover:text-cyber-cyan transition-colors" href="#">Security_Log</a>
+<a class="text-xs font-bold text-white/20 hover:text-cyber-cyan transition-colors" href="#">API_Key</a>
+</div>
+<p class="text-[10px] font-mono text-white/10 uppercase tracking-widest">© 2026 NEURAL ARCHITECT. ALL RIGHTS RESERVED.</p>
+</div>
+</footer>
+</body></html>

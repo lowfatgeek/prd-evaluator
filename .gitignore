@@ -1,0 +1,22 @@
+# General
+.DS_Store
+.vscode/
+
+# Backend
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/.env
+backend/prd_evaluator.db
+backend/uploads/
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env
+frontend/.env*.local
+
+# Agents
+.agent/
+.agents/
