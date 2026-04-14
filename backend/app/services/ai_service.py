@@ -204,6 +204,8 @@ async def evaluate_prd_text(text: str, output_language: str = "en") -> dict:
         await asyncio.sleep(2)  # Simulate network latency
         # Need to deepcopy to avoid mutating global MOCK_RESPONSE
         mock_copy = json.loads(json.dumps(MOCK_RESPONSE))
+        mock_copy["model_used"] = "Mock-Engine-v1"
+        mock_copy["tokens_used"] = 4042
         return compute_final_score_and_verdict(mock_copy)
 
     headers = {
@@ -235,6 +237,10 @@ async def evaluate_prd_text(text: str, output_language: str = "en") -> dict:
             data = response.json()
             content = data['choices'][0]['message']['content']
             parsed_json = json.loads(content)
+            
+            parsed_json["model_used"] = data.get("model", settings.OPENROUTER_MODEL)
+            usage = data.get("usage", {})
+            parsed_json["tokens_used"] = usage.get("total_tokens", 0)
             
             return compute_final_score_and_verdict(parsed_json)
     except Exception as e:
