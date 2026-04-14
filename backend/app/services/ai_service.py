@@ -227,7 +227,11 @@ async def evaluate_prd_text(text: str, output_language: str = "en") -> dict:
     try:
         async with httpx.AsyncClient(timeout=60.0) as client:
             response = await client.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
-            response.raise_for_status()
+            if response.status_code != 200:
+                error_body = response.text
+                print(f"OpenRouter Raw Error [HTTP {response.status_code}]: {error_body}")
+                response.raise_for_status()
+                
             data = response.json()
             content = data['choices'][0]['message']['content']
             parsed_json = json.loads(content)
