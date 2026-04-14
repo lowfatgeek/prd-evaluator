@@ -51,7 +51,6 @@ export default function LandingPage() {
     onDrop,
     accept: {
       'application/pdf': ['.pdf'],
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
       'text/plain': ['.txt'],
       'text/markdown': ['.md']
     },
@@ -149,7 +148,7 @@ export default function LandingPage() {
                 {isUploading ? 'Analyzing Document...' : (uploadedFile ? uploadedFile.name : (isDragActive ? 'Drop it here!' : 'Drop your draft PRD here'))}
               </h3>
               <p className="text-on-surface-variant text-sm relative z-10 text-center">
-                {isUploading ? 'Running Neural Engine...' : 'Supports PDF, DOCX, and Markdown (Max 10MB)'}
+                {isUploading ? 'Running Neural Engine...' : 'Supports PDF, TXT, and Markdown (Max 10MB)'}
               </p>
               {!isUploading && !uploadedFile && (
                 <>
