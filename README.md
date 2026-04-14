@@ -47,8 +47,11 @@ Download the required packages, including the Supabase client:
 pip install -r requirements.txt
 ```
 
-**3. Configure Supabase Cloud Storage**
+**3. Configure Supabase PostgreSQL & Storage**
 Go to your Supabase project dashboard:
+- Navigate to the **SQL Editor** tab on the left menu.
+- Open the `backend/supabase_schema.sql` file provided in this repository, paste its contents into the SQL Editor, and run it to create the required `uploads` and `evaluations` database tables.
+- Next, navigate to the **Storage** tab.
 - Create a new Storage Bucket and name it exactly **`prd_documents`**.
 - Set appropriate privacy algorithms (For testing, granting public object insertion may ease the load, but apply RLS policies for production).
 
