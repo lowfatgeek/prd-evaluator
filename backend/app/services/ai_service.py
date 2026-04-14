@@ -140,7 +140,9 @@ OUTPUT FORMAT (STRICT JSON):
 }
 
 IMPORTANT:
-Return ONLY valid JSON. Do not add any text or explanation outside the JSON object.
+Return ONLY valid JSON. 
+If you are translating content, ensure that the JSON KEYS (category names, "score", "explanation", "evidence", "applicable", "strengths", "weaknesses", "missing_sections", "improvement_suggestions") remain EXACTLY as specified in English, but the VALUES (explanations, suggested actions, etc.) should be in the requested language.
+Do not add any text or explanation outside the JSON object.
 """
 
 LANGUAGE_MAP = {
@@ -178,19 +180,34 @@ PRD CONTENT:
 """
 
 def compute_final_score_and_verdict(result_json: dict) -> dict:
+    if not isinstance(result_json, dict):
+        return {"error": "AI returned invalid data format."}
+        
     categories = result_json.get("category_scores", {})
+    if not isinstance(categories, dict):
+        categories = {}
+        
     scores = []
     
     for key, value in categories.items():
+        # Ensure value is a dict before calling .get()
+        if not isinstance(value, dict):
+            # If AI returned a string for a category, convert it to a dict with 0 score
+            value = {"score": 0, "explanation": str(value), "evidence": "Not found"}
+            categories[key] = value
+
         if key == "ai_design":
-            if value.get("applicable", True) is False or str(value.get("applicable", "")).lower() == "false":
+            applicable = value.get("applicable", True)
+            if applicable is False or str(applicable).lower() == "false":
                 value["score"] = None
                 if not value.get("explanation"):
                     value["explanation"] = "No AI component detected in this PRD."
             else:
-                scores.append(value.get("score", 0) if value.get("score") is not None else 0)
+                score = value.get("score")
+                scores.append(score if score is not None else 0)
         else:
-            scores.append(value.get("score", 0) if value.get("score") is not None else 0)
+            score = value.get("score", 0)
+            scores.append(score if score is not None else 0)
             
     if scores:
         final_score = round(sum(scores) / len(scores), 1)
@@ -242,7 +259,7 @@ async def evaluate_prd_text(text: str, output_language: str = "en") -> dict:
     }
 
     try:
-        async with httpx.AsyncClient(timeout=60.0) as client:
+        async with httpx.AsyncClient(timeout=150.0) as client:
             response = await client.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
             if response.status_code != 200:
                 error_body = response.text
@@ -250,12 +267,25 @@ async def evaluate_prd_text(text: str, output_language: str = "en") -> dict:
                 response.raise_for_status()
                 
             data = response.json()
-            content = data['choices'][0]['message']['content']
+            if not isinstance(data, dict):
+                return {"error": "Invalid response format from OpenRouter."}
+
+            choices = data.get('choices', [])
+            if not choices:
+                return {"error": "AI returned no choices."}
+
+            content = choices[0]['message']['content']
             parsed_json = json.loads(content)
+            
+            if not isinstance(parsed_json, dict):
+                return {"error": "AI output is not a valid JSON object."}
             
             parsed_json["model_used"] = data.get("model", settings.OPENROUTER_MODEL)
             usage = data.get("usage", {})
-            parsed_json["tokens_used"] = usage.get("total_tokens", 0)
+            if isinstance(usage, dict):
+                parsed_json["tokens_used"] = usage.get("total_tokens", 0)
+            else:
+                parsed_json["tokens_used"] = 0
             
             return compute_final_score_and_verdict(parsed_json)
     except Exception as e:
