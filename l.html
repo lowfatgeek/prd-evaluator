@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#454747",
+                    "on-surface-variant": "#acabaa",
+                    "secondary-container": "#3a3b3f",
+                    "on-tertiary-fixed-variant": "#666668",
+                    "primary-fixed": "#e2e2e2",
+                    "surface-container-highest": "#252626",
+                    "secondary-dim": "#9d9da2",
+                    "on-tertiary-fixed": "#49494b",
+                    "on-error-container": "#ff9993",
+                    "on-secondary": "#1f2024",
+                    "surface-variant": "#252626",
+                    "outline-variant": "#484848",
+                    "on-secondary-fixed": "#3e3f43",
+                    "primary-dim": "#b8b9b9",
+                    "on-surface": "#e7e5e5",
+                    "tertiary": "#fbf8fb",
+                    "on-secondary-fixed-variant": "#5b5b60",
+                    "outline": "#767575",
+                    "on-tertiary-container": "#575658",
+                    "tertiary-dim": "#edeaec",
+                    "on-primary-fixed": "#3e4040",
+                    "surface-container-high": "#1f2020",
+                    "on-primary": "#3f4041",
+                    "error-dim": "#bb5551",
+                    "inverse-surface": "#fcf9f8",
+                    "primary": "#c6c6c7",
+                    "error": "#ee7d77",
+                    "secondary-fixed": "#e3e2e7",
+                    "surface-bright": "#2b2c2c",
+                    "primary-fixed-dim": "#d4d4d4",
+                    "on-error": "#490106",
+                    "error-container": "#7f2927",
+                    "tertiary-fixed-dim": "#e7e4e7",
+                    "on-primary-fixed-variant": "#5a5c5c",
+                    "tertiary-fixed": "#f5f3f5",
+                    "surface-container-low": "#131313",
+                    "surface": "#0e0e0e",
+                    "surface-container": "#191a1a",
+                    "inverse-primary": "#5e5f60",
+                    "background": "#0e0e0e",
+                    "secondary-fixed-dim": "#d5d4d9",
+                    "tertiary-container": "#edeaec",
+                    "on-secondary-container": "#bfbfc4",
+                    "on-tertiary": "#5f5f61",
+                    "surface-tint": "#c6c6c7",
+                    "surface-dim": "#0e0e0e",
+                    "secondary": "#9d9da2",
+                    "on-background": "#e7e5e5",
+                    "on-primary-container": "#d0d0d0",
+                    "surface-container-lowest": "#000000",
+                    "inverse-on-surface": "#565555"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0e0e0e;
+            color: #e7e5e5;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation -->
+<nav class="bg-[#131313] backdrop-blur-md flex justify-between items-center px-12 max-w-[1920px] mx-auto w-full sticky top-0 z-50 h-16 border-none">
+<div class="text-xl font-bold text-[#e7e5e5] tracking-tight">
+            PRD<span class="opacity-50">.AI</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#e7e5e5] font-semibold border-b border-[#e7e5e5] pb-1 font-['Inter'] text-sm tracking-tight transition-all" href="#">Platform</a>
+<a class="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200 font-['Inter'] font-medium text-sm tracking-tight" href="#">Solutions</a>
+<a class="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200 font-['Inter'] font-medium text-sm tracking-tight" href="#">Resources</a>
+<a class="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200 font-['Inter'] font-medium text-sm tracking-tight" href="#">Pricing</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-[#acabaa] font-['Inter'] text-sm font-medium hover:text-[#e7e5e5] transition-colors">Log In</button>
+<button class="bg-primary text-on-primary px-5 py-2 rounded-md font-['Inter'] text-sm font-semibold hover:opacity-90 active:scale-[0.99] transition-all">Sign Up</button>
+</div>
+</nav>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="max-w-6xl mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high text-xs font-medium tracking-widest uppercase mb-8 border border-outline-variant/10">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                V2.0 is now live
+            </div>
+<h1 class="text-5xl md:text-7xl font-bold tracking-tight text-on-surface mb-8 max-w-4xl leading-[1.1]">
+                Refine your vision into <span class="text-primary italic">Architectural</span> precision.
+            </h1>
+<p class="text-on-surface-variant text-lg md:text-xl max-w-2xl mb-12 leading-relaxed">
+                The ultimate platform for product managers to transform raw ideas into production-ready specifications with AI-driven rigor.
+            </p>
+<!-- Drag and Drop Zone -->
+<div class="w-full max-w-3xl aspect-[16/7] bg-surface-container-low rounded-xl border-2 border-dashed border-outline-variant/30 flex flex-col items-center justify-center p-8 group hover:border-primary/50 transition-colors cursor-pointer relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-4xl text-on-surface-variant mb-4 group-hover:text-primary transition-colors">upload_file</span>
+<h3 class="text-on-surface font-semibold text-lg mb-2">Drop your draft PRD here</h3>
+<p class="text-on-surface-variant text-sm">Supports PDF, DOCX, and Markdown (Max 10MB)</p>
+<div class="mt-6 flex items-center gap-3">
+<span class="h-px w-8 bg-outline-variant"></span>
+<span class="text-xs uppercase tracking-widest text-on-surface-variant font-bold">or</span>
+<span class="h-px w-8 bg-outline-variant"></span>
+</div>
+<button class="mt-6 bg-surface-container-high text-on-surface px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-surface-bright transition-colors">Browse files</button>
+</div>
+</section>
+<!-- Features Grid -->
+<section class="bg-surface-container-low py-32">
+<div class="max-w-6xl mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Rapid Analysis -->
+<div class="bg-surface-container-high p-10 rounded-xl flex flex-col items-start hover:translate-y-[-4px] transition-transform duration-300">
+<div class="w-12 h-12 bg-surface-container-lowest rounded-lg flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-4">Rapid Analysis</h3>
+<p class="text-on-surface-variant leading-relaxed text-sm">
+                            Our LLM-native core processes complex documents in seconds, identifying logical gaps and structural weaknesses before they hit development.
+                        </p>
+</div>
+<!-- Actionable Feedback -->
+<div class="bg-surface-container-high p-10 rounded-xl flex flex-col items-start hover:translate-y-[-4px] transition-transform duration-300">
+<div class="w-12 h-12 bg-surface-container-lowest rounded-lg flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">assignment_turned_in</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-4">Actionable Feedback</h3>
+<p class="text-on-surface-variant leading-relaxed text-sm">
+                            Receive prioritized suggestions that focus on user outcomes, technical feasibility, and alignment with business objectives.
+                        </p>
+</div>
+<!-- Strict Guidelines -->
+<div class="bg-surface-container-high p-10 rounded-xl flex flex-col items-start hover:translate-y-[-4px] transition-transform duration-300">
+<div class="w-12 h-12 bg-surface-container-lowest rounded-lg flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">gavel</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-4">Strict Guidelines</h3>
+<p class="text-on-surface-variant leading-relaxed text-sm">
+                            Enforce industry-standard frameworks like BRD, PRD, and User Stories with automated compliance checking for every draft.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Editorial Content Section -->
+<section class="max-w-6xl mx-auto px-6 py-32 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+<div>
+<h2 class="text-4xl font-bold text-on-surface mb-8 leading-tight">The Void between concept and code. Filled.</h2>
+<div class="space-y-8">
+<div class="flex gap-6">
+<div class="flex-shrink-0 w-1 bg-primary h-12 rounded-full"></div>
+<div>
+<h4 class="font-bold text-on-surface text-lg mb-2">Automated Traceability</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">Automatically map features to requirements to ensure 100% coverage during the QA phase.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<div class="flex-shrink-0 w-1 bg-outline-variant h-12 rounded-full"></div>
+<div>
+<h4 class="font-bold text-on-surface text-lg mb-2">Stakeholder Alignment</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">Generated summaries for executives and technical deep-dives for engineers from one source.</p>
+</div>
+</div>
+</div>
+<button class="mt-12 flex items-center gap-2 text-primary font-semibold hover:gap-4 transition-all">
+                    Explore the Platform <span class="material-symbols-outlined">arrow_right_alt</span>
+</button>
+</div>
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-transparent blur-2xl opacity-50"></div>
+<img alt="Abstract architecture" class="relative rounded-xl grayscale hover:grayscale-0 transition-all duration-700 w-full aspect-[4/5] object-cover" data-alt="Monochrome abstract architectural detail of sweeping concrete curves with dramatic shadows and minimalist high-end aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMLhi9dcgzKENK0AQ3s1LvQdcCstcQ3ZiHKJYb4MNPwzdFk-jcBAdZZUevw2KG2u4uNOYiMVTWIHxuMQ_b3TTd_Q_71VWCcoB1bLyIi4A0YjaU2_FCqfOPE-0MUU7UXTM8qDC46s8Qu0XOjduOMfY1vVr8KtuPShMl2iX-dwB5mGboOPjCxJzs7UmL7nQKl8lO1Bw51ZUP2dtFxsGWOOvZMbVKrworBZyX5cJQg-DmUdi298qFF6X0J2-RX2hkK2WdY-R5F2hnLq0"/>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#131313] border-none w-full py-20 px-12 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center w-full max-w-[1920px] mx-auto">
+<div class="mb-8 md:mb-0">
+<div class="text-lg font-bold text-[#e7e5e5] mb-4">
+                    PRD<span class="opacity-50">.AI</span>
+</div>
+<p class="font-['Inter'] text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa]">
+                    © 2024 PRD.AI. All rights reserved. Built upon the Architectural Void.
+                </p>
+</div>
+<div class="flex gap-12">
+<a class="font-['Inter'] text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Privacy Policy</a>
+<a class="font-['Inter'] text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Terms of Service</a>
+<a class="font-['Inter'] text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Security</a>
+<a class="font-['Inter'] text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</body></html>

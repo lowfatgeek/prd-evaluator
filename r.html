@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#454747",
+                        "on-surface-variant": "#acabaa",
+                        "secondary-container": "#3a3b3f",
+                        "on-tertiary-fixed-variant": "#666668",
+                        "primary-fixed": "#e2e2e2",
+                        "surface-container-highest": "#252626",
+                        "secondary-dim": "#9d9da2",
+                        "on-tertiary-fixed": "#49494b",
+                        "on-error-container": "#ff9993",
+                        "on-secondary": "#1f2024",
+                        "surface-variant": "#252626",
+                        "outline-variant": "#484848",
+                        "on-secondary-fixed": "#3e3f43",
+                        "primary-dim": "#b8b9b9",
+                        "on-surface": "#e7e5e5",
+                        "tertiary": "#fbf8fb",
+                        "on-secondary-fixed-variant": "#5b5b60",
+                        "outline": "#767575",
+                        "on-tertiary-container": "#575658",
+                        "tertiary-dim": "#edeaec",
+                        "on-primary-fixed": "#3e4040",
+                        "surface-container-high": "#1f2020",
+                        "on-primary": "#3f4041",
+                        "error-dim": "#bb5551",
+                        "inverse-surface": "#fcf9f8",
+                        "primary": "#c6c6c7",
+                        "error": "#ee7d77",
+                        "secondary-fixed": "#e3e2e7",
+                        "surface-bright": "#2b2c2c",
+                        "primary-fixed-dim": "#d4d4d4",
+                        "on-error": "#490106",
+                        "error-container": "#7f2927",
+                        "tertiary-fixed-dim": "#e7e4e7",
+                        "on-primary-fixed-variant": "#5a5c5c",
+                        "tertiary-fixed": "#f5f3f5",
+                        "surface-container-low": "#131313",
+                        "surface": "#0e0e0e",
+                        "surface-container": "#191a1a",
+                        "inverse-primary": "#5e5f60",
+                        "background": "#0e0e0e",
+                        "secondary-fixed-dim": "#d5d4d9",
+                        "tertiary-container": "#edeaec",
+                        "on-secondary-container": "#bfbfc4",
+                        "on-tertiary": "#5f5f61",
+                        "surface-tint": "#c6c6c7",
+                        "surface-dim": "#0e0e0e",
+                        "secondary": "#9d9da2",
+                        "on-background": "#e7e5e5",
+                        "on-primary-container": "#d0d0d0",
+                        "surface-container-lowest": "#000000",
+                        "inverse-on-surface": "#565555"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #0e0e0e;
+            color: #e7e5e5;
+            font-family: 'Inter', sans-serif;
+        }
+        /* The No-Line Rule: boundaries by tonal shift */
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="w-full h-16 border-none bg-[#131313] backdrop-blur-md sticky top-0 z-50">
+<nav class="flex justify-between items-center px-12 max-w-[1920px] mx-auto w-full h-full">
+<div class="text-xl font-bold text-[#e7e5e5] tracking-tight">PRD<span class="opacity-50">.AI</span></div>
+<div class="hidden md:flex gap-8 items-center font-['Inter'] font-medium text-sm tracking-tight">
+<a class="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200" href="#">Platform</a>
+<a class="text-[#e7e5e5] font-semibold border-b border-[#e7e5e5] pb-1 transition-colors duration-200" href="#">Solutions</a>
+<a class="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200" href="#">Resources</a>
+<a class="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200" href="#">Pricing</a>
+</div>
+<div class="flex gap-4 items-center">
+<button class="text-[#acabaa] text-sm font-medium hover:text-[#e7e5e5] Active: scale-[0.98] transition-all">Log In</button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-md text-sm font-semibold hover:opacity-90 Active: opacity-80 scale-[0.99] transition-all">Sign Up</button>
+</div>
+</nav>
+</header>
+<main class="flex-grow w-full max-w-6xl mx-auto px-6 py-16">
+<!-- Hero: Composite Score -->
+<section class="mb-20">
+<div class="bg-surface-container-low rounded-xl p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="relative z-10 max-w-xl">
+<h4 class="text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-4">Desktop Analysis Report</h4>
+<h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-on-surface mb-6">Product Integrity Assessment</h1>
+<p class="text-lg text-on-surface-variant leading-relaxed">A comprehensive evaluation of the PRD ecosystem based on real-time screen telemetry. This score represents the structural harmony between user intent and platform execution.</p>
+</div>
+<div class="relative z-10 flex flex-col items-center justify-center">
+<div class="w-48 h-48 rounded-full border-8 border-surface-container-highest flex items-center justify-center relative">
+<div class="absolute inset-0 border-8 border-primary rounded-full" style="clip-path: polygon(0 0, 100% 0, 100% 88%, 0 88%);"></div>
+<span class="text-6xl font-black text-on-surface">88</span>
+</div>
+<span class="mt-4 text-sm font-bold uppercase tracking-widest text-primary">Composite Score</span>
+</div>
+<!-- Background Subtle Texture -->
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none" style="background: radial-gradient(circle at 70% 30%, #c6c6c7 0%, transparent 70%);"></div>
+</div>
+</section>
+<!-- Strengths & Weaknesses Side-by-Side -->
+<section class="grid md:grid-cols-2 gap-8 mb-20">
+<div class="bg-surface-container p-8 rounded-xl">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle">check_circle</span>
+<h3 class="text-xl font-bold tracking-tight">Core Strengths</h3>
+</div>
+<ul class="space-y-6">
+<li class="group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-semibold text-on-surface">Design Consistency</span>
+<span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Optimal</span>
+</div>
+<p class="text-sm text-on-surface-variant">Exceptional adherence to the Architectural Void principles across all dashboard sub-modules.</p>
+</li>
+<li class="group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-semibold text-on-surface">Interaction Latency</span>
+<span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Top 5%</span>
+</div>
+<p class="text-sm text-on-surface-variant">Zero-lag transition states observed during high-concurrency data rendering tasks.</p>
+</li>
+<li class="group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-semibold text-on-surface">Accessibility Contrast</span>
+<span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Pass</span>
+</div>
+<p class="text-sm text-on-surface-variant">Tonal depth strategy successfully meets WCAG AA standards for low-light environments.</p>
+</li>
+</ul>
+</div>
+<div class="bg-surface-container p-8 rounded-xl">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<h3 class="text-xl font-bold tracking-tight">Identified Weaknesses</h3>
+</div>
+<ul class="space-y-6">
+<li class="group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-semibold text-on-surface">Information Density</span>
+<span class="text-xs bg-error/10 text-error px-2 py-0.5 rounded">High Friction</span>
+</div>
+<p class="text-sm text-on-surface-variant">Secondary navigation clusters exhibit cognitive overload due to lack of visual breaks.</p>
+</li>
+<li class="group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-semibold text-on-surface">Mobile Responsiveness</span>
+<span class="text-xs bg-error/10 text-error px-2 py-0.5 rounded">Critical</span>
+</div>
+<p class="text-sm text-on-surface-variant">Breakpoint transitions at 768px cause layout shift in the 'Resources' library grid.</p>
+</li>
+<li class="group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-semibold text-on-surface">Search Discoverability</span>
+<span class="text-xs bg-error/10 text-error px-2 py-0.5 rounded">Needs Attention</span>
+</div>
+<p class="text-sm text-on-surface-variant">The global search trigger is visually suppressed within the TopAppBar structure.</p>
+</li>
+</ul>
+</div>
+</section>
+<!-- Category Breakdown: Two Column Effective Use of Space -->
+<section class="mb-20">
+<h2 class="text-2xl font-bold tracking-tight mb-10">Category Breakdown</h2>
+<div class="grid md:grid-cols-2 gap-x-16 gap-y-10">
+<!-- Visual Identity -->
+<div class="flex gap-6">
+<div class="flex-shrink-0 w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface" data-icon="palette">palette</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-bold text-on-surface">Visual Identity</h4>
+<span class="text-sm font-medium">94%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mb-4">
+<div class="h-full bg-primary rounded-full" style="width: 94%"></div>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">The 'Lunar Graphite' aesthetic is flawlessly executed across primary canvas elements.</p>
+</div>
+</div>
+<!-- User Flow -->
+<div class="flex gap-6">
+<div class="flex-shrink-0 w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface" data-icon="route">route</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-bold text-on-surface">User Flow</h4>
+<span class="text-sm font-medium">78%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mb-4">
+<div class="h-full bg-secondary rounded-full" style="width: 78%"></div>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">Some loops detected in the onboarding journey; refinement of 'Next Steps' is required.</p>
+</div>
+</div>
+<!-- Performance -->
+<div class="flex gap-6">
+<div class="flex-shrink-0 w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface" data-icon="speed">speed</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-bold text-on-surface">Performance</h4>
+<span class="text-sm font-medium">89%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mb-4">
+<div class="h-full bg-primary rounded-full" style="width: 89%"></div>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">FCP (First Contentful Paint) is under 0.8s on enterprise fiber networks.</p>
+</div>
+</div>
+<!-- Data Integrity -->
+<div class="flex gap-6">
+<div class="flex-shrink-0 w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface" data-icon="database">database</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-bold text-on-surface">Data Integrity</h4>
+<span class="text-sm font-medium">91%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mb-4">
+<div class="h-full bg-primary rounded-full" style="width: 91%"></div>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">Secure data synchronization verified across 4 screen states in the current session.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Improvement Roadmap: High-end Bento-ish layout -->
+<section class="mb-20">
+<h2 class="text-2xl font-bold tracking-tight mb-10">Improvement Roadmap</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-surface-container-high p-10 rounded-xl flex flex-col justify-between">
+<div>
+<span class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary mb-6 block">Phase 01 — Structural</span>
+<h3 class="text-3xl font-bold text-on-surface mb-4">Refining the Information Architecture</h3>
+<p class="text-on-surface-variant mb-8">Redesigning the secondary navigation clusters to implement the "Editorial Scale" more effectively, reducing cognitive load by 30%.</p>
+</div>
+<div class="flex gap-4">
+<div class="px-4 py-2 bg-surface-container-highest rounded-full text-xs font-semibold">Q1 Deployment</div>
+<div class="px-4 py-2 bg-surface-container-highest rounded-full text-xs font-semibold">Design Priority: High</div>
+</div>
+</div>
+<div class="bg-primary p-10 rounded-xl text-on-primary flex flex-col justify-between">
+<div>
+<span class="text-[10px] font-bold uppercase tracking-[0.3em] opacity-60 mb-6 block">Phase 02 — Mobile</span>
+<h3 class="text-2xl font-bold mb-4">Responsive Equilibrium</h3>
+<p class="text-sm font-medium opacity-80">Fixing breakpoint shifts and optimizing the touch-target ecosystem for small devices.</p>
+</div>
+<span class="material-symbols-outlined text-4xl mt-6" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="bg-surface-container-high p-10 rounded-xl md:col-span-3 border-t border-primary/20">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-8">
+<div>
+<span class="text-[10px] font-bold uppercase tracking-[0.3em] text-on-surface-variant mb-2 block">Phase 03 — Visibility</span>
+<h3 class="text-xl font-bold text-on-surface">Search &amp; Discovery Engine</h3>
+</div>
+<p class="max-w-md text-sm text-on-surface-variant">Elevating the global search component to a primary interaction point while maintaining the 'No-Line' aesthetic protocol.</p>
+<button class="bg-surface-container-highest px-6 py-3 rounded text-sm font-bold uppercase tracking-widest hover:bg-surface-bright transition-colors">Details</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Signature Visualization: Telemetry Snapshot -->
+<section class="mb-20">
+<div class="bg-surface-container-low p-12 rounded-xl">
+<div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+<div>
+<h3 class="text-2xl font-bold tracking-tight mb-2">Telemetry Snapshot</h3>
+<p class="text-on-surface-variant text-sm">Engagement frequency across the analysis period.</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-primary rounded-full"></div>
+<span class="text-xs font-medium text-on-surface-variant">Desktop</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-secondary rounded-full"></div>
+<span class="text-xs font-medium text-on-surface-variant">API Queries</span>
+</div>
+</div>
+</div>
+<div class="h-48 flex items-end justify-between gap-2">
+<!-- Faux Bar Chart -->
+<div class="flex-grow bg-surface-container-highest rounded-t-sm h-[40%]"></div>
+<div class="flex-grow bg-primary rounded-t-sm h-[65%]"></div>
+<div class="flex-grow bg-surface-container-highest rounded-t-sm h-[55%]"></div>
+<div class="flex-grow bg-primary rounded-t-sm h-[85%]"></div>
+<div class="flex-grow bg-surface-container-highest rounded-t-sm h-[45%]"></div>
+<div class="flex-grow bg-primary rounded-t-sm h-[75%]"></div>
+<div class="flex-grow bg-surface-container-highest rounded-t-sm h-[95%]"></div>
+<div class="flex-grow bg-primary rounded-t-sm h-[70%]"></div>
+<div class="flex-grow bg-surface-container-highest rounded-t-sm h-[40%]"></div>
+<div class="flex-grow bg-primary rounded-t-sm h-[60%]"></div>
+<div class="flex-grow bg-surface-container-highest rounded-t-sm h-[30%]"></div>
+<div class="flex-grow bg-primary rounded-t-sm h-[80%]"></div>
+</div>
+<div class="flex justify-between mt-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/40">
+<span>08:00</span>
+<span>12:00</span>
+<span>16:00</span>
+<span>20:00</span>
+<span>00:00</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#131313] border-none py-20 px-12 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center w-full max-w-[1920px] mx-auto">
+<div class="text-lg font-bold text-[#e7e5e5] mb-8 md:mb-0">PRD<span class="opacity-50">.AI</span></div>
+<div class="flex gap-12 font-['Inter'] text-xs font-medium uppercase tracking-[0.05em] mb-8 md:mb-0">
+<a class="text-[#acabaa] hover:text-[#e7e5e5] transition-colors Active: scale-[0.98]" href="#">Privacy Policy</a>
+<a class="text-[#acabaa] hover:text-[#e7e5e5] transition-colors Active: scale-[0.98]" href="#">Terms of Service</a>
+<a class="text-[#acabaa] hover:text-[#e7e5e5] transition-colors Active: scale-[0.98]" href="#">Security</a>
+<a class="text-[#acabaa] hover:text-[#e7e5e5] transition-colors Active: scale-[0.98]" href="#">Contact</a>
+</div>
+<div class="text-[#acabaa] text-xs font-medium uppercase tracking-[0.05em] text-center md:text-right">
+                © 2024 PRD.AI. All rights reserved. <br/>
+<span class="opacity-40">Built upon the Architectural Void.</span>
+</div>
+</div>
+</footer>
+</body></html>

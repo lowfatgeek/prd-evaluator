@@ -39,12 +39,12 @@ export default function ResultPage() {
 
   if (status === 'processing') {
     return (
-      <div className="bg-[#000a12] text-slate-100 min-h-screen flex flex-col items-center justify-center relative">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyber-cyan/10 via-[#000a12] to-[#000a12]"></div>
+      <div className="bg-[#0e0e0e] text-[#e7e5e5] min-h-screen flex flex-col items-center justify-center relative font-sans">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#c6c6c7_0%,transparent_50%)] opacity-5"></div>
         <div className="relative z-10 flex flex-col items-center">
-            <span className="material-symbols-outlined text-cyber-cyan text-6xl animate-spin mb-6">wait</span>
-            <h2 className="text-3xl font-black mb-2 animate-pulse">Running Neural Engine...</h2>
-            <p className="text-white/40 font-mono text-sm tracking-widest uppercase">ID: {reportId}</p>
+            <span className="material-symbols-outlined text-primary text-6xl animate-spin mb-6" style={{ fontVariationSettings: "'FILL' 0" }}>sync</span>
+            <h2 className="text-3xl font-bold tracking-tight mb-2 animate-pulse">Running Telemetry Scan...</h2>
+            <p className="text-on-surface-variant font-mono text-sm tracking-widest uppercase">ID: {reportId}</p>
         </div>
       </div>
     );
@@ -52,12 +52,12 @@ export default function ResultPage() {
 
   if (status === 'failed') {
       return (
-        <div className="bg-[#000a12] text-slate-100 min-h-screen flex flex-col items-center justify-center relative">
-          <div className="relative z-10 flex flex-col items-center text-center max-w-lg">
-              <span className="material-symbols-outlined text-cyber-orange text-6xl mb-6">error</span>
-              <h2 className="text-3xl font-black mb-2 text-cyber-orange">Evaluation Failed</h2>
-              <p className="text-white/60 mb-8">{errorText}</p>
-              <Link href="/" className="px-6 py-2 border border-cyber-orange text-cyber-orange rounded-full hover:bg-cyber-orange hover:text-black transition-all">Go Back</Link>
+        <div className="bg-[#0e0e0e] text-[#e7e5e5] min-h-screen flex flex-col items-center justify-center relative font-sans">
+          <div className="relative z-10 flex flex-col items-center text-center max-w-lg bg-surface-container-high p-12 rounded-xl">
+              <span className="material-symbols-outlined text-error text-6xl mb-6 flex items-center justify-center w-24 h-24 rounded-full bg-error/10 border border-error/20" style={{ fontVariationSettings: "'FILL' 1" }}>error</span>
+              <h2 className="text-3xl font-bold tracking-tight mb-4">Assessment Failed</h2>
+              <p className="text-on-surface-variant mb-8 leading-relaxed max-w-sm">{errorText}</p>
+              <Link href="/" className="px-6 py-3 bg-surface-container-highest text-on-surface font-semibold rounded-md hover:bg-surface-bright transition-all inline-block hover:scale-[1.02] active:scale-95">Go Back</Link>
           </div>
         </div>
       );
@@ -71,242 +71,238 @@ export default function ResultPage() {
   const improvementSugs = resultData?.improvement_suggestions || [];
 
   return (
-    <>
-      <div className="bg-[#000a12] text-slate-100 font-sans selection:bg-cyber-cyan selection:text-[#000a12] overflow-x-hidden min-h-screen relative" style={{
-        backgroundImage: `
-          radial-gradient(circle at 10% 20%, rgba(0, 245, 255, 0.08) 0%, transparent 40%),
-          radial-gradient(circle at 90% 80%, rgba(247, 127, 0, 0.08) 0%, transparent 40%),
-          linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px)
-        `,
-        backgroundSize: '100% 100%, 100% 100%, 40px 40px, 40px 40px'
-      }}>
-
-        {/* Futuristic Nav */}
-        <header className="sticky top-0 z-[100] border-b border-white/5 bg-[#000a12]/80 backdrop-blur-xl">
-          <div className="max-w-[1600px] mx-auto flex justify-between items-center px-8 py-4">
-            <div className="flex items-center gap-12">
-              <Link href="/" className="flex items-center gap-2 group cursor-pointer">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyber-cyan to-cyber-orange p-[1px]">
-                  <div className="w-full h-full bg-[#000a12] rounded-[7px] flex items-center justify-center">
-                    <span className="material-symbols-outlined text-cyber-cyan text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>AIG</span>
-                  </div>
-                </div>
-                <span className="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">PRD.AI</span>
-              </Link>
-            </div>
-            <div className="flex items-center gap-6">
-              <button 
+    <div className="bg-[#0e0e0e] text-[#e7e5e5] font-sans selection:bg-primary selection:text-on-primary min-h-screen flex flex-col">
+      {/* TopNavBar */}
+      <header className="w-full h-16 border-none bg-[#131313]/90 backdrop-blur-md sticky top-0 z-50">
+        <nav className="flex justify-between items-center px-12 max-w-[1920px] mx-auto w-full h-full">
+          <Link href="/" className="text-xl font-bold text-[#e7e5e5] tracking-tight">PRD<span className="opacity-50">.AI</span></Link>
+          <div className="hidden md:flex gap-8 items-center font-medium text-sm tracking-tight">
+            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200" href="#">Platform</a>
+            <a className="text-[#e7e5e5] font-semibold border-b border-[#e7e5e5] pb-1 transition-colors duration-200" href="#">Solutions</a>
+            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200" href="#">Resources</a>
+            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200" href="#">Pricing</a>
+          </div>
+          <div className="flex gap-4 items-center">
+            <button 
                 onClick={() => window.open(getExportPdfUrl(reportId))}
-                className="px-6 py-2 text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white transition-all">Export_Report</button>
-              <Link href="/" className="px-6 py-2.5 bg-white text-[#000a12] text-xs font-black uppercase tracking-widest rounded-full hover:bg-cyber-cyan transition-all active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)]">New Analysis</Link>
-            </div>
+                className="text-[#acabaa] text-sm font-medium hover:text-[#e7e5e5] active:scale-[0.98] transition-all">Download PDF</button>
+            <Link href="/" className="bg-primary text-on-primary px-4 py-2 rounded-md text-sm font-semibold hover:opacity-90 active:scale-[0.99] transition-all">New Analysis</Link>
           </div>
-        </header>
+        </nav>
+      </header>
 
-        <main className="max-w-[1600px] mx-auto px-8 py-12 relative z-10">
-          <div className="flex flex-col lg:flex-row gap-6">
-            {/* Left Column (Hero & Feedback Cards) */}
-            <div className="flex flex-col gap-6 lg:w-2/3">
-              {/* Header & Main Score (Bento Cell) */}
-              <div className="glass-bento rounded-[2rem] p-10 flex flex-col justify-between relative pb-16 min-h-[500px]">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-cyber-cyan/10 blur-[100px] -mr-48 -mt-48 pointer-events-none"></div>
-                <div className="relative z-10">
-                  <div className="flex items-center gap-3 text-cyber-cyan/60 font-mono text-xs mb-4 uppercase tracking-[0.2em]">
-                    <span className="material-symbols-outlined text-sm">fingerprint</span>
-                    ID: {reportId}
-                  </div>
-                  <h1 className="text-7xl font-black tracking-tighter leading-none mb-4">
-                    Analytical<br/>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/20">Synthesis</span>
-                  </h1>
-                </div>
-                <div className="flex flex-col md:flex-row md:items-end justify-between relative z-10 gap-8">
-                  <div className="space-y-4">
-                    <div className="flex flex-wrap gap-2">
-                       {finalScore >= 7 ? (
-                           <span className="px-4 py-1.5 rounded-full bg-cyber-cyan/10 text-cyber-cyan text-[10px] font-black uppercase tracking-widest border border-cyber-cyan/20">Architecturally Sound</span>
-                       ) : (
-                           <span className="px-4 py-1.5 rounded-full bg-cyber-orange/10 text-cyber-orange text-[10px] font-black uppercase tracking-widest border border-cyber-orange/20">Critical Attention Needed</span>
-                       )}
-                      <span className="px-4 py-1.5 rounded-full bg-white/5 text-white/40 text-[10px] font-black uppercase tracking-widest border border-white/5">Neural Verified</span>
-                    </div>
-                    <p className="text-white/40 max-w-sm text-sm leading-relaxed">
-                       {resultData?.verdict || 'PRD Analysis Complete.'}
-                    </p>
-                  </div>
-                  <div className="text-left md:text-right group flex flex-col items-start md:items-end justify-end">
-                    <div className="text-[10px] font-black text-cyber-cyan uppercase tracking-[0.3em] mb-2 mr-2">Core Index</div>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-[8rem] md:text-[10rem] xl:text-[12rem] font-black tracking-tighter glow-text bg-clip-text text-transparent bg-gradient-to-b from-white to-cyber-cyan/40 leading-none pb-4">{finalScore}</span>
-                      <span className="text-4xl font-light text-white/20">/10</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Strengths & Weaknesses Row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow">
-                {/* Strengths (Bento Cell) */}
-                <div className="glass-bento rounded-[2rem] p-8 flex flex-col justify-between group overflow-hidden relative min-h-[300px]">
-                  <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <span className="material-symbols-outlined text-8xl">verified</span>
-                  </div>
-                  <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-cyber-cyan mb-6">Neural Positives</h3>
-                  <ul className="space-y-4 relative z-10">
-                    {strengths.map((str: string, i: number) => (
-                        <li key={i} className="flex items-start gap-4">
-                          <div className="w-1.5 h-1.5 shrink-0 rounded-full bg-cyber-cyan mt-2 shadow-[0_0_8px_rgba(0,245,255,1)]"></div>
-                          <p className="text-sm font-medium leading-relaxed text-white/80">{str}</p>
-                        </li>
-                    ))}
-                    {strengths.length === 0 && <p className="text-white/20 text-xs text-center italic">No standout strengths identified.</p>}
-                  </ul>
-                </div>
-
-                {/* Weaknesses (Bento Cell) */}
-                <div className="glass-bento rounded-[2rem] p-8 flex flex-col justify-between group overflow-hidden relative min-h-[300px]">
-                  <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <span className="material-symbols-outlined text-8xl text-cyber-orange">warning</span>
-                  </div>
-                  <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-cyber-orange mb-6">Entropy Alerts</h3>
-                  <ul className="space-y-4 relative z-10">
-                    {weaknesses.map((weak: string, i: number) => (
-                        <li key={i} className="flex items-start gap-4">
-                          <div className="w-1.5 h-1.5 shrink-0 rounded-full bg-cyber-orange mt-2 shadow-[0_0_8px_rgba(247,127,0,1)]"></div>
-                          <p className="text-sm font-medium leading-relaxed text-white/80">{weak}</p>
-                        </li>
-                    ))}
-                    {weaknesses.length === 0 && <p className="text-white/20 text-xs text-center italic">No significant entropy detected.</p>}
-                  </ul>
-                </div>
-              </div>
+      <main className="flex-grow w-full max-w-6xl mx-auto px-6 py-16">
+        {/* Hero: Composite Score */}
+        <section className="mb-20">
+          <div className="bg-surface-container-low rounded-xl p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-12">
+            <div className="relative z-10 max-w-xl">
+              <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-4 flex items-center gap-2">
+                <span className="material-symbols-outlined text-sm">fingerprint</span>
+                ID: {reportId}
+              </h4>
+              <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-on-surface mb-6">Product Integrity Assessment</h1>
+              <p className="text-lg text-on-surface-variant leading-relaxed">
+                {resultData?.verdict || "A comprehensive evaluation of the PRD ecosystem based on real-time neural telemetry. This score represents the structural harmony between user intent and platform execution."}
+              </p>
             </div>
-
-            {/* Right Column: Radar Focal Point */}
-            <div className="lg:w-1/3 glass-bento rounded-[2rem] p-8 flex flex-col items-center justify-center relative neon-border min-h-[400px]">
-              <h3 className="absolute top-8 left-8 text-[10px] font-bold uppercase tracking-[0.4em] text-white/40">Multi-Axis Signal</h3>
-              <div className="w-full aspect-square relative flex items-center justify-center max-w-[340px] mt-12 md:mt-0 xl:mt-8">
-                <svg className="w-full h-full radar-glow opacity-80" viewBox="0 0 100 100">
-                  <defs>
-                    <radialGradient cx="50%" cy="50%" id="grad1" r="50%">
-                      <stop offset="0%" style={{ stopColor: "rgba(0, 245, 255, 0.2)", stopOpacity: 1 }}></stop>
-                      <stop offset="100%" style={{ stopColor: "rgba(0, 245, 255, 0)", stopOpacity: 1 }}></stop>
-                    </radialGradient>
-                  </defs>
-                  <circle cx="50" cy="50" fill="none" r="45" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 2" strokeWidth="0.5"></circle>
-                  <circle cx="50" cy="50" fill="none" r="30" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 2" strokeWidth="0.5"></circle>
-                  <circle cx="50" cy="50" fill="none" r="15" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 2" strokeWidth="0.5"></circle>
-                  
-                  {/* Dynamic Scaling approximation based on score */}
-                  <polygon fill="url(#grad1)" points={`50,${15 - finalScore} ${80 + finalScore},${32 - finalScore} 80,70 50,88 15,68 22,28`} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5"></polygon>
-                  <polygon fill="none" opacity="0.5" points={`50,${15 - finalScore} ${80 + finalScore},${32 - finalScore} 80,70 50,88 15,68 22,28`} stroke="#00f5ff" strokeWidth="0.5"></polygon>
-                </svg>
-                <div className="absolute top-0 text-[9px] font-bold text-cyber-cyan uppercase tracking-widest">Quality</div>
-                <div className="absolute bottom-0 text-[9px] font-bold text-white/40 uppercase tracking-widest">Integration</div>
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 -rotate-90 text-[9px] font-bold text-white/40 uppercase tracking-widest">Values</div>
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 rotate-90 text-[9px] font-bold text-white/40 uppercase tracking-widest">Usability</div>
-              </div>
-              <div className="mt-8 gap-8 w-full">
-                <div className="border-l border-cyber-cyan/40 pl-4 w-full text-center">
-                    <p className="text-xs text-white/50">{resultData?.model_used || "N/A"}</p>
-                    <p className="text-[10px] text-white/30 uppercase tracking-widest mt-1">Tokens: {resultData?.tokens_used || "..."}</p>
+            <div className="relative z-10 flex flex-col items-center justify-center">
+              <div className="w-48 h-48 rounded-full border-8 border-surface-container-highest flex items-center justify-center relative">
+                <div 
+                    className="absolute inset-0 border-8 border-primary rounded-full" 
+                    style={{ clipPath: `polygon(0 0, 100% 0, 100% ${finalScore * 10}%, 0 ${finalScore * 10}%)` }}>
                 </div>
+                <span className="text-6xl font-black text-on-surface">{(finalScore * 10).toFixed(0)}</span>
               </div>
+              <span className="mt-4 text-sm font-bold uppercase tracking-widest text-primary">Composite Score</span>
             </div>
+            
+            {/* Background Subtle Texture */}
+            <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none" style={{ background: "radial-gradient(circle at 70% 30%, #c6c6c7 0%, transparent 70%)" }}></div>
           </div>
+        </section>
 
-          {/* Category Evaluation List */}
-          <section className="mt-12 space-y-6">
+        {/* Strengths & Weaknesses Side-by-Side */}
+        <section className="grid md:grid-cols-2 gap-8 mb-20">
+          <div className="bg-surface-container p-8 rounded-xl">
+            <div className="flex items-center gap-3 mb-8">
+              <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+              <h3 className="text-xl font-bold tracking-tight">Core Strengths</h3>
+            </div>
+            <ul className="space-y-6">
+              {strengths.map((str: string, index: number) => (
+                <li key={index} className="group">
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="font-semibold text-on-surface">Architectural Positive</span>
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Optimal</span>
+                  </div>
+                  <p className="text-sm text-on-surface-variant">{str}</p>
+                </li>
+              ))}
+              {strengths.length === 0 && <p className="text-sm text-on-surface-variant italic">No standout strengths identified.</p>}
+            </ul>
+          </div>
+          <div className="bg-surface-container p-8 rounded-xl">
+            <div className="flex items-center gap-3 mb-8">
+              <span className="material-symbols-outlined text-error" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
+              <h3 className="text-xl font-bold tracking-tight">Identified Weaknesses</h3>
+            </div>
+            <ul className="space-y-6">
+              {weaknesses.map((weak: string, index: number) => (
+                <li key={index} className="group">
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="font-semibold text-on-surface">Entropy Alert</span>
+                    <span className="text-xs bg-error/10 text-error px-2 py-0.5 rounded">High Friction</span>
+                  </div>
+                  <p className="text-sm text-on-surface-variant">{weak}</p>
+                </li>
+              ))}
+              {weaknesses.length === 0 && <p className="text-sm text-on-surface-variant italic">No significant entropy detected.</p>}
+            </ul>
+          </div>
+        </section>
+
+        {/* Category Breakdown */}
+        <section className="mb-20">
+          <h2 className="text-2xl font-bold tracking-tight mb-10">Category Breakdown</h2>
+          <div className="grid md:grid-cols-2 gap-x-16 gap-y-10">
             {Object.entries(categories).map(([k, meta]: [string, any], index) => {
                if (meta.applicable === false) return null;
                const catScore = meta.score || 0;
+               const percentage = (catScore * 10).toFixed(0);
                const isGood = catScore >= 7;
-               const iconTheme = isGood ? 'text-cyber-cyan glow-cyan' : 'text-cyber-orange glow-orange';
-               const borderTheme = isGood ? 'border-white/10' : 'border-cyber-orange/20';
-               const fillOffset = 264 - (catScore/10 * 264);
 
                return (
-                <div key={k} className={`glass-bento rounded-[2.5rem] p-8 flex flex-col md:flex-row gap-8 items-center relative overflow-hidden group ${borderTheme}`}>
-                  <div className="w-full md:w-1/4 flex justify-center items-center relative">
-                    <div className="relative w-40 h-40">
-                      <svg className="donut-gauge w-full h-full" viewBox="0 0 100 100">
-                        <circle className="text-white/5" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" strokeWidth="8"></circle>
-                        <circle className={iconTheme} cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" strokeDasharray="264" strokeDashoffset={fillOffset} strokeLinecap="round" strokeWidth="8"></circle>
-                      </svg>
-                      <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <span className="text-4xl font-black text-white leading-none">{catScore}</span>
-                        <span className="text-[10px] font-bold text-white/30 uppercase tracking-widest mt-1">/ 10</span>
-                      </div>
-                    </div>
+                <div key={k} className="flex gap-6">
+                  <div className="flex-shrink-0 w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center">
+                    <span className="material-symbols-outlined text-on-surface" style={{ fontVariationSettings: "'FILL' 1" }}>
+                        {isGood ? 'check_circle' : 'analytics'}
+                    </span>
                   </div>
-                  <div className="w-full md:w-3/4 flex flex-col">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className={`material-symbols-outlined ${isGood ? 'text-cyber-cyan' : 'text-cyber-orange'} text-2xl`}>analytics</span>
-                      <h4 className="text-2xl font-black uppercase tracking-tight text-white/90">{k.replace("_", " ")}</h4>
+                  <div className="flex-grow">
+                    <div className="flex justify-between items-center mb-2">
+                      <h4 className="font-bold text-on-surface capitalize">{k.replace("_", " ")}</h4>
+                      <span className="text-sm font-medium">{percentage}%</span>
                     </div>
-                    <p className="text-base text-white/50 leading-relaxed mb-6">{meta.explanation}</p>
-                    <div className={`bg-white/5 rounded-2xl p-4 border border-white/5 font-mono text-xs ${isGood ? 'text-cyber-cyan/70' : 'text-cyber-orange/70'} backdrop-blur-sm`}>
-                      <span className="text-white/20 mr-2">EVIDENCE_LOG:</span> "{meta.evidence}"
+                    <div className="w-full h-1 bg-surface-container-highest rounded-full mb-4">
+                      <div className={`h-full ${isGood ? 'bg-primary' : 'bg-error'} rounded-full`} style={{ width: `${percentage}%` }}></div>
                     </div>
+                    <p className="text-xs text-on-surface-variant leading-relaxed">
+                        {meta.explanation}
+                        <br/>
+                        <span className="opacity-50 mt-2 block">Evid: {meta.evidence}</span>
+                    </p>
                   </div>
                 </div>
                );
             })}
-          </section>
-
-          {/* Roadmap Section */}
-          <section className="mt-16">
-            <div className="flex items-center gap-4 mb-8">
-              <h2 className="text-2xl font-black tracking-tight flex items-center gap-3 text-white/80">
-                <span className="w-10 h-0.5 bg-gradient-to-r from-cyber-cyan to-transparent"></span>
-                Improvement Roadmap
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Missing Nodes */}
-              <div className="space-y-4">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 ml-2">Missing Nodes</h3>
-                {missingNodes.map((miss: string, index: number) => (
-                    <div key={index} className="glass-bento rounded-2xl p-6 border-l-2 border-cyber-orange">
-                      <div className="flex gap-4 items-start">
-                        <span className="material-symbols-outlined text-cyber-orange mt-1">error_med</span>
-                        <div className="text-sm font-bold text-white/80 leading-relaxed">{miss}</div>
-                      </div>
-                    </div>
-                ))}
-                {missingNodes.length === 0 && <p className="text-white/40">No missing nodes detected.</p>}
-              </div>
-
-              {/* Smart Suggestions */}
-              <div className="space-y-4">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 ml-2">Optimizer Suggestions</h3>
-                {improvementSugs.map((sug: string, index: number) => (
-                    <div key={index} className="glass-bento rounded-2xl p-6 border-l-2 border-cyber-cyan">
-                      <div className="flex gap-4 items-start">
-                        <span className="material-symbols-outlined text-cyber-cyan mt-1">bolt</span>
-                        <div className="text-sm font-bold text-white/80 leading-relaxed">{sug}</div>
-                      </div>
-                    </div>
-                ))}
-                {improvementSugs.length === 0 && <p className="text-white/40">No optimization suggestions available.</p>}
-              </div>
-            </div>
-          </section>
-
-          {/* Bottom Actions */}
-          <div className="mt-16 flex flex-col md:flex-row gap-6 justify-center">
-            <button 
-                onClick={() => window.open(getExportPdfUrl(reportId))}
-                className="px-10 py-5 glass-bento rounded-full text-xs font-black uppercase tracking-widest hover:bg-white/5 transition-all">
-              Download_PDF.sys
-            </button>
-            <Link href="/" className="px-12 py-5 bg-gradient-to-r from-cyber-cyan to-cyber-orange rounded-full text-[#000a12] text-xs font-black uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_30px_rgba(0,245,255,0.3)]">
-              Analyze_New_PRD
-            </Link>
           </div>
-        </main>
-      </div>
-    </>
+        </section>
+
+        {/* Improvement Roadmap */}
+        <section className="mb-20">
+          <h2 className="text-2xl font-bold tracking-tight mb-10">Improvement Roadmap</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Missing Sections Prominent Box */}
+            <div className="md:col-span-2 bg-surface-container-high p-10 rounded-xl flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-error mb-6 block">Phase 01 — Structural Gaps</span>
+                <h3 className="text-3xl font-bold text-on-surface mb-4">Missing Requirements</h3>
+                <div className="text-on-surface-variant mb-8 space-y-3">
+                    {missingNodes.map((miss: string, index: number) => (
+                        <div key={index} className="flex gap-3 items-start">
+                            <span className="material-symbols-outlined text-error text-sm mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>error</span>
+                            <span className="text-sm font-medium">{miss}</span>
+                        </div>
+                    ))}
+                    {missingNodes.length === 0 && <span>No structural gaps detected in document schema.</span>}
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="px-4 py-2 bg-surface-container-highest rounded-full text-xs font-semibold">Priority: High</div>
+              </div>
+            </div>
+
+            {/* Smart Suggestions Callout */}
+            <div className="bg-primary p-10 rounded-xl text-on-primary flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-60 mb-6 block">Phase 02 — Optimization</span>
+                <h3 className="text-2xl font-bold mb-4">Actionable Feedback</h3>
+                <div className="space-y-4">
+                    {improvementSugs.slice(0, 3).map((sug: string, index: number) => (
+                        <p key={index} className="text-sm font-medium opacity-90 pb-3 border-b border-on-primary/10 last:border-0">{sug}</p>
+                    ))}
+                    {improvementSugs.length === 0 && <p className="text-sm font-medium opacity-80">No additional optimization needed.</p>}
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </section>
+
+        {/* Telemetry Snapshot */}
+        <section className="mb-20">
+          <div className="bg-surface-container-low p-12 rounded-xl">
+            <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+              <div>
+                <h3 className="text-2xl font-bold tracking-tight mb-2">Telemetry Snapshot</h3>
+                <p className="text-on-surface-variant text-sm">Engine execution and payload routing data.</p>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold uppercase tracking-widest text-primary">Model:</span>
+                  <span className="text-xs font-medium text-on-surface-variant">{resultData?.model_used || "Local Engine"}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold uppercase tracking-widest text-primary">Tokens:</span>
+                  <span className="text-xs font-medium text-on-surface-variant">{resultData?.tokens_used || 0}</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Visualizer */}
+            <div className="h-48 flex items-end justify-between gap-2">
+              <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[20%] transition-all hover:bg-primary"></div>
+              <div className="flex-grow bg-primary rounded-t-sm h-[65%]"></div>
+              <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[40%] transition-all hover:bg-primary"></div>
+              <div className="flex-grow bg-primary rounded-t-sm h-[85%]"></div>
+              <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[55%] transition-all hover:bg-primary"></div>
+              <div className="flex-grow bg-primary rounded-t-sm h-[75%]"></div>
+              <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[95%] transition-all hover:bg-primary"></div>
+              <div className="flex-grow bg-primary rounded-t-sm h-[70%]"></div>
+              <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[40%] transition-all hover:bg-primary"></div>
+              <div className="flex-grow bg-primary rounded-t-sm h-[60%]"></div>
+              <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[30%] transition-all hover:bg-primary"></div>
+              <div className="flex-grow bg-primary rounded-t-sm h-[80%]"></div>
+            </div>
+            <div className="flex justify-between mt-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/40">
+              <span>INIT</span>
+              <span>PARSING</span>
+              <span>NEURAL</span>
+              <span>EMISSION</span>
+              <span>DONE</span>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-[#131313] border-none py-20 px-12 mt-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[1920px] mx-auto">
+          <div className="text-lg font-bold text-[#e7e5e5] mb-8 md:mb-0">PRD<span className="opacity-50">.AI</span></div>
+          <div className="flex gap-8 md:gap-12 text-xs font-medium uppercase tracking-[0.05em] mb-8 md:mb-0 flex-wrap justify-center">
+            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Privacy Policy</a>
+            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Terms of Service</a>
+            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Security</a>
+            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Contact</a>
+          </div>
+          <div className="text-[#acabaa] text-xs font-medium uppercase tracking-[0.05em] text-center md:text-right">
+            © 2024 PRD.AI. All rights reserved. <br/>
+            <span className="opacity-40">Built upon the Architectural Void.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
