@@ -18,10 +18,13 @@ def find_font_path(font_filename):
     return None
 
 # Sanitize text to replace problematic characters
-def sanitize_text(text):
+def sanitize_text(text, ascii_only=False):
     """Clean text for safe PDF rendering."""
     if not isinstance(text, str):
         text = str(text)
+    if ascii_only:
+        # Replace non-ASCII characters with '?' for helvetica compatibility
+        text = text.encode('ascii', 'replace').decode('ascii')
     return text
 
 class PRDPDF(FPDF):
@@ -29,6 +32,7 @@ class PRDPDF(FPDF):
         super().__init__()
         self.doc_filename = filename
         self.date_str = date_str
+        self.unicode_support = False
         
         # Try loading Unicode font
         regular = find_font_path("DejaVuSans.ttf")
@@ -40,10 +44,24 @@ class PRDPDF(FPDF):
             self.add_font("DejaVu", "B", bold)
             self.add_font("DejaVu", "I", oblique)
             self._pdf_font = "DejaVu"
+            self.unicode_support = True
         else:
             # Fallback to helvetica if fonts not installed
             self._pdf_font = "helvetica"
             print(f"WARNING: DejaVu fonts not found. PDF will use helvetica (no Unicode support).")
+    
+    def safe_text(self, text):
+        """Sanitize text based on font capabilities."""
+        return sanitize_text(text, ascii_only=not self.unicode_support)
+    
+    def safe_multi_cell(self, w, h, txt, **kwargs):
+        """Wrapper around multi_cell that handles edge cases."""
+        txt = self.safe_text(txt)
+        try:
+            self.multi_cell(w, h, txt, **kwargs)
+        except Exception:
+            # If multi_cell still fails, try with a simpler approach
+            self.cell(0, h, txt[:80] + ("..." if len(txt) > 80 else ""), ln=1)
 
     def header(self):
         self.set_font(self._pdf_font, 'B', 15)
@@ -82,7 +100,7 @@ def generate_pdf_report(evaluation_data: dict, filename: str) -> bytes:
 
     pdf.set_font(f, 'B', 14)
     pdf.cell(0, 10, f'FINAL SCORE: {final_score} / 10', border=1, ln=1, align='C', fill=False)
-    pdf.cell(0, 10, f'VERDICT: {sanitize_text(verdict)}', border=1, ln=1, align='C', fill=False)
+    pdf.cell(0, 10, f'VERDICT: {pdf.safe_text(verdict)}', border=1, ln=1, align='C', fill=False)
     pdf.ln(10)
 
     # Strengths and Weaknesses
@@ -100,8 +118,8 @@ def generate_pdf_report(evaluation_data: dict, filename: str) -> bytes:
     
     max_len = max(len(strengths), len(weaknesses), 1)
     for i in range(max_len):
-        s = f"- {sanitize_text(strengths[i])}" if i < len(strengths) else ""
-        w = f"- {sanitize_text(weaknesses[i])}" if i < len(weaknesses) else ""
+        s = f"- {pdf.safe_text(strengths[i])}" if i < len(strengths) else ""
+        w = f"- {pdf.safe_text(weaknesses[i])}" if i < len(weaknesses) else ""
         # Truncate for column layout
         pdf.cell(90, 6, s[:55] + ("..." if len(s) > 55 else ""), ln=0)
         pdf.cell(90, 6, w[:55] + ("..." if len(w) > 55 else ""), ln=1)
@@ -136,10 +154,10 @@ def generate_pdf_report(evaluation_data: dict, filename: str) -> bytes:
         pdf.cell(0, 8, f"Score: {score_str}", ln=1)
         
         pdf.set_font(f, 'I', 10)
-        explanation = sanitize_text(data.get('explanation', ''))
-        evidence = sanitize_text(data.get('evidence', ''))
-        pdf.multi_cell(0, 6, f"Explanation: {explanation}")
-        pdf.multi_cell(0, 6, f'Evidence: "{evidence}"')
+        explanation = pdf.safe_text(data.get('explanation', ''))
+        evidence = pdf.safe_text(data.get('evidence', ''))
+        pdf.safe_multi_cell(0, 6, f"Explanation: {explanation}")
+        pdf.safe_multi_cell(0, 6, f'Evidence: "{evidence}"')
         pdf.ln(5)
 
     # --- PAGE 3: RECOMMENDATIONS ---
@@ -159,7 +177,7 @@ def generate_pdf_report(evaluation_data: dict, filename: str) -> bytes:
         pdf.cell(0, 6, "- None (All essential sections found)", ln=1)
     else:
         for m in missing:
-            pdf.cell(0, 6, f"- {sanitize_text(m)}", ln=1)
+            pdf.cell(0, 6, f"- {pdf.safe_text(m)}", ln=1)
             
     pdf.ln(5)
 
@@ -173,6 +191,6 @@ def generate_pdf_report(evaluation_data: dict, filename: str) -> bytes:
         pdf.cell(0, 6, "- None", ln=1)
     else:
         for s in suggs:
-            pdf.multi_cell(0, 6, f"- {sanitize_text(s)}")
+            pdf.safe_multi_cell(0, 6, f"- {pdf.safe_text(s)}")
 
     return pdf.output(dest='S')
