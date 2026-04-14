@@ -8,18 +8,10 @@ init_db()
 
 app = FastAPI(title="PRD Evaluator API", version="1.0.0")
 
-def parse_cors_origins(origins):
-    if isinstance(origins, str):
-        # Allow fallback to comma-separated if not parsed properly by pydantic
-        return [o.strip() for o in origins.replace("[", "").replace("]", "").replace('"', "").replace("'", "").split(",")]
-    return origins
-
-parsed_origins = parse_cors_origins(settings.CORS_ORIGINS)
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"] if "*" in parsed_origins else parsed_origins,
-    allow_credentials=False, # Must be False if we want to allow "*"
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
