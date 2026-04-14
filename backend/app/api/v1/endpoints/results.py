@@ -15,7 +15,7 @@ async def get_evaluation_result(evaluation_id: str, db: Session = Depends(get_db
     upload = db.query(Upload).filter(Upload.id == evaluation.upload_id).first()
 
     response = ResultResponse(
-        evaluation_id=evaluation.id,
+        evaluation_id=str(evaluation.id),
         status=evaluation.status,
     )
 

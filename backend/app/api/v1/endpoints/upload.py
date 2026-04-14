@@ -41,7 +41,7 @@ async def upload_file(file: UploadFile = File(...), db: Session = Depends(get_db
     db.refresh(db_upload)
 
     return UploadResponse(
-        upload_id=db_upload.id,
+        upload_id=str(db_upload.id),
         filename=db_upload.filename,
         file_size=file_size,
         format=db_upload.file_format,

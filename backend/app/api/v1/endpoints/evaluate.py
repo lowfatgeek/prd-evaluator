@@ -66,7 +66,7 @@ async def evaluate_document(req: EvaluateRequest, background_tasks: BackgroundTa
     existing = db.query(Evaluation).filter(Evaluation.upload_id == req.upload_id).first()
     if existing and existing.status in ["processing", "completed"]:
         return EvaluateResponse(
-            evaluation_id=existing.id,
+            evaluation_id=str(existing.id),
             status=existing.status,
             estimated_time_seconds=30
         )
@@ -81,7 +81,7 @@ async def evaluate_document(req: EvaluateRequest, background_tasks: BackgroundTa
     background_tasks.add_task(run_evaluation_task, evaluation.id, upload.file_path, upload.file_format, req.output_language)
 
     return EvaluateResponse(
-        evaluation_id=evaluation.id,
+        evaluation_id=str(evaluation.id),
         status="processing",
         estimated_time_seconds=30
     )
