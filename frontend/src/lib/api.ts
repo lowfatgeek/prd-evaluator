@@ -19,7 +19,7 @@ export async function uploadDocument(file: File): Promise<string> {
   return data.upload_id;
 }
 
-export async function startEvaluation(uploadId: string, outputLanguage: 'en' | 'id' = 'en'): Promise<string> {
+export async function startEvaluation(uploadId: string, outputLanguage: string = 'en'): Promise<string> {
   const res = await fetch(`${API_BASE_URL}/api/v1/evaluate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

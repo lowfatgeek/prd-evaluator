@@ -143,18 +143,33 @@ IMPORTANT:
 Return ONLY valid JSON. Do not add any text or explanation outside the JSON object.
 """
 
-def generate_user_prompt(text: str, output_language: str = "en") -> str:
-    if output_language == "id":
-        return f"""Evaluate the following PRD document.
-Provide ALL explanations, evidence, strengths, weaknesses, missing_sections, and improvement_suggestions in Bahasa Indonesia.
+LANGUAGE_MAP = {
+    "en": "English",
+    "id": "Indonesian",
+    "ms": "Malay",
+    "ja": "Japanese",
+    "ko": "Korean",
+    "zh": "Chinese",
+    "es": "Spanish",
+    "fr": "French",
+    "de": "German",
+    "ru": "Russian",
+    "pt": "Portuguese",
+    "it": "Italian",
+    "ar": "Arabic",
+    "hi": "Hindi",
+    "vi": "Vietnamese"
+}
 
-PRD CONTENT:
-\"\"\"
-{text[:15000]}
-\"\"\"
-"""
-    else:
-        return f"""Evaluate the following PRD document.
+def generate_user_prompt(text: str, output_language: str = "en") -> str:
+    lang_name = LANGUAGE_MAP.get(output_language, "English")
+    
+    # Base instruction for language
+    lang_instruction = ""
+    if output_language != "en":
+        lang_instruction = f"IMPORTANT: provide ALL text content (explanations, evidence, strengths, weaknesses, suggestions, missing_sections) in the {lang_name} language.\n\n"
+
+    return f"""{lang_instruction}Evaluate the following PRD document.
 
 PRD CONTENT:
 \"\"\"

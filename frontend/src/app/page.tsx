@@ -9,6 +9,25 @@ export default function LandingPage() {
   const router = useRouter();
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [selectedLang, setSelectedLang] = useState('en');
+
+  const LANGUAGES = [
+    { code: 'en', name: 'English' },
+    { code: 'id', name: 'Indonesia' },
+    { code: 'ms', name: 'Malaysia' },
+    { code: 'ja', name: 'Japan' },
+    { code: 'ko', name: 'Korea' },
+    { code: 'zh', name: 'China' },
+    { code: 'es', name: 'Spanish' },
+    { code: 'fr', name: 'French' },
+    { code: 'de', name: 'German' },
+    { code: 'ru', name: 'Russian' },
+    { code: 'pt', name: 'Portuguese' },
+    { code: 'it', name: 'Italian' },
+    { code: 'ar', name: 'Arabic' },
+    { code: 'hi', name: 'Hindi' },
+    { code: 'vi', name: 'Vietnamese' },
+  ];
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
@@ -17,7 +36,7 @@ export default function LandingPage() {
       
       try {
         const uploadId = await uploadDocument(acceptedFiles[0]);
-        const evalId = await startEvaluation(uploadId, 'en');
+        const evalId = await startEvaluation(uploadId, selectedLang);
         router.push(`/result/${evalId}`);
       } catch (err) {
         console.error(err);
@@ -71,6 +90,28 @@ export default function LandingPage() {
           <p className="text-on-surface-variant text-lg md:text-xl max-w-2xl mb-12 leading-relaxed">
             The ultimate platform for product managers to transform raw ideas into production-ready specifications with AI-driven rigor.
           </p>
+
+          {/* Language Selection */}
+          <div className="mb-10 w-full max-w-xs text-left">
+            <label htmlFor="lang-select" className="block text-[10px] font-bold uppercase tracking-[0.3em] text-on-surface-variant mb-4 ml-1">
+                Report Language
+            </label>
+            <div className="relative group">
+                <select
+                    id="lang-select"
+                    value={selectedLang}
+                    onChange={(e) => setSelectedLang(e.target.value)}
+                    className="w-full bg-surface-container-high text-on-surface text-sm font-medium py-3 px-4 rounded-lg border border-outline-variant/20 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 appearance-none cursor-pointer transition-all outline-none"
+                >
+                    {LANGUAGES.map(lang => (
+                        <option key={lang.code} value={lang.code} className="bg-surface-container-high">{lang.name}</option>
+                    ))}
+                </select>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">
+                    <span className="material-symbols-outlined text-sm">expand_more</span>
+                </div>
+            </div>
+          </div>
           
           {/* Drag and Drop Zone */}
           <div 
