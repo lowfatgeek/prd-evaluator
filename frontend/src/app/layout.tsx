@@ -5,7 +5,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: 'PRD Evaluator | Obsidian Architect',
+  title: 'PRDmetrix | Evaluate Your App PRD For FREE',
   description: 'AI-powered PRD quality assessment tool.',
 };
 

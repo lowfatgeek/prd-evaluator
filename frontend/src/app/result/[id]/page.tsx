@@ -75,7 +75,7 @@ export default function ResultPage() {
       {/* TopNavBar */}
       <header className="w-full h-16 border-none bg-[#131313]/90 backdrop-blur-md sticky top-0 z-50">
         <nav className="flex justify-between items-center px-12 max-w-[1920px] mx-auto w-full h-full">
-          <Link href="/" className="text-xl font-bold text-[#e7e5e5] tracking-tight">PRD<span className="opacity-50">.AI</span></Link>
+          <Link href="/" className="text-xl font-bold text-[#e7e5e5] tracking-tight">PRDmetrix</Link>
           <div className="hidden md:flex gap-8 items-center font-medium text-sm tracking-tight">
             <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200" href="#">Platform</a>
             <a className="text-[#e7e5e5] font-semibold border-b border-[#e7e5e5] pb-1 transition-colors duration-200" href="#">Solutions</a>
@@ -290,7 +290,7 @@ export default function ResultPage() {
       {/* Footer */}
       <footer className="bg-[#131313] border-none py-20 px-12 mt-auto">
         <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[1920px] mx-auto">
-          <div className="text-lg font-bold text-[#e7e5e5] mb-8 md:mb-0">PRD<span className="opacity-50">.AI</span></div>
+          <div className="text-lg font-bold text-[#e7e5e5] mb-8 md:mb-0">PRDmetrix</div>
           <div className="flex gap-8 md:gap-12 text-xs font-medium uppercase tracking-[0.05em] mb-8 md:mb-0 flex-wrap justify-center">
             <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Privacy Policy</a>
             <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Terms of Service</a>
@@ -298,7 +298,7 @@ export default function ResultPage() {
             <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Contact</a>
           </div>
           <div className="text-[#acabaa] text-xs font-medium uppercase tracking-[0.05em] text-center md:text-right">
-            © 2024 PRD.AI. All rights reserved. <br/>
+            © 2024 PRDmetrix. All rights reserved. <br/>
             <span className="opacity-40">Built upon the Architectural Void.</span>
           </div>
         </div>

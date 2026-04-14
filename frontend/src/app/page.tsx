@@ -63,7 +63,7 @@ export default function LandingPage() {
       {/* Top Navigation */}
       <nav className="bg-[#131313]/80 backdrop-blur-md flex justify-between items-center px-12 max-w-[1920px] mx-auto w-full sticky top-0 z-50 h-16 border-none">
         <div className="text-xl font-bold text-[#e7e5e5] tracking-tight">
-          PRD<span className="opacity-50">.AI</span>
+          PRDmetrix
         </div>
         <div className="hidden md:flex items-center gap-8">
           <Link className="text-[#e7e5e5] font-semibold border-b border-[#e7e5e5] pb-1 text-sm tracking-tight transition-all" href="/">Platform</Link>
@@ -213,10 +213,10 @@ export default function LandingPage() {
         <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[1920px] mx-auto">
           <div className="mb-8 md:mb-0 text-center md:text-left">
             <div className="text-lg font-bold text-[#e7e5e5] mb-4">
-              PRD<span className="opacity-50">.AI</span>
+              PRDmetrix
             </div>
             <p className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa]">
-              © 2024 PRD.AI. All rights reserved. Built upon the Architectural Void.
+              © 2024 PRDmetrix. All rights reserved. Built upon the Architectural Void.
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">

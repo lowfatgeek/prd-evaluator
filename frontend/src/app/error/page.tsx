@@ -9,7 +9,7 @@ export default function ErrorPage() {
         {/* Top Navigation Bar */}
         <nav className="fixed top-0 w-full z-50 bg-[#001523]/70 backdrop-blur-xl font-sans antialiased tracking-tight shadow-[0_40px_40px_0_rgba(2,75,115,0.08)]">
           <div className="flex justify-between items-center px-6 py-4 w-full max-w-screen-2xl mx-auto">
-            <div className="text-xl font-semibold tracking-tighter text-[#cae6ff]">Obsidian Architect</div>
+            <div className="text-xl font-semibold tracking-tighter text-[#cae6ff]">PRDmetrix</div>
             <div className="hidden md:flex items-center space-x-8">
               <Link className="text-[#dec1af] hover:text-[#cae6ff] transition-colors" href="/">Dashboard</Link>
               <Link className="text-[#dec1af] hover:text-[#cae6ff] transition-colors" href="/result/123">Evaluations</Link>
@@ -100,8 +100,8 @@ export default function ErrorPage() {
         <footer className="w-full border-t border-[#574335]/15 bg-[#001523] text-sm font-sans tracking-widest relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center px-8 py-12 w-full max-w-screen-2xl mx-auto">
             <div className="mb-8 md:mb-0">
-              <div className="text-lg font-bold text-[#cae6ff] mb-2 uppercase tracking-tighter">Obsidian Architect</div>
-              <div className="text-[#dec1af] normal-case tracking-normal">© 2024 Obsidian Architect. Precision in PRD Engineering.</div>
+              <div className="text-lg font-bold text-[#cae6ff] mb-2 uppercase tracking-tighter">PRDmetrix</div>
+              <div className="text-[#dec1af] normal-case tracking-normal">© 2024 PRDmetrix. Precision in PRD Engineering.</div>
             </div>
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
               <a className="text-[#dec1af] hover:text-[#f77f00] transition-colors uppercase font-bold text-xs" href="#">Documentation</a>
