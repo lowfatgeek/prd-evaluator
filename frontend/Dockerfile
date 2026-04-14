@@ -12,6 +12,10 @@ COPY . .
 # Next.js disables telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Accept external build arguments from EasyPanel
+ARG NEXT_PUBLIC_API_BASE_URL
+ENV NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL
+
 # Build the app
 RUN npm run build
 
