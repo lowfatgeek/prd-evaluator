@@ -70,6 +70,15 @@ export default function ResultPage() {
   const missingNodes = resultData?.missing_sections || [];
   const improvementSugs = resultData?.improvement_suggestions || [];
 
+  // Status mapping for the verdict chip
+  const getStatusStyles = (score: number) => {
+    if (score >= 9) return { color: 'bg-green-500/10 text-green-400 border-green-500/20', icon: 'celebration' };
+    if (score >= 7) return { color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20', icon: 'verified' };
+    if (score >= 5) return { color: 'bg-amber-500/10 text-amber-400 border-amber-500/20', icon: 'sentiment_satisfied' };
+    return { color: 'bg-red-500/10 text-red-400 border-red-500/20', icon: 'report_problem' };
+  };
+  const statusStyle = getStatusStyles(finalScore);
+
   return (
     <div className="bg-[#0e0e0e] text-[#e7e5e5] font-sans selection:bg-primary selection:text-on-primary min-h-screen flex flex-col">
       {/* TopNavBar */}
@@ -102,7 +111,7 @@ export default function ResultPage() {
               </h4>
               <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-on-surface mb-6">Product Integrity Assessment</h1>
               <p className="text-lg text-on-surface-variant leading-relaxed">
-                {resultData?.verdict || "A comprehensive evaluation of the PRD ecosystem based on real-time neural telemetry. This score represents the structural harmony between user intent and platform execution."}
+                A comprehensive evaluation of the PRD ecosystem based on real-time neural telemetry. This score represents the structural harmony between user intent and platform execution.
               </p>
             </div>
             <div className="relative z-10 flex flex-col items-center justify-center">
@@ -113,7 +122,12 @@ export default function ResultPage() {
                 </div>
                 <span className="text-6xl font-black text-on-surface">{(finalScore * 10).toFixed(0)}</span>
               </div>
-              <span className="mt-4 text-sm font-bold uppercase tracking-widest text-primary">Composite Score</span>
+              
+              {/* Verdict Chip */}
+              <div className={`mt-8 flex items-center gap-2.5 px-5 py-2.5 rounded-xl border ${statusStyle.color} backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-both shadow-lg shadow-black/20`}>
+                <span className="material-symbols-outlined text-xl">{statusStyle.icon}</span>
+                <span className="text-sm font-bold uppercase tracking-[0.15em]">{resultData?.verdict || "Assessment Complete"}</span>
+              </div>
             </div>
             
             {/* Background Subtle Texture */}
