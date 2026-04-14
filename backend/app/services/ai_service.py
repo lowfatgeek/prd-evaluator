@@ -274,36 +274,71 @@ async def evaluate_prd_text(text: str, output_language: str = "en") -> dict:
         "temperature": 0.2
     }
 
-    try:
-        async with httpx.AsyncClient(timeout=150.0) as client:
-            response = await client.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
-            if response.status_code != 200:
-                error_body = response.text
-                print(f"OpenRouter Raw Error [HTTP {response.status_code}]: {error_body}")
-                response.raise_for_status()
+    MAX_RETRIES = 2
+    
+    for attempt in range(MAX_RETRIES + 1):
+        try:
+            async with httpx.AsyncClient(timeout=150.0) as client:
+                response = await client.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
+                if response.status_code != 200:
+                    error_body = response.text
+                    print(f"OpenRouter Raw Error [HTTP {response.status_code}]: {error_body}")
+                    response.raise_for_status()
+                    
+                data = response.json()
+                if not isinstance(data, dict):
+                    print(f"OpenRouter returned non-dict: {type(data)}")
+                    return {"error": "Invalid response format from OpenRouter."}
+
+                choices = data.get('choices', [])
+                if not choices:
+                    print(f"OpenRouter returned no choices. Full response: {json.dumps(data)[:500]}")
+                    return {"error": "AI returned no choices."}
+
+                content = choices[0].get('message', {}).get('content', '')
                 
-            data = response.json()
-            if not isinstance(data, dict):
-                return {"error": "Invalid response format from OpenRouter."}
-
-            choices = data.get('choices', [])
-            if not choices:
-                return {"error": "AI returned no choices."}
-
-            content = choices[0]['message']['content']
-            parsed_json = json.loads(content)
-            
-            if not isinstance(parsed_json, dict):
-                return {"error": "AI output is not a valid JSON object."}
-            
-            parsed_json["model_used"] = data.get("model", settings.OPENROUTER_MODEL)
-            usage = data.get("usage", {})
-            if isinstance(usage, dict):
-                parsed_json["tokens_used"] = usage.get("total_tokens", 0)
-            else:
-                parsed_json["tokens_used"] = 0
-            
-            return compute_final_score_and_verdict(parsed_json)
-    except Exception as e:
-        print(f"Error calling AI API: {e}")
-        return {"error": str(e)}
+                # Handle empty content - retry if we have attempts left
+                if not content or not content.strip():
+                    print(f"AI returned empty content (attempt {attempt + 1}/{MAX_RETRIES + 1}). Finish reason: {choices[0].get('finish_reason', 'unknown')}")
+                    if attempt < MAX_RETRIES:
+                        await asyncio.sleep(2)
+                        continue
+                    return {"error": "AI returned empty response after retries."}
+                
+                # Try to extract JSON from the content (some models wrap it in markdown)
+                clean_content = content.strip()
+                if clean_content.startswith("```"):
+                    # Strip markdown code fences
+                    lines = clean_content.split("\n")
+                    lines = [l for l in lines if not l.strip().startswith("```")]
+                    clean_content = "\n".join(lines).strip()
+                
+                parsed_json = json.loads(clean_content)
+                
+                if not isinstance(parsed_json, dict):
+                    print(f"AI output parsed but not a dict: {type(parsed_json)}")
+                    return {"error": "AI output is not a valid JSON object."}
+                
+                parsed_json["model_used"] = data.get("model", settings.OPENROUTER_MODEL)
+                usage = data.get("usage", {})
+                if isinstance(usage, dict):
+                    parsed_json["tokens_used"] = usage.get("total_tokens", 0)
+                else:
+                    parsed_json["tokens_used"] = 0
+                
+                return compute_final_score_and_verdict(parsed_json)
+        except json.JSONDecodeError as e:
+            print(f"JSON parse error (attempt {attempt + 1}): {e}")
+            print(f"Raw content preview: {content[:300] if content else '(empty)'}")
+            if attempt < MAX_RETRIES:
+                await asyncio.sleep(2)
+                continue
+            return {"error": f"AI response was not valid JSON: {str(e)}"}
+        except Exception as e:
+            print(f"Error calling AI API (attempt {attempt + 1}): {e}")
+            if attempt < MAX_RETRIES:
+                await asyncio.sleep(2)
+                continue
+            return {"error": str(e)}
+    
+    return {"error": "All retry attempts failed."}
