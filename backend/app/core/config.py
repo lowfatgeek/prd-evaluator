@@ -3,7 +3,7 @@ from typing import List
 
 class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
-    CORS_ORIGINS: str = "*"
+    CORS_ORIGINS: List[str] = ["*"]
     
     DB_PROTOCOL: str = "sqlite"
     DATABASE_URL: str = "sqlite:///./prd_evaluator.db"
