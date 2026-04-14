@@ -45,7 +45,7 @@ export default function LandingPage() {
         setUploadedFile(null);
       }
     }
-  }, [router]);
+  }, [router, selectedLang]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
