@@ -54,14 +54,26 @@ class PRDPDF(FPDF):
         """Sanitize text based on font capabilities."""
         return sanitize_text(text, ascii_only=not self.unicode_support)
     
-    def safe_multi_cell(self, w, h, txt, **kwargs):
+    def safe_multi_cell(self, w, h, txt, ln=1, **kwargs):
         """Wrapper around multi_cell that handles edge cases."""
         txt = self.safe_text(txt)
+        # Ensure we start from the left margin if we're at the far right
+        if self.get_x() > self.w - self.r_margin - 10:
+            self.ln(h)
+            
+        x_before = self.get_x()
+        y_before = self.get_y()
         try:
             self.multi_cell(w, h, txt, **kwargs)
+            if ln == 1:
+                self.set_x(self.l_margin)
         except Exception:
-            # If multi_cell still fails, try with a simpler approach
-            self.cell(0, h, txt[:80] + ("..." if len(txt) > 80 else ""), ln=1)
+            # Reset position to left margin on failure
+            self.set_xy(self.l_margin, y_before)
+            # Use cell as fallback - truncate long text
+            truncated = txt[:100] + ("..." if len(txt) > 100 else "")
+            self.cell(0, h, truncated, ln=1)
+            self.set_x(self.l_margin)
 
     def header(self):
         self.set_font(self._pdf_font, 'B', 15)
@@ -157,6 +169,7 @@ def generate_pdf_report(evaluation_data: dict, filename: str) -> bytes:
         explanation = pdf.safe_text(data.get('explanation', ''))
         evidence = pdf.safe_text(data.get('evidence', ''))
         pdf.safe_multi_cell(0, 6, f"Explanation: {explanation}")
+        pdf.ln(2)
         pdf.safe_multi_cell(0, 6, f'Evidence: "{evidence}"')
         pdf.ln(5)
 
