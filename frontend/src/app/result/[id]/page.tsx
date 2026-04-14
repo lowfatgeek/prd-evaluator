@@ -21,7 +21,7 @@ export default function ResultPage() {
         const data = await getEvaluationResult(reportId);
         setStatus(data.status);
         if (data.status === 'completed') {
-          setResultData(data.result_json);
+          setResultData(data.result);
           clearInterval(intervalId);
         } else if (data.status === 'failed') {
           setErrorText(data.error_message || 'Evaluation failed.');
