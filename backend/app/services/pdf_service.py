@@ -193,4 +193,4 @@ def generate_pdf_report(evaluation_data: dict, filename: str) -> bytes:
         for s in suggs:
             pdf.safe_multi_cell(0, 6, f"- {pdf.safe_text(s)}")
 
-    return pdf.output(dest='S')
+    return bytes(pdf.output())
