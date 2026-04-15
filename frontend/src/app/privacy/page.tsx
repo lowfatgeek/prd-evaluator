@@ -2,132 +2,137 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | PRDmetrix',
-  description: 'Read the Terms of Service for PRDmetrix — AI-powered PRD evaluation platform.',
+  title: 'Privacy Policy | PRDmetrix',
+  description: 'Learn how PRDmetrix collects, uses, and protects your data when you use our AI-powered PRD evaluation service.',
 };
 
 const quickFacts = [
-  { label: 'Ownership', fact: 'You retain full ownership of all PRDs and documents you upload.' },
-  { label: 'Processing', fact: 'The platform requires limited processing rights solely to analyze your document and deliver the report.' },
-  { label: 'AI Output', fact: 'AI-generated results are informational and advisory only — not guaranteed or authoritative.' },
-  { label: 'Conduct', fact: 'Unauthorized, illegal, or harmful uploads are strictly prohibited.' },
+  { label: 'No Account Required', fact: 'PRDmetrix does not require you to register or create an account to use the service.' },
+  { label: 'Your Data', fact: 'Uploaded documents are processed solely to deliver your evaluation — not sold or shared for marketing.' },
+  { label: 'Third Parties', fact: 'We use trusted infrastructure and AI providers. They process data only to operate the service.' },
+  { label: 'Your Rights', fact: 'You may request deletion of your uploaded documents and evaluation data at any time.' },
 ];
 
-const termSections = [
+const privacySections = [
   {
-    id: 'acceptance',
+    id: 'overview',
     eyebrow: '01',
-    title: 'Acceptance of Terms',
+    title: 'Overview',
     body: [
-      'By accessing PRDmetrix, uploading a document, requesting an AI evaluation, or downloading an exported report, you agree to these Terms of Service.',
-      'If you do not agree to these terms, you must not use the service.',
+      'This Privacy Policy describes how PRDmetrix ("we", "our", or "the service") collects, uses, stores, and protects information when you use our web-based PRD evaluation platform.',
+      'By using PRDmetrix, you acknowledge that you have read and understood this policy. If you do not agree with any part of it, please do not use the service.',
     ],
   },
   {
-    id: 'service',
+    id: 'information-collected',
     eyebrow: '02',
-    title: 'What the Service Does',
+    title: 'Information We Collect',
     body: [
-      'PRDmetrix is a web-based PRD evaluation tool that accepts PDF, TXT, and Markdown documents, analyzes them with automated systems and third-party AI models, and returns scores, findings, recommendations, and downloadable reports.',
-      'The service is provided as a workflow aid for product and engineering teams. It is not a substitute for product judgment, legal review, security review, or architectural due diligence.',
+      'We collect the content of documents you upload (PDF, TXT, or Markdown files) for the purpose of performing the requested evaluation.',
+      'We automatically collect limited technical information including your browser type, device type, approximate geographic region, referral URL, and page interaction data to monitor service health and usage patterns.',
+      'We do not collect your name, email address, or any personally identifying information unless you voluntarily contact us.',
     ],
   },
   {
-    id: 'eligibility',
+    id: 'how-we-use',
     eyebrow: '03',
-    title: 'Eligibility and Authority',
+    title: 'How We Use Your Information',
     body: [
-      'You may use the service only if you are legally permitted to do so and have authority to upload the material you submit.',
-      'If you upload a document on behalf of a company, client, or team, you represent that you are authorized to act for that party.',
+      'Uploaded document content is used exclusively to perform text extraction, run automated quality checks, generate AI-based evaluation scores and findings, and produce downloadable PDF reports.',
+      'Technical usage data is used to monitor platform availability, diagnose errors, and understand aggregate usage trends. This data is never used to build individual user profiles.',
+      'We do not use your uploaded documents to train AI models, advertise to you, or share your content with third parties for commercial purposes.',
     ],
   },
   {
-    id: 'content',
+    id: 'storage',
     eyebrow: '04',
-    title: 'Your Documents and Ownership',
+    title: 'Data Storage and Retention',
     body: [
-      'You retain ownership of the PRDs and related material you upload.',
-      'You grant PRDmetrix a limited right to store, process, transmit, and analyze your uploaded content solely for operating the service connected to your specific request.',
-      'You must not upload content that you do not have the right to share or process.',
+      'Uploaded files, extracted text, evaluation results, and exported reports are stored in secure cloud infrastructure. Storage providers are bound by data processing agreements.',
+      'Evaluation results are retained to allow you to access your report via a unique result URL for a reasonable period after evaluation. We do not guarantee indefinite availability of stored results.',
+      'You may request deletion of your uploaded content and associated evaluation data by contacting us at hello@prdmetrix.com. We will process deletion requests within a reasonable timeframe.',
     ],
   },
   {
-    id: 'ai',
+    id: 'third-parties',
     eyebrow: '05',
-    title: 'AI Output Disclaimer',
+    title: 'Third-Party Service Providers',
     body: [
-      'Evaluation results are generated with automated models and may be incomplete, inaccurate, inconsistent, or unsuitable for your specific context.',
-      'Scores, verdicts, strengths, weaknesses, and recommendations are informational only and should be reviewed by a qualified human before being used for roadmap, delivery, budget, compliance, or technical decisions.',
+      'PRDmetrix relies on third-party infrastructure providers for cloud storage, database hosting, and AI model processing. These providers only access your data to the extent necessary to operate the service on our behalf.',
+      'Our core infrastructure partners include cloud storage and database services (such as Supabase) and AI model providers (such as Google Gemini). We select providers with strong data protection commitments.',
+      'We do not sell, rent, or trade your data to any third party for advertising, marketing, or profiling purposes.',
     ],
   },
   {
-    id: 'usage',
+    id: 'ai-processing',
     eyebrow: '06',
-    title: 'Acceptable Use',
+    title: 'AI and Automated Processing',
     body: [
-      'You may not use the service to upload unlawful material, confidential material without authorization, malware, abusive content, or content that infringes intellectual property or privacy rights.',
-      'You may not probe, reverse engineer, interfere with, overload, scrape, or attempt unauthorized access to any part of the platform or its supporting infrastructure.',
+      'The text extracted from your uploaded PRD is submitted to third-party large language model APIs to generate evaluation outputs. These models process your content in transit and, depending on the provider\'s policies, may retain it for a limited period for abuse prevention and safety purposes.',
+      'PRDmetrix does not use your document content to fine-tune, train, or improve any AI model — including those operated by third-party providers — beyond what those providers disclose in their own privacy policies.',
+      'We recommend you review the privacy policies of our AI providers if you have concerns about how your document content is handled during model inference.',
     ],
   },
   {
-    id: 'processing',
+    id: 'cookies',
     eyebrow: '07',
-    title: 'Storage and Processing',
+    title: 'Cookies and Tracking',
     body: [
-      'To operate the service, uploaded files, extracted text, metadata, evaluation outputs, and exported reports may be processed and stored by PRDmetrix and its infrastructure providers, including storage, database, and AI processing vendors.',
-      'Retention periods, deletion practices, and privacy commitments should be read together with the Privacy Policy when that document is published.',
+      'PRDmetrix uses minimal, functional browser storage (such as session state) necessary to operate the evaluation workflow. We do not use advertising cookies, cross-site tracking pixels, or behavioral profiling technologies.',
+      'We may use privacy-respecting analytics tools that collect anonymized aggregate data (such as page views and device types) without identifying individual users.',
     ],
   },
   {
-    id: 'availability',
+    id: 'security',
     eyebrow: '08',
-    title: 'Availability and Changes',
+    title: 'Data Security',
     body: [
-      'The service is provided on an "as is" and "as available" basis. We do not guarantee uninterrupted access, error-free output, or permanent availability of any feature, report, or stored file.',
-      'We may add, remove, suspend, or modify features, model providers, limits, file support, or workflows at any time.',
+      'We apply industry-standard security practices to protect data in transit and at rest, including encrypted connections (HTTPS/TLS) and access controls on our infrastructure.',
+      'While we take reasonable precautions, no system is completely secure. We cannot guarantee absolute protection against unauthorized access, data loss, or security incidents. In the event of a material breach, we will take appropriate steps to investigate and notify affected parties as required by law.',
     ],
   },
   {
-    id: 'liability',
+    id: 'your-rights',
     eyebrow: '09',
-    title: 'Limitation of Liability',
+    title: 'Your Rights',
     body: [
-      'To the maximum extent allowed by law, PRDmetrix is not liable for indirect, incidental, special, consequential, or business losses arising from use of the service or reliance on AI-generated output.',
-      'That includes missed deadlines, product defects, delivery delays, revenue loss, customer impact, or internal decisions made from evaluated reports.',
+      'You have the right to request access to the data we hold about your evaluation sessions, to request correction of inaccurate data, and to request deletion of your uploaded content and associated results.',
+      'Because PRDmetrix does not require account registration, we identify data by evaluation session ID or document identifiers. Please include this information in any data request sent to hello@prdmetrix.com.',
+      'Depending on your jurisdiction, you may have additional rights under applicable data protection laws (such as GDPR or PDPA). We are committed to honoring those rights to the extent they apply.',
     ],
   },
   {
-    id: 'termination',
+    id: 'children',
     eyebrow: '10',
-    title: 'Suspension and Termination',
+    title: "Children's Privacy",
     body: [
-      'We may suspend or terminate access if we reasonably believe you violated these terms, created security risk, abused the service, or exposed the platform or other users to legal or operational harm.',
-      'We may also remove content where required for legal, safety, or infrastructure reasons.',
+      'PRDmetrix is not directed at individuals under the age of 16. We do not knowingly collect personal information from children.',
+      'If you believe a child has submitted personal information through our service, please contact us immediately at hello@prdmetrix.com and we will take steps to remove it.',
     ],
   },
   {
-    id: 'updates',
+    id: 'changes',
     eyebrow: '11',
-    title: 'Updates to These Terms',
+    title: 'Changes to This Policy',
     body: [
-      'We may revise these Terms of Service from time to time. Updated terms become effective when posted on the site unless a later effective date is stated.',
-      'Continued use of the service after an update means you accept the revised terms.',
+      'We may update this Privacy Policy from time to time. When we do, we will revise the "Last Updated" date shown on this page.',
+      'Continued use of PRDmetrix after a policy update constitutes your acceptance of the revised policy. We encourage you to review this page periodically.',
     ],
   },
   {
     id: 'contact',
     eyebrow: '12',
-    title: 'Contact and Governing Law',
+    title: 'Contact',
     body: [
-      'If you have any questions about these Terms of Service, please contact us at hello@prdmetrix.com.',
-      'These Terms are governed by applicable law in the jurisdiction where PRDmetrix operates. Any disputes arising from your use of the service shall be resolved in accordance with that jurisdiction\'s legal framework.',
+      'If you have questions, concerns, or requests regarding this Privacy Policy or your data, please contact us at hello@prdmetrix.com.',
+      'We aim to respond to all privacy-related inquiries within a reasonable timeframe.',
     ],
   },
 ];
 
 const EFFECTIVE_DATE = 'April 15, 2025';
 
-export default function TermsPage() {
+export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-[#e7e5e5] font-sans selection:bg-primary selection:text-on-primary">
       <nav className="bg-[#131313]/80 backdrop-blur-md flex justify-center items-center px-12 max-w-[1920px] mx-auto w-full sticky top-0 z-50 h-16 border-none">
@@ -148,10 +153,10 @@ export default function TermsPage() {
               Legal
             </div>
             <h1 className="max-w-3xl text-5xl font-black leading-[1.02] tracking-[-0.04em] text-on-surface md:text-7xl">
-              Terms of Service
+              Privacy Policy
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-on-surface-variant md:text-lg">
-              Please read these terms carefully before using PRDmetrix. By accessing or using the service, you agree to be bound by the conditions described below.
+              Your privacy matters. This policy explains what data PRDmetrix collects when you use the service, how it is used, who it is shared with, and what rights you have over it.
             </p>
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
@@ -210,7 +215,7 @@ export default function TermsPage() {
           <div className="hidden lg:block h-fit rounded-[24px] border border-outline-variant/15 bg-surface-container-low p-6 lg:sticky lg:top-24">
             <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-on-surface-variant">Section Index</p>
             <div className="mt-6 space-y-3">
-              {termSections.map((section) => (
+              {privacySections.map((section) => (
                 <a
                   key={section.id}
                   href={`#${section.id}`}
@@ -224,7 +229,7 @@ export default function TermsPage() {
 
           {/* Articles */}
           <div className="space-y-6">
-            {termSections.map((section) => (
+            {privacySections.map((section) => (
               <article
                 id={section.id}
                 key={section.id}
