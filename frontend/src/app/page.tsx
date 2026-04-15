@@ -60,19 +60,9 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen selection:bg-primary selection:text-on-primary font-sans bg-[#0e0e0e] text-[#e7e5e5]">
       {/* Top Navigation */}
-      <nav className="bg-[#131313]/80 backdrop-blur-md flex justify-between items-center px-12 max-w-[1920px] mx-auto w-full sticky top-0 z-50 h-16 border-none">
+      <nav className="bg-[#131313]/80 backdrop-blur-md flex justify-center items-center px-12 max-w-[1920px] mx-auto w-full sticky top-0 z-50 h-16 border-none">
         <div className="text-xl font-bold text-[#e7e5e5] tracking-tight">
           PRDmetrix
-        </div>
-        <div className="hidden md:flex items-center gap-8">
-          <Link className="text-[#e7e5e5] font-semibold border-b border-[#e7e5e5] pb-1 text-sm tracking-tight transition-all" href="/">Platform</Link>
-          <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200 font-medium text-sm tracking-tight" href="#">Solutions</a>
-          <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200 font-medium text-sm tracking-tight" href="#">Resources</a>
-          <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200 font-medium text-sm tracking-tight" href="#">Pricing</a>
-        </div>
-        <div className="flex items-center gap-6">
-          <button className="text-[#acabaa] text-sm font-medium hover:text-[#e7e5e5] transition-colors">Log In</button>
-          <button className="bg-primary text-on-primary px-5 py-2 rounded-md text-sm font-semibold hover:opacity-90 active:scale-[0.99] transition-all">Sign Up</button>
         </div>
       </nav>
 

@@ -83,15 +83,9 @@ export default function ResultPage() {
     <div className="bg-[#0e0e0e] text-[#e7e5e5] font-sans selection:bg-primary selection:text-on-primary min-h-screen flex flex-col">
       {/* TopNavBar */}
       <header className="w-full h-16 border-none bg-[#131313]/90 backdrop-blur-md sticky top-0 z-50">
-        <nav className="flex justify-between items-center px-12 max-w-[1920px] mx-auto w-full h-full">
+        <nav className="flex justify-center items-center px-12 max-w-[1920px] mx-auto w-full h-full relative">
           <Link href="/" className="text-xl font-bold text-[#e7e5e5] tracking-tight">PRDmetrix</Link>
-          <div className="hidden md:flex gap-8 items-center font-medium text-sm tracking-tight">
-            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200" href="#">Platform</a>
-            <a className="text-[#e7e5e5] font-semibold border-b border-[#e7e5e5] pb-1 transition-colors duration-200" href="#">Solutions</a>
-            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200" href="#">Resources</a>
-            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors duration-200" href="#">Pricing</a>
-          </div>
-          <div className="flex gap-4 items-center">
+          <div className="absolute right-12 flex gap-4 items-center">
             <button 
                 onClick={() => window.open(getExportPdfUrl(reportId))}
                 className="text-[#acabaa] text-sm font-medium hover:text-[#e7e5e5] active:scale-[0.98] transition-all">Download PDF</button>
