@@ -128,27 +128,11 @@ const quickFacts = [
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-[#e7e5e5] font-sans selection:bg-primary selection:text-on-primary">
-      <header className="sticky top-0 z-50 border-b border-white/5 bg-[#131313]/88 backdrop-blur-xl">
-        <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
-          <Link href="/" className="text-xl font-bold tracking-tight text-[#e7e5e5]">
-            PRDmetrix
-          </Link>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="rounded-full border border-outline-variant/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-on-surface-variant transition-colors hover:border-primary/40 hover:text-on-surface"
-            >
-              Evaluator
-            </Link>
-            <Link
-              href="/"
-              className="rounded-full bg-primary px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-on-primary transition-opacity hover:opacity-90"
-            >
-              New Analysis
-            </Link>
-          </div>
-        </nav>
-      </header>
+      <nav className="bg-[#131313]/80 backdrop-blur-md flex justify-center items-center px-12 max-w-[1920px] mx-auto w-full sticky top-0 z-50 h-16 border-none">
+        <div className="text-xl font-bold text-[#e7e5e5] tracking-tight">
+          PRDmetrix
+        </div>
+      </nav>
 
       <main className="relative overflow-hidden">
         <div className="absolute left-[-10%] top-0 h-[420px] w-[420px] rounded-full bg-primary/10 blur-[120px]" />
@@ -161,7 +145,7 @@ export default function TermsPage() {
               Policy Module
             </div>
             <h1 className="max-w-3xl text-5xl font-black leading-[1.02] tracking-[-0.04em] text-on-surface md:text-7xl">
-              Terms of Service for AI-powered PRD evaluation.
+              Terms of Service
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-on-surface-variant md:text-lg">
               This page translates the current PRDmetrix workflow into a production-ready terms concept:
@@ -259,27 +243,21 @@ export default function TermsPage() {
         </section>
       </main>
 
-      <footer className="border-t border-white/5 bg-[#131313] px-6 py-14">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-          <div>
-            <div className="text-lg font-bold tracking-tight text-[#e7e5e5]">PRDmetrix</div>
-            <p className="mt-3 max-w-xl text-xs font-medium uppercase tracking-[0.08em] text-[#acabaa]">
-              Draft legal surface for AI-based PRD scoring, evaluation delivery, and PDF report export.
+      <footer className="bg-[#131313] border-none w-full py-20 px-12 mt-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[1920px] mx-auto">
+          <div className="mb-8 md:mb-0 text-center md:text-left">
+            <div className="text-lg font-bold text-[#e7e5e5] mb-4">
+              PRDmetrix
+            </div>
+            <p className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa]">
+              © {new Date().getFullYear()} PRDmetrix. All rights reserved. Built upon the Architectural Void.
             </p>
           </div>
-          <div className="flex flex-wrap gap-6 text-xs font-medium uppercase tracking-[0.08em] text-[#acabaa]">
-            <Link href="/" className="transition-colors hover:text-[#e7e5e5]">
-              Home
-            </Link>
-            <Link href="/terms" className="transition-colors hover:text-[#e7e5e5]">
-              Terms of Service
-            </Link>
-            <a href="#" className="transition-colors hover:text-[#e7e5e5]">
-              Privacy Policy
-            </a>
-            <a href="#" className="transition-colors hover:text-[#e7e5e5]">
-              Contact
-            </a>
+          <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+            <a className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Privacy Policy</a>
+            <Link className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="/terms">Terms of Service</Link>
+            <a className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Security</a>
+            <a className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Contact</a>
           </div>
         </div>
       </footer>
