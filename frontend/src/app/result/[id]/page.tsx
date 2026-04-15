@@ -12,6 +12,13 @@ export default function ResultPage() {
   const [status, setStatus] = useState<string>('processing');
   const [resultData, setResultData] = useState<any>(null);
   const [errorText, setErrorText] = useState<string | null>(null);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
+  };
 
   useEffect(() => {
     if (!reportId) return;
@@ -85,12 +92,6 @@ export default function ResultPage() {
       <header className="w-full h-16 border-none bg-[#131313]/90 backdrop-blur-md sticky top-0 z-50">
         <nav className="flex justify-center items-center px-12 max-w-[1920px] mx-auto w-full h-full relative">
           <Link href="/" className="text-xl font-bold text-[#e7e5e5] tracking-tight">PRDmetrix</Link>
-          <div className="absolute right-12 flex gap-4 items-center">
-            <button 
-                onClick={() => window.open(getExportPdfUrl(reportId))}
-                className="text-[#acabaa] text-sm font-medium hover:text-[#e7e5e5] active:scale-[0.98] transition-all">Download PDF</button>
-            <Link href="/" className="bg-primary text-on-primary px-4 py-2 rounded-md text-sm font-semibold hover:opacity-90 active:scale-[0.99] transition-all">New Analysis</Link>
-          </div>
         </nav>
       </header>
 
@@ -107,6 +108,26 @@ export default function ResultPage() {
               <p className="text-lg text-on-surface-variant leading-relaxed">
                 A comprehensive evaluation of the PRD ecosystem based on real-time neural telemetry. This score represents the structural harmony between user intent and platform execution.
               </p>
+              
+              {/* Contextual Action Row */}
+              <div className="flex flex-wrap items-center gap-4 mt-8">
+                <Link href="/" className="bg-primary text-on-primary px-6 py-3 rounded-md font-semibold hover:opacity-90 active:scale-[0.99] transition-all flex items-center gap-2 shadow-lg shadow-primary/20">
+                    <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_box</span>
+                    New Analysis
+                </Link>
+                <button 
+                    onClick={() => window.open(getExportPdfUrl(reportId))}
+                    className="border border-[#acabaa]/30 text-[#e7e5e5] px-6 py-3 rounded-md font-medium hover:bg-[#acabaa]/10 active:scale-[0.98] transition-all flex items-center gap-2">
+                    <span className="material-symbols-outlined text-sm">download</span>
+                    Download PDF
+                </button>
+                <button 
+                    onClick={handleCopyLink}
+                    className="border border-[#acabaa]/30 text-[#e7e5e5] px-6 py-3 rounded-md font-medium hover:bg-[#acabaa]/10 active:scale-[0.98] transition-all flex items-center gap-2 w-[140px] justify-center">
+                    <span className="material-symbols-outlined text-sm">{isCopied ? 'check' : 'share'}</span>
+                    {isCopied ? 'Copied!' : 'Share'}
+                </button>
+              </div>
             </div>
             <div className="relative z-10 flex flex-col items-center justify-center">
               <div className="w-48 h-48 rounded-full border-8 border-surface-container-highest flex items-center justify-center relative">
