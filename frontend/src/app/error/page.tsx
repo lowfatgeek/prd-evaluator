@@ -106,6 +106,7 @@ export default function ErrorPage() {
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
               <a className="text-[#dec1af] hover:text-[#f77f00] transition-colors uppercase font-bold text-xs" href="#">Documentation</a>
               <a className="text-[#dec1af] hover:text-[#f77f00] transition-colors uppercase font-bold text-xs" href="#">Privacy Policy</a>
+              <Link className="text-[#dec1af] hover:text-[#f77f00] transition-colors uppercase font-bold text-xs" href="/terms">Terms of Service</Link>
               <a className="text-[#dec1af] hover:text-[#f77f00] transition-colors uppercase font-bold text-xs" href="#">Security</a>
               <a className="text-[#dec1af] hover:text-[#f77f00] transition-colors uppercase font-bold text-xs" href="#">Support</a>
             </div>

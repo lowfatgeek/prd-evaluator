@@ -322,7 +322,7 @@ export default function ResultPage() {
           <div className="text-lg font-bold text-[#e7e5e5] mb-8 md:mb-0">PRDmetrix</div>
           <div className="flex gap-8 md:gap-12 text-xs font-medium uppercase tracking-[0.05em] mb-8 md:mb-0 flex-wrap justify-center">
             <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Privacy Policy</a>
-            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Terms of Service</a>
+            <Link className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="/terms">Terms of Service</Link>
             <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Security</a>
             <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Contact</a>
           </div>

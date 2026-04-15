@@ -228,12 +228,12 @@ export default function LandingPage() {
               PRDmetrix
             </div>
             <p className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa]">
-              © 2024 PRDmetrix. All rights reserved. Built upon the Architectural Void.
+              © {new Date().getFullYear()} PRDmetrix. All rights reserved. Built upon the Architectural Void.
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
             <a className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Privacy Policy</a>
-            <a className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Terms of Service</a>
+            <Link className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="/terms">Terms of Service</Link>
             <a className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Security</a>
             <a className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Contact</a>
           </div>
