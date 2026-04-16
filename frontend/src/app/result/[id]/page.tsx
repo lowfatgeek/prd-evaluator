@@ -11,8 +11,30 @@ export default function ResultPage() {
 
   const [status, setStatus] = useState<string>('processing');
   const [resultData, setResultData] = useState<any>(null);
+  const [metadata, setMetadata] = useState<any>({});
   const [errorText, setErrorText] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
+
+  const formatFileSize = (bytes?: number) => {
+    if (!bytes) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+  };
+
+  const formatDate = (dateStr?: string) => {
+    if (!dateStr) return 'N/A';
+    try {
+      return new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }).format(new Date(dateStr));
+    } catch (e) {
+      return 'N/A';
+    }
+  };
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -29,6 +51,12 @@ export default function ResultPage() {
         setStatus(data.status);
         if (data.status === 'completed') {
           setResultData(data.result);
+          setMetadata({
+            filename: data.filename,
+            file_size: data.file_size,
+            file_format: data.file_format,
+            evaluated_at: data.evaluated_at
+          });
           clearInterval(intervalId);
         } else if (data.status === 'failed') {
           setErrorText(data.error_message || 'Evaluation failed.');
@@ -272,44 +300,67 @@ export default function ResultPage() {
         {/* Telemetry Snapshot */}
         <section className="mb-20">
           <div className="bg-surface-container-low p-12 rounded-xl">
-            <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
-              <div>
+            <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-12">
+              <div className="max-w-md">
                 <h3 className="text-2xl font-bold tracking-tight mb-2">Telemetry Snapshot</h3>
-                <p className="text-on-surface-variant text-sm">Engine execution and payload routing data.</p>
-              </div>
-              <div className="flex gap-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold uppercase tracking-widest text-primary">Model:</span>
-                  <span className="text-xs font-medium text-on-surface-variant">{resultData?.model_used || "Local Engine"}</span>
+                <p className="text-on-surface-variant text-sm mb-6">Engine execution and payload routing data.</p>
+                
+                <div className="grid grid-cols-2 gap-y-6 gap-x-8 pt-6 border-t border-white/5">
+                  <div>
+                    <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-1">PRD Source</span>
+                    <span className="text-sm font-medium text-on-surface truncate block" title={metadata.filename}>{metadata.filename || "In-memory string"}</span>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-1">Physical Payload</span>
+                    <span className="text-sm font-medium text-on-surface">
+                      {metadata.file_format?.toUpperCase() || "N/A"} • {formatFileSize(metadata.file_size)}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-1">Timestamp</span>
+                    <span className="text-sm font-medium text-on-surface">{formatDate(metadata.evaluated_at)}</span>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-1">Neural Engine</span>
+                    <span className="text-sm font-medium text-on-surface">{resultData?.model_used || "OpenRouter"}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold uppercase tracking-widest text-primary">Tokens:</span>
-                  <span className="text-xs font-medium text-on-surface-variant">{resultData?.tokens_used || 0}</span>
+              </div>
+
+              <div className="flex-grow w-full md:w-auto">
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#acabaa]">Neural Load Emission</span>
+                  <div className="flex gap-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Tokens:</span>
+                      <span className="text-xs font-mono text-on-surface-variant">{resultData?.tokens_used || 0}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Visualizer */}
+                <div className="h-32 flex items-end justify-between gap-1.5 pt-4">
+                  <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[20%] transition-all hover:bg-primary"></div>
+                  <div className="flex-grow bg-primary rounded-t-sm h-[65%]"></div>
+                  <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[40%] transition-all hover:bg-primary"></div>
+                  <div className="flex-grow bg-primary rounded-t-sm h-[85%]"></div>
+                  <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[55%] transition-all hover:bg-primary"></div>
+                  <div className="flex-grow bg-primary rounded-t-sm h-[75%]"></div>
+                  <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[95%] transition-all hover:bg-primary"></div>
+                  <div className="flex-grow bg-primary rounded-t-sm h-[70%]"></div>
+                  <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[40%] transition-all hover:bg-primary"></div>
+                  <div className="flex-grow bg-primary rounded-t-sm h-[60%]"></div>
+                  <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[30%] transition-all hover:bg-primary"></div>
+                  <div className="flex-grow bg-primary rounded-t-sm h-[80%]"></div>
+                </div>
+                <div className="flex justify-between mt-4 text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/30 font-mono">
+                  <span>INIT</span>
+                  <span>PARSING</span>
+                  <span>NEURAL</span>
+                  <span>EMISSION</span>
+                  <span>DONE</span>
                 </div>
               </div>
-            </div>
-            
-            {/* Visualizer */}
-            <div className="h-48 flex items-end justify-between gap-2">
-              <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[20%] transition-all hover:bg-primary"></div>
-              <div className="flex-grow bg-primary rounded-t-sm h-[65%]"></div>
-              <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[40%] transition-all hover:bg-primary"></div>
-              <div className="flex-grow bg-primary rounded-t-sm h-[85%]"></div>
-              <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[55%] transition-all hover:bg-primary"></div>
-              <div className="flex-grow bg-primary rounded-t-sm h-[75%]"></div>
-              <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[95%] transition-all hover:bg-primary"></div>
-              <div className="flex-grow bg-primary rounded-t-sm h-[70%]"></div>
-              <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[40%] transition-all hover:bg-primary"></div>
-              <div className="flex-grow bg-primary rounded-t-sm h-[60%]"></div>
-              <div className="flex-grow bg-surface-container-highest rounded-t-sm h-[30%] transition-all hover:bg-primary"></div>
-              <div className="flex-grow bg-primary rounded-t-sm h-[80%]"></div>
-            </div>
-            <div className="flex justify-between mt-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/40">
-              <span>INIT</span>
-              <span>PARSING</span>
-              <span>NEURAL</span>
-              <span>EMISSION</span>
-              <span>DONE</span>
             </div>
           </div>
         </section>

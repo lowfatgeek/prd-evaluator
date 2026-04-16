@@ -21,6 +21,8 @@ class ResultResponse(BaseModel):
     evaluation_id: str
     status: str
     filename: Optional[str] = None
+    file_size: Optional[int] = None
+    file_format: Optional[str] = None
     evaluated_at: Optional[str] = None
     result: Optional[Dict[str, Any]] = None
     error: Optional[str] = None

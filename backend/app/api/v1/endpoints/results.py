@@ -21,6 +21,8 @@ async def get_evaluation_result(evaluation_id: str, db: Session = Depends(get_db
 
     if upload:
         response.filename = upload.filename
+        response.file_size = upload.file_size
+        response.file_format = upload.file_format
 
     if evaluation.status == "completed":
         response.evaluated_at = evaluation.completed_at.isoformat() if evaluation.completed_at else None
