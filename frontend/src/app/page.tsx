@@ -50,8 +50,8 @@ export default function LandingPage() {
       answer: "Yes. In addition to scoring your PRD, the platform provides specific suggestions on how to strengthen your document, including missing sections and areas that need clarification."
     },
     {
-      question: "Who should use PRDMetrix?",
-      answer: "PRDMetrix is useful for: Startup founders preparing product specifications, Product managers reviewing PRDs, Developers validating requirement clarity, Product teams aligning on feature definitions, and Bootcamps or mentors evaluating PRD assignments."
+      question: "How can I contact you?",
+      answer: "Contact us at hello@prdmetrix.com"
     }
   ];
 
@@ -302,20 +302,20 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="bg-[#131313] border-none w-full py-20 px-12 mt-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[1920px] mx-auto">
-          <div className="mb-8 md:mb-0 text-center md:text-left">
-            <div className="text-lg font-bold text-[#e7e5e5] mb-4">
+        <div className="flex flex-col items-center text-center w-full max-w-[1920px] mx-auto">
+          <div className="mb-6">
+            <div className="text-2xl font-bold text-[#e7e5e5]">
               PRDmetrix
             </div>
-            <p className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa]">
-              © {new Date().getFullYear()} PRDmetrix. All rights reserved. Built upon the Architectural Void.
-            </p>
           </div>
+          
+          <p className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] mb-8">
+            © {new Date().getFullYear()} PRDmetrix. All rights reserved. Built upon the Architectural Void.
+          </p>
+
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
             <Link className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="/privacy">Privacy Policy</Link>
             <Link className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="/terms">Terms of Service</Link>
-            <a className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Security</a>
-            <a className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="#">Contact</a>
           </div>
         </div>
       </footer>
