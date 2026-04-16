@@ -317,18 +317,21 @@ export default function ResultPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#131313] border-none py-20 px-12 mt-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-[1920px] mx-auto">
-          <div className="text-lg font-bold text-[#e7e5e5] mb-8 md:mb-0">PRDmetrix</div>
-          <div className="flex gap-8 md:gap-12 text-xs font-medium uppercase tracking-[0.05em] mb-8 md:mb-0 flex-wrap justify-center">
-            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Privacy Policy</a>
-            <Link className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="/terms">Terms of Service</Link>
-            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Security</a>
-            <a className="text-[#acabaa] hover:text-[#e7e5e5] transition-colors" href="#">Contact</a>
+      <footer className="bg-[#131313] border-none w-full py-20 px-12 mt-auto">
+        <div className="flex flex-col items-center text-center w-full max-w-[1920px] mx-auto">
+          <div className="mb-6">
+            <div className="text-2xl font-bold text-[#e7e5e5]">
+              PRDmetrix
+            </div>
           </div>
-          <div className="text-[#acabaa] text-xs font-medium uppercase tracking-[0.05em] text-center md:text-right">
-            © 2024 PRDmetrix. All rights reserved. <br/>
-            <span className="opacity-40">Built upon the Architectural Void.</span>
+          
+          <p className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] mb-8">
+            © {new Date().getFullYear()} PRDmetrix. All rights reserved. Built upon the Architectural Void.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+            <Link className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="/privacy">Privacy Policy</Link>
+            <Link className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="/terms">Terms of Service</Link>
           </div>
         </div>
       </footer>

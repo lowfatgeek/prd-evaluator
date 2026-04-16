@@ -97,18 +97,21 @@ export default function ErrorPage() {
         </main>
 
         {/* Footer Component */}
-        <footer className="w-full border-t border-[#574335]/15 bg-[#001523] text-sm font-sans tracking-widest relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-center px-8 py-12 w-full max-w-screen-2xl mx-auto">
-            <div className="mb-8 md:mb-0">
-              <div className="text-lg font-bold text-[#cae6ff] mb-2 uppercase tracking-tighter">PRDmetrix</div>
-              <div className="text-[#dec1af] normal-case tracking-normal">© 2024 PRDmetrix. Precision in PRD Engineering.</div>
+        <footer className="bg-[#131313] border-none w-full py-20 px-12 mt-auto relative z-10">
+          <div className="flex flex-col items-center text-center w-full max-w-[1920px] mx-auto">
+            <div className="mb-6">
+              <div className="text-2xl font-bold text-[#e7e5e5]">
+                PRDmetrix
+              </div>
             </div>
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
-              <a className="text-[#dec1af] hover:text-[#f77f00] transition-colors uppercase font-bold text-xs" href="#">Documentation</a>
-              <a className="text-[#dec1af] hover:text-[#f77f00] transition-colors uppercase font-bold text-xs" href="#">Privacy Policy</a>
-              <Link className="text-[#dec1af] hover:text-[#f77f00] transition-colors uppercase font-bold text-xs" href="/terms">Terms of Service</Link>
-              <a className="text-[#dec1af] hover:text-[#f77f00] transition-colors uppercase font-bold text-xs" href="#">Security</a>
-              <a className="text-[#dec1af] hover:text-[#f77f00] transition-colors uppercase font-bold text-xs" href="#">Support</a>
+            
+            <p className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] mb-8">
+              © {new Date().getFullYear()} PRDmetrix. All rights reserved. Built upon the Architectural Void.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+              <Link className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="/privacy">Privacy Policy</Link>
+              <Link className="text-xs font-medium uppercase tracking-[0.05em] text-[#acabaa] hover:text-[#e7e5e5] transition-colors active:scale-[0.98]" href="/terms">Terms of Service</Link>
             </div>
           </div>
         </footer>
