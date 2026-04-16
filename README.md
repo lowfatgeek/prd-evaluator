@@ -48,6 +48,37 @@ npm run dev
 
 ---
 
+## 🔑 Environment Variables
+
+To run PRDmetrix locally or in production, you need to configure the following variables.
+
+### Backend (`backend/.env`)
+Create a `.env` file in the `backend/` directory:
+```env
+# Database
+DATABASE_URL=postgresql://postgres:[PASSWORD]@db.[REF].supabase.co:5432/postgres
+
+# Supabase Configuration
+SUPABASE_URL=https://[REF].supabase.co
+SUPABASE_KEY=your-service-role-key
+
+# AI Evaluation Engine (OpenRouter)
+OPENROUTER_API_KEY=sk-or-v1-xxxxxx
+OPENROUTER_MODEL=anthropic/claude-3.5-sonnet
+
+# Server Settings
+ENVIRONMENT=development
+CORS_ORIGINS=["http://localhost:3000"]
+```
+
+### Frontend (`frontend/.env.local`)
+Create a `.env.local` file in the `frontend/` directory:
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+```
+
+---
+
 ## 🐳 EasyPanel / Docker Deployment
 
 PRDmetrix is pre-configured for automated deployment via Docker.
