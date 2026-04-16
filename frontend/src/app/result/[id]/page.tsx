@@ -91,7 +91,7 @@ export default function ResultPage() {
       {/* TopNavBar */}
       <header className="w-full h-16 border-none bg-[#131313]/90 backdrop-blur-md sticky top-0 z-50">
         <nav className="flex justify-center items-center px-12 max-w-[1920px] mx-auto w-full h-full relative">
-          <Link href="/" className="text-xl font-bold text-[#e7e5e5] tracking-tight">PRDmetrix</Link>
+          <Link href="/" className="text-xl font-bold text-[#e7e5e5] tracking-tight hover:text-[#e7e5e5]">PRDmetrix</Link>
         </nav>
       </header>
 

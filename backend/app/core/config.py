@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     
     OPENROUTER_API_KEY: str = ""
     OPENROUTER_MODEL: str = "anthropic/claude-3.5-sonnet"
+    OPENROUTER_FALLBACK_MODEL_1: str = ""
+    OPENROUTER_FALLBACK_MODEL_2: str = ""
     
     # Supabase credentials if needed for storage
     SUPABASE_URL: str = ""

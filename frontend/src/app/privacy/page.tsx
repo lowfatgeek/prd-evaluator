@@ -136,9 +136,9 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-[#0e0e0e] text-[#e7e5e5] font-sans selection:bg-primary selection:text-on-primary">
       <nav className="bg-[#131313]/80 backdrop-blur-md flex justify-center items-center px-12 max-w-[1920px] mx-auto w-full sticky top-0 z-50 h-16 border-none">
-        <div className="text-xl font-bold text-[#e7e5e5] tracking-tight">
+        <Link href="/" className="text-xl font-bold text-[#e7e5e5] tracking-tight hover:text-[#e7e5e5]">
           PRDmetrix
-        </div>
+        </Link>
       </nav>
 
       <main className="relative overflow-hidden">

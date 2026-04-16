@@ -61,9 +61,9 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-screen selection:bg-primary selection:text-on-primary font-sans bg-[#0e0e0e] text-[#e7e5e5]">
       {/* Top Navigation */}
       <nav className="bg-[#131313]/80 backdrop-blur-md flex justify-center items-center px-12 max-w-[1920px] mx-auto w-full sticky top-0 z-50 h-16 border-none">
-        <div className="text-xl font-bold text-[#e7e5e5] tracking-tight">
+        <Link href="/" className="text-xl font-bold text-[#e7e5e5] tracking-tight hover:text-[#e7e5e5]">
           PRDmetrix
-        </div>
+        </Link>
       </nav>
 
       <main className="flex-grow">

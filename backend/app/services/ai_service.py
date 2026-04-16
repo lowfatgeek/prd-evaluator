@@ -264,81 +264,103 @@ async def evaluate_prd_text(text: str, output_language: str = "en") -> dict:
 
     user_prompt = generate_user_prompt(text, output_language)
 
-    payload = {
-        "model": settings.OPENROUTER_MODEL,
-        "response_format": {"type": "json_object"},
-        "messages": [
-            {"role": "system", "content": build_system_prompt(output_language)},
-            {"role": "user", "content": user_prompt}
-        ],
-        "temperature": 0.2
-    }
+    models_to_try = [settings.OPENROUTER_MODEL]
+    if getattr(settings, 'OPENROUTER_FALLBACK_MODEL_1', ''):
+        models_to_try.append(settings.OPENROUTER_FALLBACK_MODEL_1)
+    if getattr(settings, 'OPENROUTER_FALLBACK_MODEL_2', ''):
+        models_to_try.append(settings.OPENROUTER_FALLBACK_MODEL_2)
 
     MAX_RETRIES = 2
-    
-    for attempt in range(MAX_RETRIES + 1):
-        try:
-            async with httpx.AsyncClient(timeout=150.0) as client:
-                response = await client.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
-                if response.status_code != 200:
-                    error_body = response.text
-                    print(f"OpenRouter Raw Error [HTTP {response.status_code}]: {error_body}")
-                    response.raise_for_status()
+    last_error_msg = "Semua model gagal atau error."
+
+    for model_name in models_to_try:
+        payload = {
+            "model": model_name,
+            "response_format": {"type": "json_object"},
+            "messages": [
+                {"role": "system", "content": build_system_prompt(output_language)},
+                {"role": "user", "content": user_prompt}
+            ],
+            "temperature": 0.2
+        }
+
+        print(f"Menggunakan model AI: {model_name}")
+
+        model_success = False
+        for attempt in range(MAX_RETRIES + 1):
+            try:
+                async with httpx.AsyncClient(timeout=150.0) as client:
+                    response = await client.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
                     
-                data = response.json()
-                if not isinstance(data, dict):
-                    print(f"OpenRouter returned non-dict: {type(data)}")
-                    return {"error": "Invalid response format from OpenRouter."}
+                    if response.status_code != 200:
+                        error_body = response.text
+                        print(f"OpenRouter Raw Error [HTTP {response.status_code}]: {error_body}")
+                        if response.status_code == 429:
+                            # Jika rate limit, tidak perlu retry, langsung fallback ke model berikutnya
+                            last_error_msg = f"Rate limit tercapai untuk {model_name}"
+                            break
+                        response.raise_for_status()
+                        
+                    data = response.json()
+                    if not isinstance(data, dict):
+                        print(f"OpenRouter returned non-dict: {type(data)}")
+                        last_error_msg = "Invalid response format from OpenRouter."
+                        break
 
-                choices = data.get('choices', [])
-                if not choices:
-                    print(f"OpenRouter returned no choices. Full response: {json.dumps(data)[:500]}")
-                    return {"error": "AI returned no choices."}
+                    choices = data.get('choices', [])
+                    if not choices:
+                        print(f"OpenRouter returned no choices. Full response: {json.dumps(data)[:500]}")
+                        last_error_msg = "AI returned no choices."
+                        break
 
-                content = choices[0].get('message', {}).get('content', '')
+                    content = choices[0].get('message', {}).get('content', '')
+                    
+                    if not content or not content.strip():
+                        print(f"AI returned empty content (attempt {attempt + 1}/{MAX_RETRIES + 1}). Finish reason: {choices[0].get('finish_reason', 'unknown')}")
+                        last_error_msg = "AI returned empty response."
+                        if attempt < MAX_RETRIES:
+                            await asyncio.sleep(2)
+                            continue
+                        break
+                    
+                    clean_content = content.strip()
+                    if clean_content.startswith("```"):
+                        lines = clean_content.split("\n")
+                        lines = [l for l in lines if not l.strip().startswith("```")]
+                        clean_content = "\n".join(lines).strip()
+                    
+                    parsed_json = json.loads(clean_content)
+                    
+                    if not isinstance(parsed_json, dict):
+                        print(f"AI output parsed but not a dict: {type(parsed_json)}")
+                        last_error_msg = "AI output is not a valid JSON object."
+                        if attempt < MAX_RETRIES:
+                            await asyncio.sleep(2)
+                            continue
+                        break
+                    
+                    parsed_json["model_used"] = data.get("model", model_name)
+                    usage = data.get("usage", {})
+                    parsed_json["tokens_used"] = usage.get("total_tokens", 0) if isinstance(usage, dict) else 0
+                    
+                    return compute_final_score_and_verdict(parsed_json)
+
+            except json.JSONDecodeError as e:
+                print(f"JSON parse error using {model_name} (attempt {attempt + 1}): {e}")
+                last_error_msg = f"AI response was not valid JSON: {str(e)}"
+                if attempt < MAX_RETRIES:
+                    await asyncio.sleep(2)
+                    continue
+                break
+            except Exception as e:
+                print(f"Error calling AI API using {model_name} (attempt {attempt + 1}): {e}")
+                last_error_msg = str(e)
+                if attempt < MAX_RETRIES:
+                    await asyncio.sleep(2)
+                    continue
+                break
                 
-                # Handle empty content - retry if we have attempts left
-                if not content or not content.strip():
-                    print(f"AI returned empty content (attempt {attempt + 1}/{MAX_RETRIES + 1}). Finish reason: {choices[0].get('finish_reason', 'unknown')}")
-                    if attempt < MAX_RETRIES:
-                        await asyncio.sleep(2)
-                        continue
-                    return {"error": "AI returned empty response after retries."}
-                
-                # Try to extract JSON from the content (some models wrap it in markdown)
-                clean_content = content.strip()
-                if clean_content.startswith("```"):
-                    # Strip markdown code fences
-                    lines = clean_content.split("\n")
-                    lines = [l for l in lines if not l.strip().startswith("```")]
-                    clean_content = "\n".join(lines).strip()
-                
-                parsed_json = json.loads(clean_content)
-                
-                if not isinstance(parsed_json, dict):
-                    print(f"AI output parsed but not a dict: {type(parsed_json)}")
-                    return {"error": "AI output is not a valid JSON object."}
-                
-                parsed_json["model_used"] = data.get("model", settings.OPENROUTER_MODEL)
-                usage = data.get("usage", {})
-                if isinstance(usage, dict):
-                    parsed_json["tokens_used"] = usage.get("total_tokens", 0)
-                else:
-                    parsed_json["tokens_used"] = 0
-                
-                return compute_final_score_and_verdict(parsed_json)
-        except json.JSONDecodeError as e:
-            print(f"JSON parse error (attempt {attempt + 1}): {e}")
-            print(f"Raw content preview: {content[:300] if content else '(empty)'}")
-            if attempt < MAX_RETRIES:
-                await asyncio.sleep(2)
-                continue
-            return {"error": f"AI response was not valid JSON: {str(e)}"}
-        except Exception as e:
-            print(f"Error calling AI API (attempt {attempt + 1}): {e}")
-            if attempt < MAX_RETRIES:
-                await asyncio.sleep(2)
-                continue
-            return {"error": str(e)}
-    
-    return {"error": "All retry attempts failed."}
+        # Jika loop attempt selesai tapi tidak return, berarti gagal untuk model ini. Lanjut ke model berikutnya (fallback)
+        print(f"Beralih ke model fallback jika ada karena {model_name} gagal.")
+
+    return {"error": f"Semua percobaan model gagal. Error terakhir: {last_error_msg}"}
