@@ -206,12 +206,7 @@ export default function ResultPage() {
                       <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_box</span>
                       New Analysis
                   </Link>
-                  <button 
-                      onClick={() => window.open(getExportPdfUrl(reportId))}
-                      className="flex-1 sm:flex-none justify-center border border-[#acabaa]/20 bg-white/[0.02] text-[#e7e5e5] px-7 py-3.5 rounded-2xl font-bold text-sm hover:bg-[#acabaa]/10 hover:border-[#acabaa]/40 active:scale-[0.98] transition-all flex items-center gap-2">
-                      <span className="material-symbols-outlined text-sm">download</span>
-                      Download PDF
-                  </button>
+              </div>
               </div>
             </div>
 
@@ -237,12 +232,20 @@ export default function ResultPage() {
                         className="w-full bg-surface-container-highest border border-white/10 rounded-xl px-4 py-3 text-sm font-mono text-on-surface-variant focus:outline-none focus:border-primary/50 transition-colors"
                       />
                     </div>
-                    <button 
-                      onClick={handleCopyLink}
-                      className="bg-[#e7e5e5] text-black px-6 py-3 rounded-xl font-bold text-sm hover:bg-white active:scale-[0.95] transition-all flex items-center gap-2 shrink-0">
-                      <span className="material-symbols-outlined text-sm">{isCopied ? 'check' : 'content_copy'}</span>
-                      {isCopied ? 'Copied' : 'Copy URL'}
-                    </button>
+                    <div className="flex flex-wrap md:flex-nowrap items-center gap-3 w-full md:w-auto">
+                        <button 
+                          onClick={handleCopyLink}
+                          className="flex-1 md:flex-none bg-[#e7e5e5] text-black px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-white active:scale-[0.95] transition-all flex items-center gap-2 shrink-0 justify-center">
+                          <span className="material-symbols-outlined text-sm">{isCopied ? 'check' : 'content_copy'}</span>
+                          {isCopied ? 'Copied' : 'Copy URL'}
+                        </button>
+                        <button 
+                          onClick={() => window.open(getExportPdfUrl(reportId))}
+                          className="flex-1 md:flex-none border border-white/10 bg-white/5 text-on-surface px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-white/10 active:scale-[0.95] transition-all flex items-center gap-2 shrink-0 justify-center">
+                          <span className="material-symbols-outlined text-sm">download</span>
+                          Download PDF
+                        </button>
+                    </div>
                   </div>
                 </div>
               </div>
