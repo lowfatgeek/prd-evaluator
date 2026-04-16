@@ -68,7 +68,7 @@ export default function LandingPage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="max-w-6xl mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center">
+        <section id="upload-section" className="max-w-6xl mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high text-xs font-medium tracking-widest uppercase mb-8 border border-outline-variant/10">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
             V2.0 is now live
@@ -192,25 +192,25 @@ export default function LandingPage() {
         {/* Editorial Content Section */}
         <section className="max-w-6xl mx-auto px-6 py-32 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div>
-            <h2 className="text-4xl font-bold text-on-surface mb-8 leading-tight">The Void between concept and code. Filled.</h2>
+            <h2 className="text-4xl font-bold text-on-surface mb-8 leading-tight">Build better apps by fixing the PRD first.</h2>
             <div className="space-y-8">
               <div className="flex gap-6">
                 <div className="flex-shrink-0 w-1 bg-primary h-12 rounded-full"></div>
                 <div>
-                  <h4 className="font-bold text-on-surface text-lg mb-2">Automated Traceability</h4>
-                  <p className="text-on-surface-variant text-sm leading-relaxed">Automatically map features to requirements to ensure 100% coverage during the QA phase.</p>
+                  <h4 className="font-bold text-on-surface text-lg mb-2">Find gaps before developers do</h4>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">PRDMetrix highlights missing requirements, unclear flows, and incomplete system design.</p>
                 </div>
               </div>
               <div className="flex gap-6">
                 <div className="flex-shrink-0 w-1 bg-outline-variant h-12 rounded-full"></div>
                 <div>
-                  <h4 className="font-bold text-on-surface text-lg mb-2">Stakeholder Alignment</h4>
-                  <p className="text-on-surface-variant text-sm leading-relaxed">Generated summaries for executives and technical deep-dives for engineers from one source.</p>
+                  <h4 className="font-bold text-on-surface text-lg mb-2">Ship mobile and web apps faster</h4>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">Start development with a PRD that&apos;s structured, validated, and ready for implementation.</p>
                 </div>
               </div>
             </div>
-            <button className="mt-12 flex items-center gap-2 text-primary font-semibold hover:gap-4 transition-all">
-                Explore the Platform <span className="material-symbols-outlined">arrow_right_alt</span>
+            <button onClick={() => document.getElementById('upload-section')?.scrollIntoView({ behavior: 'smooth' })} className="mt-12 flex items-center gap-2 text-primary font-semibold hover:gap-4 transition-all">
+                Upload Your PRD <span className="material-symbols-outlined">arrow_forward</span>
             </button>
           </div>
           <div className="relative group">
