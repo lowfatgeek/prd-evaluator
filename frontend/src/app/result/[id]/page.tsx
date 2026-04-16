@@ -167,9 +167,9 @@ export default function ResultPage() {
         <section className="mb-12">
           <div className="bg-surface-container-low border border-white/5 rounded-3xl shadow-[0_20px_80px_rgba(0,0,0,0.3)] overflow-hidden">
             {/* Main Row */}
-            <div className="p-6 md:p-8 flex flex-col xl:flex-row justify-between items-center gap-8">
+            <div className="p-6 md:p-8 flex justify-center items-center w-full">
               {/* Metadata Group */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 w-full xl:w-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 w-full lg:w-auto">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center shrink-0">
                     <span className="material-symbols-outlined text-primary text-2xl">description</span>
