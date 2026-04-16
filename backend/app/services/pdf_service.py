@@ -115,26 +115,33 @@ def generate_pdf_report(evaluation_data: dict, filename: str) -> bytes:
     pdf.cell(0, 10, f'VERDICT: {pdf.safe_text(verdict)}', border=1, ln=1, align='C', fill=False)
     pdf.ln(10)
 
-    # Strengths and Weaknesses
+    # Strengths
     pdf.set_font(f, 'B', 12)
-    pdf.cell(90, 8, 'Strengths:', ln=0)
-    pdf.cell(90, 8, 'Weaknesses:', ln=1)
-    
-    pdf.set_font(f, '', 9)
+    pdf.cell(0, 8, 'Strengths:', ln=1)
+    pdf.set_font(f, '', 10)
     strengths = result.get("strengths", [])
-    weaknesses = result.get("weaknesses", [])
     if not isinstance(strengths, list):
         strengths = []
+    if not strengths:
+        pdf.cell(0, 6, "- None", ln=1)
+    else:
+        for s in strengths:
+            pdf.safe_multi_cell(0, 6, f"- {pdf.safe_text(s)}")
+    
+    pdf.ln(5)
+
+    # Weaknesses
+    pdf.set_font(f, 'B', 12)
+    pdf.cell(0, 8, 'Weaknesses:', ln=1)
+    pdf.set_font(f, '', 10)
+    weaknesses = result.get("weaknesses", [])
     if not isinstance(weaknesses, list):
         weaknesses = []
-    
-    max_len = max(len(strengths), len(weaknesses), 1)
-    for i in range(max_len):
-        s = f"- {pdf.safe_text(strengths[i])}" if i < len(strengths) else ""
-        w = f"- {pdf.safe_text(weaknesses[i])}" if i < len(weaknesses) else ""
-        # Truncate for column layout
-        pdf.cell(90, 6, s[:55] + ("..." if len(s) > 55 else ""), ln=0)
-        pdf.cell(90, 6, w[:55] + ("..." if len(w) > 55 else ""), ln=1)
+    if not weaknesses:
+        pdf.cell(0, 6, "- None", ln=1)
+    else:
+        for w in weaknesses:
+            pdf.safe_multi_cell(0, 6, f"- {pdf.safe_text(w)}")
     
     pdf.ln(10)
 
