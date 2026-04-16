@@ -14,6 +14,7 @@ export default function ResultPage() {
   const [metadata, setMetadata] = useState<any>({});
   const [errorText, setErrorText] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [showSharePanel, setShowSharePanel] = useState(false);
 
   const formatFileSize = (bytes?: number) => {
     if (!bytes) return '0 B';
@@ -160,61 +161,100 @@ export default function ResultPage() {
 
         {/* New Metadata & Utility Bar */}
         <section className="mb-12">
-          <div className="bg-surface-container-low border border-white/5 rounded-2xl p-6 md:p-8 flex flex-col lg:flex-row justify-between items-center gap-8 shadow-[0_20px_80px_rgba(0,0,0,0.3)]">
-            {/* Metadata Group */}
-            <div className="flex flex-wrap items-center gap-x-10 gap-y-4 justify-center lg:justify-start w-full lg:w-auto">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-primary text-xl">description</span>
+          <div className="bg-surface-container-low border border-white/5 rounded-3xl shadow-[0_20px_80px_rgba(0,0,0,0.3)] overflow-hidden">
+            {/* Main Row */}
+            <div className="p-6 md:p-8 flex flex-col xl:flex-row justify-between items-center gap-8">
+              {/* Metadata Group */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 w-full xl:w-auto">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-primary text-2xl">description</span>
+                  </div>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#acabaa]">Source PRD</span>
+                    <span className="text-sm font-bold text-[#e7e5e5] truncate max-w-[180px]" title={metadata.filename}>
+                      {metadata.filename || "In-memory string"}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#acabaa]">Source PRD</span>
-                  <span className="text-sm font-semibold text-[#e7e5e5] truncate max-w-[200px]" title={metadata.filename}>{metadata.filename || "In-memory string"}</span>
+                
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-primary text-2xl">database</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#acabaa]">Payload Capacity</span>
+                    <span className="text-sm font-bold text-[#e7e5e5]">
+                      {metadata.file_format?.toUpperCase() || "N/A"} • {formatFileSize(metadata.file_size)}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-primary text-xl">database</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#acabaa]">Physical Payload</span>
-                  <span className="text-sm font-semibold text-[#e7e5e5]">
-                    {metadata.file_format?.toUpperCase() || "N/A"} • {formatFileSize(metadata.file_size)}
-                  </span>
+
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-primary text-2xl">calendar_today</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#acabaa]">Assessment Date</span>
+                    <span className="text-sm font-bold text-[#e7e5e5]">{formatDate(metadata.evaluated_at)}</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-primary text-xl">calendar_today</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#acabaa]">Telemetry Sync</span>
-                  <span className="text-sm font-semibold text-[#e7e5e5]">{formatDate(metadata.evaluated_at)}</span>
-                </div>
+              {/* Actions Group */}
+              <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto justify-center md:justify-end">
+                  <Link href="/" className="flex-1 sm:flex-none justify-center bg-primary text-on-primary px-7 py-3.5 rounded-2xl font-bold text-sm hover:opacity-90 active:scale-[0.98] transition-all flex items-center gap-2 shadow-lg shadow-primary/25">
+                      <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_box</span>
+                      New Analysis
+                  </Link>
+                  <button 
+                      onClick={() => window.open(getExportPdfUrl(reportId))}
+                      className="flex-1 sm:flex-none justify-center border border-[#acabaa]/20 bg-white/[0.02] text-[#e7e5e5] px-7 py-3.5 rounded-2xl font-bold text-sm hover:bg-[#acabaa]/10 hover:border-[#acabaa]/40 active:scale-[0.98] transition-all flex items-center gap-2">
+                      <span className="material-symbols-outlined text-sm">download</span>
+                      Download PDF
+                  </button>
+                  <button 
+                      onClick={() => setShowSharePanel(!showSharePanel)}
+                      className={`flex-1 sm:flex-none justify-center border px-7 py-3.5 rounded-2xl font-bold text-sm active:scale-[0.98] transition-all flex items-center gap-2 min-w-[130px] ${showSharePanel ? 'bg-primary/10 border-primary text-primary' : 'border-[#acabaa]/20 bg-white/[0.02] text-[#e7e5e5] hover:bg-[#acabaa]/10 hover:border-[#acabaa]/40'}`}>
+                      <span className="material-symbols-outlined text-sm">{showSharePanel ? 'close' : 'share'}</span>
+                      {showSharePanel ? 'Close Share' : 'Share Result'}
+                  </button>
               </div>
             </div>
 
-            {/* Actions Group */}
-            <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto justify-center md:justify-end border-t lg:border-t-0 border-white/5 pt-6 lg:pt-0">
-                <Link href="/" className="flex-1 md:flex-none justify-center bg-primary text-on-primary px-6 py-3 rounded-xl font-bold text-sm hover:opacity-90 active:scale-[0.98] transition-all flex items-center gap-2 shadow-lg shadow-primary/20">
-                    <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_box</span>
-                    New Analysis
-                </Link>
-                <button 
-                    onClick={() => window.open(getExportPdfUrl(reportId))}
-                    className="flex-1 md:flex-none justify-center border border-[#acabaa]/20 bg-white/[0.02] text-[#e7e5e5] px-6 py-3 rounded-xl font-bold text-sm hover:bg-[#acabaa]/10 hover:border-[#acabaa]/40 active:scale-[0.98] transition-all flex items-center gap-2">
-                    <span className="material-symbols-outlined text-sm">download</span>
-                    Download PDF
-                </button>
-                <button 
-                    onClick={handleCopyLink}
-                    className="flex-1 md:flex-none justify-center border border-[#acabaa]/20 bg-white/[0.02] text-[#e7e5e5] px-6 py-3 rounded-xl font-bold text-sm hover:bg-[#acabaa]/10 hover:border-[#acabaa]/40 active:scale-[0.98] transition-all flex items-center gap-2 min-w-[120px]">
-                    <span className="material-symbols-outlined text-sm">{isCopied ? 'check' : 'share'}</span>
-                    {isCopied ? 'Copied!' : 'Share'}
-                </button>
-            </div>
+            {/* Enhanced Share Drawer */}
+            {showSharePanel && (
+              <div className="bg-black/20 border-t border-white/5 p-8 animate-in slide-in-from-top-4 duration-300">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6 max-w-4xl mx-auto">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-primary">share</span>
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-on-surface">Share this result</h5>
+                      <p className="text-xs text-on-surface-variant">Anyone with this link can view the assessment findings.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 w-full md:w-auto md:min-w-[400px]">
+                    <div className="relative flex-grow">
+                      <input 
+                        type="text" 
+                        readOnly 
+                        value={typeof window !== 'undefined' ? window.location.href : ''} 
+                        className="w-full bg-surface-container-highest border border-white/10 rounded-xl px-4 py-3 text-sm font-mono text-on-surface-variant focus:outline-none focus:border-primary/50 transition-colors"
+                      />
+                    </div>
+                    <button 
+                      onClick={handleCopyLink}
+                      className="bg-[#e7e5e5] text-black px-6 py-3 rounded-xl font-bold text-sm hover:bg-white active:scale-[0.95] transition-all flex items-center gap-2 shrink-0">
+                      <span className="material-symbols-outlined text-sm">{isCopied ? 'check' : 'content_copy'}</span>
+                      {isCopied ? 'Copied' : 'Copy URL'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
