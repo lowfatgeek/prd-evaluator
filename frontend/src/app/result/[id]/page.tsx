@@ -5,6 +5,14 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getEvaluationResult, getExportPdfUrl } from '@/lib/api';
 
+const LOADING_PHRASES = [
+  "Architecting Structural Integrity...",
+  "Decoding Product DNA...",
+  "Analyzing Foundation Schematics...",
+  "Mapping Component Dependencies...",
+  "Auditing Logical Infrastructure..."
+];
+
 export default function ResultPage() {
   const params = useParams();
   const reportId = params?.id as string;
@@ -14,6 +22,9 @@ export default function ResultPage() {
   const [metadata, setMetadata] = useState<any>({});
   const [errorText, setErrorText] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [loadingMessage] = useState(() => 
+    LOADING_PHRASES[Math.floor(Math.random() * LOADING_PHRASES.length)]
+  );
 
   const formatFileSize = (bytes?: number) => {
     if (!bytes) return '0 B';
@@ -78,7 +89,7 @@ export default function ResultPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#c6c6c7_0%,transparent_50%)] opacity-5"></div>
         <div className="relative z-10 flex flex-col items-center">
             <span className="material-symbols-outlined text-primary text-6xl animate-spin mb-6" style={{ fontVariationSettings: "'FILL' 0" }}>sync</span>
-            <h2 className="text-3xl font-bold tracking-tight mb-2 animate-pulse">Running Telemetry Scan...</h2>
+            <h2 className="text-3xl font-bold tracking-tight mb-2 animate-pulse">{loadingMessage}</h2>
             <p className="text-on-surface-variant font-mono text-sm tracking-widest uppercase">ID: {reportId}</p>
         </div>
       </div>
