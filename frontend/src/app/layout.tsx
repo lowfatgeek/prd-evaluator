@@ -6,7 +6,8 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
   title: 'PRDmetrix | Evaluate Your App PRD For FREE',
-  description: 'AI-powered PRD quality assessment tool.',
+  description: 'Evaluate your Product Requirements Document for FREE. PRDMetrix analyzes PRDs for web and mobile app development with scoring, insights, and improvement suggestions.',
+  keywords: 'product requirements document evaluation, PRD evaluation tool, AI PRD analysis, evaluate product requirements document, PRD review tool, product requirements document analysis, PRD quality assessment, AI product documentation review, PRD for app development, product requirements document checklist',
 };
 
 export default function RootLayout({
