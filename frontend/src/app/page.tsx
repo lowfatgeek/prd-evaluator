@@ -215,7 +215,7 @@ export default function LandingPage() {
           </div>
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-transparent blur-2xl opacity-50"></div>
-            <img alt="Abstract architecture" className="relative rounded-xl grayscale hover:grayscale-0 transition-all duration-700 w-full aspect-[4/5] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMLhi9dcgzKENK0AQ3s1LvQdcCstcQ3ZiHKJYb4MNPwzdFk-jcBAdZZUevw2KG2u4uNOYiMVTWIHxuMQ_b3TTd_Q_71VWCcoB1bLyIi4A0YjaU2_FCqfOPE-0MUU7UXTM8qDC46s8Qu0XOjduOMfY1vVr8KtuPShMl2iX-dwB5mGboOPjCxJzs7UmL7nQKl8lO1Bw51ZUP2dtFxsGWOOvZMbVKrworBZyX5cJQg-DmUdi298qFF6X0J2-RX2hkK2WdY-R5F2hnLq0" />
+            <img alt="PRDmetrix Preview" className="relative rounded-xl transition-all duration-700 w-full aspect-[4/5] object-cover shadow-2xl" src="https://ik.imagekit.io/kelaswfa/img/preview.jpg" />
           </div>
         </section>
       </main>
