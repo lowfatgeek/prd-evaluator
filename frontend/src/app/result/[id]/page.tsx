@@ -14,7 +14,6 @@ export default function ResultPage() {
   const [metadata, setMetadata] = useState<any>({});
   const [errorText, setErrorText] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
-  const [showSharePanel, setShowSharePanel] = useState(false);
 
   const formatFileSize = (bytes?: number) => {
     if (!bytes) return '0 B';
@@ -213,18 +212,11 @@ export default function ResultPage() {
                       <span className="material-symbols-outlined text-sm">download</span>
                       Download PDF
                   </button>
-                  <button 
-                      onClick={() => setShowSharePanel(!showSharePanel)}
-                      className={`flex-1 sm:flex-none justify-center border px-7 py-3.5 rounded-2xl font-bold text-sm active:scale-[0.98] transition-all flex items-center gap-2 min-w-[130px] ${showSharePanel ? 'bg-primary/10 border-primary text-primary' : 'border-[#acabaa]/20 bg-white/[0.02] text-[#e7e5e5] hover:bg-[#acabaa]/10 hover:border-[#acabaa]/40'}`}>
-                      <span className="material-symbols-outlined text-sm">{showSharePanel ? 'close' : 'share'}</span>
-                      {showSharePanel ? 'Close Share' : 'Share Result'}
-                  </button>
               </div>
             </div>
 
-            {/* Enhanced Share Drawer */}
-            {showSharePanel && (
-              <div className="bg-black/20 border-t border-white/5 p-8 animate-in slide-in-from-top-4 duration-300">
+            {/* Enhanced Share Drawer (Always Visible) */}
+            <div className="bg-black/20 border-t border-white/5 p-8">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 max-w-4xl mx-auto">
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
@@ -254,7 +246,6 @@ export default function ResultPage() {
                   </div>
                 </div>
               </div>
-            )}
           </div>
         </section>
 
