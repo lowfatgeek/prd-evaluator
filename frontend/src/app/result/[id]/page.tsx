@@ -207,7 +207,6 @@ export default function ResultPage() {
                       New Analysis
                   </Link>
               </div>
-              </div>
             </div>
 
             {/* Enhanced Share Drawer (Always Visible) */}
