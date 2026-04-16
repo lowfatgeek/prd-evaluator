@@ -8,6 +8,13 @@ export const metadata: Metadata = {
   title: 'PRDmetrix | Evaluate Your App PRD For FREE',
   description: 'Evaluate your Product Requirements Document for FREE. PRDMetrix analyzes PRDs for web and mobile app development with scoring, insights, and improvement suggestions.',
   keywords: 'product requirements document evaluation, PRD evaluation tool, AI PRD analysis, evaluate product requirements document, PRD review tool, product requirements document analysis, PRD quality assessment, AI product documentation review, PRD for app development, product requirements document checklist',
+  icons: {
+    icon: [
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({
