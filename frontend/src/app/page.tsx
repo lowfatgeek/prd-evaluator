@@ -10,6 +10,50 @@ export default function LandingPage() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [selectedLang, setSelectedLang] = useState('en');
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const FAQS = [
+    {
+      question: "What is PRDMetrix?",
+      answer: "PRDMetrix is an AI-powered tool that evaluates Product Requirements Documents (PRDs) for app development. Upload your PRD and receive structured feedback, scoring across key product dimensions, and actionable recommendations to ensure your document is clear, complete, and ready for building web or mobile applications."
+    },
+    {
+      question: "What types of documents can I upload?",
+      answer: "PRDMetrix currently supports the following formats: TXT, Markdown (.md), and PDF. Each document is automatically parsed and analyzed by the evaluation engine."
+    },
+    {
+      question: "What does PRDMetrix evaluate in my PRD?",
+      answer: "Your PRD is evaluated across 9 critical product development categories, including: Product clarity, User understanding, Feature definition, Technical architecture, Execution readiness, User flow, and Non-functional requirements. Each category receives a score and detailed feedback."
+    },
+    {
+      question: "How accurate is the AI evaluation?",
+      answer: "PRDMetrix uses a structured evaluation framework combined with AI analysis. The AI examines the actual content of your document and evaluates it based on established product development criteria. While the feedback is highly useful, it should be used as guidance rather than an absolute judgment."
+    },
+    {
+      question: "Is my document stored or shared?",
+      answer: "Your document is processed securely and used only for generating the evaluation report. We do not share your documents with other users, and they are not used to train external models."
+    },
+    {
+      question: "Do I need to create an account to use PRDMetrix?",
+      answer: "No. You can upload and evaluate your PRD without creating an account. Account features may be introduced in future versions for saving reports and collaboration."
+    },
+    {
+      question: "Can PRDMetrix evaluate PRDs for both mobile and web applications?",
+      answer: "Yes. PRDMetrix is designed to evaluate product specifications for both mobile apps and web applications, including user flows, architecture, and feature definitions."
+    },
+    {
+      question: "What will I receive after uploading my PRD?",
+      answer: "After analysis, you will receive: An overall PRD score, category-by-category evaluation, identified weaknesses and missing sections, actionable improvement suggestions, and a downloadable evaluation report."
+    },
+    {
+      question: "Can PRDMetrix help me improve my PRD?",
+      answer: "Yes. In addition to scoring your PRD, the platform provides specific suggestions on how to strengthen your document, including missing sections and areas that need clarification."
+    },
+    {
+      question: "Who should use PRDMetrix?",
+      answer: "PRDMetrix is useful for: Startup founders preparing product specifications, Product managers reviewing PRDs, Developers validating requirement clarity, Product teams aligning on feature definitions, and Bootcamps or mentors evaluating PRD assignments."
+    }
+  ];
 
   const LANGUAGES = [
     { code: 'en', name: 'English' },
@@ -216,6 +260,42 @@ export default function LandingPage() {
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-transparent blur-2xl opacity-50"></div>
             <img alt="PRDmetrix Preview" className="relative rounded-xl transition-all duration-700 w-full aspect-[4/5] object-cover shadow-2xl" src="https://ik.imagekit.io/kelaswfa/img/preview.jpg" />
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="bg-surface-container-low py-32">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-4xl font-bold text-on-surface mb-4 text-center">Frequently Asked Questions</h2>
+            <p className="text-on-surface-variant text-center mb-16 max-w-2xl mx-auto">
+              Everything you need to know about PRDMetrix and how it helps you build better products.
+            </p>
+            
+            <div className="space-y-4">
+              {FAQS.map((faq, index) => (
+                <div 
+                  key={index} 
+                  className={`border border-outline-variant/20 rounded-2xl overflow-hidden transition-all duration-300 ${openFaqIndex === index ? 'bg-surface-container-high' : 'bg-surface-container-low hover:bg-surface-container-lowest'}`}
+                >
+                  <button 
+                    onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
+                    className="w-full px-8 py-6 flex justify-between items-center text-left"
+                  >
+                    <span className="text-lg font-bold text-on-surface pr-8">{faq.question}</span>
+                    <span className={`material-symbols-outlined transition-transform duration-300 text-primary ${openFaqIndex === index ? 'rotate-180' : ''}`}>
+                      expand_more
+                    </span>
+                  </button>
+                  <div 
+                    className={`px-8 transition-all duration-300 ease-in-out ${openFaqIndex === index ? 'max-h-[500px] pb-8 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'}`}
+                  >
+                    <p className="text-on-surface-variant leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </main>
