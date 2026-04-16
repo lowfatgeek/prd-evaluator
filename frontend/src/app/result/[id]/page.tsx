@@ -118,8 +118,13 @@ export default function ResultPage() {
     <div className="bg-[#0e0e0e] text-[#e7e5e5] font-sans selection:bg-primary selection:text-on-primary min-h-screen flex flex-col">
       {/* TopNavBar */}
       <header className="w-full h-16 border-none bg-[#131313]/90 backdrop-blur-md sticky top-0 z-50">
-        <nav className="flex justify-center items-center px-12 max-w-[1920px] mx-auto w-full h-full relative">
-          <Link href="/" className="text-xl font-bold text-[#e7e5e5] tracking-tight hover:text-[#e7e5e5]">PRDmetrix</Link>
+        <nav className="flex justify-between items-center px-6 md:px-12 max-w-[1920px] mx-auto w-full h-full relative">
+          <Link href="/" className="text-xl font-bold text-[#e7e5e5] tracking-tight hover:text-white transition-colors">PRDmetrix</Link>
+          <Link href="/" className="flex justify-center bg-primary text-on-primary px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm hover:opacity-90 active:scale-[0.98] transition-all items-center gap-2 shadow-lg shadow-primary/25">
+              <span className="material-symbols-outlined text-sm sm:text-base" style={{ fontVariationSettings: "'FILL' 1" }}>add_box</span>
+              <span className="hidden sm:inline">New Analysis</span>
+              <span className="sm:hidden">New</span>
+          </Link>
         </nav>
       </header>
 
@@ -198,14 +203,6 @@ export default function ResultPage() {
                     <span className="text-sm font-bold text-[#e7e5e5]">{formatDate(metadata.evaluated_at)}</span>
                   </div>
                 </div>
-              </div>
-
-              {/* Actions Group */}
-              <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto justify-center md:justify-end">
-                  <Link href="/" className="flex-1 sm:flex-none justify-center bg-primary text-on-primary px-7 py-3.5 rounded-2xl font-bold text-sm hover:opacity-90 active:scale-[0.98] transition-all flex items-center gap-2 shadow-lg shadow-primary/25">
-                      <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_box</span>
-                      New Analysis
-                  </Link>
               </div>
             </div>
 
