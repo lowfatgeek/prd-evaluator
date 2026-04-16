@@ -136,26 +136,6 @@ export default function ResultPage() {
               <p className="text-lg text-on-surface-variant leading-relaxed">
                 A comprehensive evaluation of the PRD ecosystem based on real-time neural telemetry. This score represents the structural harmony between user intent and platform execution.
               </p>
-              
-              {/* Contextual Action Row */}
-              <div className="flex flex-wrap items-center gap-4 mt-8">
-                <Link href="/" className="bg-primary text-on-primary px-6 py-3 rounded-md font-semibold hover:opacity-90 active:scale-[0.99] transition-all flex items-center gap-2 shadow-lg shadow-primary/20">
-                    <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_box</span>
-                    New Analysis
-                </Link>
-                <button 
-                    onClick={() => window.open(getExportPdfUrl(reportId))}
-                    className="border border-[#acabaa]/30 text-[#e7e5e5] px-6 py-3 rounded-md font-medium hover:bg-[#acabaa]/10 active:scale-[0.98] transition-all flex items-center gap-2">
-                    <span className="material-symbols-outlined text-sm">download</span>
-                    Download PDF
-                </button>
-                <button 
-                    onClick={handleCopyLink}
-                    className="border border-[#acabaa]/30 text-[#e7e5e5] px-6 py-3 rounded-md font-medium hover:bg-[#acabaa]/10 active:scale-[0.98] transition-all flex items-center gap-2 w-[140px] justify-center">
-                    <span className="material-symbols-outlined text-sm">{isCopied ? 'check' : 'share'}</span>
-                    {isCopied ? 'Copied!' : 'Share'}
-                </button>
-              </div>
             </div>
             <div className="relative z-10 flex flex-col items-center justify-center">
               <div className="w-48 h-48 rounded-full border-8 border-surface-container-highest flex items-center justify-center relative">
@@ -175,6 +155,66 @@ export default function ResultPage() {
             
             {/* Background Subtle Texture */}
             <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none" style={{ background: "radial-gradient(circle at 70% 30%, #c6c6c7 0%, transparent 70%)" }}></div>
+          </div>
+        </section>
+
+        {/* New Metadata & Utility Bar */}
+        <section className="mb-12">
+          <div className="bg-surface-container-low border border-white/5 rounded-2xl p-6 md:p-8 flex flex-col lg:flex-row justify-between items-center gap-8 shadow-[0_20px_80px_rgba(0,0,0,0.3)]">
+            {/* Metadata Group */}
+            <div className="flex flex-wrap items-center gap-x-10 gap-y-4 justify-center lg:justify-start w-full lg:w-auto">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <span className="material-symbols-outlined text-primary text-xl">description</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#acabaa]">Source PRD</span>
+                  <span className="text-sm font-semibold text-[#e7e5e5] truncate max-w-[200px]" title={metadata.filename}>{metadata.filename || "In-memory string"}</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <span className="material-symbols-outlined text-primary text-xl">database</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#acabaa]">Physical Payload</span>
+                  <span className="text-sm font-semibold text-[#e7e5e5]">
+                    {metadata.file_format?.toUpperCase() || "N/A"} • {formatFileSize(metadata.file_size)}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <span className="material-symbols-outlined text-primary text-xl">calendar_today</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#acabaa]">Telemetry Sync</span>
+                  <span className="text-sm font-semibold text-[#e7e5e5]">{formatDate(metadata.evaluated_at)}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Actions Group */}
+            <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto justify-center md:justify-end border-t lg:border-t-0 border-white/5 pt-6 lg:pt-0">
+                <Link href="/" className="flex-1 md:flex-none justify-center bg-primary text-on-primary px-6 py-3 rounded-xl font-bold text-sm hover:opacity-90 active:scale-[0.98] transition-all flex items-center gap-2 shadow-lg shadow-primary/20">
+                    <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_box</span>
+                    New Analysis
+                </Link>
+                <button 
+                    onClick={() => window.open(getExportPdfUrl(reportId))}
+                    className="flex-1 md:flex-none justify-center border border-[#acabaa]/20 bg-white/[0.02] text-[#e7e5e5] px-6 py-3 rounded-xl font-bold text-sm hover:bg-[#acabaa]/10 hover:border-[#acabaa]/40 active:scale-[0.98] transition-all flex items-center gap-2">
+                    <span className="material-symbols-outlined text-sm">download</span>
+                    Download PDF
+                </button>
+                <button 
+                    onClick={handleCopyLink}
+                    className="flex-1 md:flex-none justify-center border border-[#acabaa]/20 bg-white/[0.02] text-[#e7e5e5] px-6 py-3 rounded-xl font-bold text-sm hover:bg-[#acabaa]/10 hover:border-[#acabaa]/40 active:scale-[0.98] transition-all flex items-center gap-2 min-w-[120px]">
+                    <span className="material-symbols-outlined text-sm">{isCopied ? 'check' : 'share'}</span>
+                    {isCopied ? 'Copied!' : 'Share'}
+                </button>
+            </div>
           </div>
         </section>
 
@@ -307,22 +347,12 @@ export default function ResultPage() {
                 
                 <div className="grid grid-cols-2 gap-y-6 gap-x-8 pt-6 border-t border-white/5">
                   <div>
-                    <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-1">PRD Source</span>
-                    <span className="text-sm font-medium text-on-surface truncate block" title={metadata.filename}>{metadata.filename || "In-memory string"}</span>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-1">Physical Payload</span>
-                    <span className="text-sm font-medium text-on-surface">
-                      {metadata.file_format?.toUpperCase() || "N/A"} • {formatFileSize(metadata.file_size)}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-1">Timestamp</span>
-                    <span className="text-sm font-medium text-on-surface">{formatDate(metadata.evaluated_at)}</span>
-                  </div>
-                  <div>
                     <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-1">Neural Engine</span>
                     <span className="text-sm font-medium text-on-surface">{resultData?.model_used || "OpenRouter"}</span>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-1">State Reflection</span>
+                    <span className="text-sm font-medium text-on-surface">Synchronized</span>
                   </div>
                 </div>
               </div>
