@@ -22,9 +22,19 @@ export default function ResultPage() {
   const [metadata, setMetadata] = useState<any>({});
   const [errorText, setErrorText] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
-  const [loadingMessage] = useState(() => 
-    LOADING_PHRASES[Math.floor(Math.random() * LOADING_PHRASES.length)]
-  );
+  const [loadingMessage, setLoadingMessage] = useState(LOADING_PHRASES[0]);
+
+  useEffect(() => {
+    if (status !== 'processing') return;
+    
+    let currentIndex = 0;
+    const intervalId = setInterval(() => {
+      currentIndex = (currentIndex + 1) % LOADING_PHRASES.length;
+      setLoadingMessage(LOADING_PHRASES[currentIndex]);
+    }, 3000);
+
+    return () => clearInterval(intervalId);
+  }, [status]);
 
   const formatFileSize = (bytes?: number) => {
     if (!bytes) return '0 B';
