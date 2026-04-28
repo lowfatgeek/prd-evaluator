@@ -16,6 +16,9 @@ class Settings(BaseSettings):
     # Supabase credentials if needed for storage
     SUPABASE_URL: str = ""
     SUPABASE_KEY: str = ""
+    
+    # Cron Security
+    CRON_SECRET_KEY: str = "default_secret_key_change_me"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 

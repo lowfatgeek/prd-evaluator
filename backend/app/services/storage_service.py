@@ -2,7 +2,10 @@ import os
 from supabase import create_client, Client
 from app.core.config import settings
 import uuid
+from datetime import datetime, timedelta
 from fastapi import HTTPException
+from sqlalchemy.orm import Session
+from app.models.db_models import Upload, Evaluation
 
 # Initialize client only if URL and KEY are set
 if settings.SUPABASE_URL and settings.SUPABASE_KEY and not settings.SUPABASE_KEY.startswith("ey_your"):
@@ -63,3 +66,54 @@ def download_file_from_supabase(path: str) -> bytes:
             with open(path, "rb") as f:
                 return f.read()
         raise Exception(f"Failed to download from Supabase: {str(e)}")
+
+def delete_file_from_supabase(path: str) -> bool:
+    """Deletes a file from Supabase storage."""
+    if not supabase:
+        # Mock logic: delete local file if it exists
+        if os.path.exists(path):
+            os.remove(path)
+            return True
+        return False
+
+    try:
+        res = supabase.storage.from_(BUCKET_NAME).remove([path])
+        return True
+    except Exception as e:
+        print(f"Error deleting file from Supabase: {e}")
+        return False
+
+def cleanup_old_files(db: Session, hours: int = 24) -> dict:
+    """
+    Finds and deletes physical files older than specified hours.
+    Keeps database records for historical reports.
+    """
+    threshold = datetime.utcnow() - timedelta(hours=hours)
+    
+    # 1. Find uploads older than threshold that still have a file_path
+    old_uploads = db.query(Upload).filter(
+        Upload.created_at < threshold,
+        Upload.file_path != None
+    ).all()
+    
+    deleted_count = 0
+    errors = []
+    
+    for upload in old_uploads:
+        try:
+            # 2. Delete from Storage
+            success = delete_file_from_supabase(upload.file_path)
+            
+            # 3. Clear file_path in DB instead of deleting record
+            upload.file_path = None
+            
+            deleted_count += 1
+        except Exception as e:
+            errors.append(f"Failed to delete file for upload {upload.id}: {str(e)}")
+            
+    db.commit()
+    
+    return {
+        "deleted_count": deleted_count,
+        "errors": errors
+    }

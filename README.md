@@ -95,6 +95,29 @@ PRDmetrix is pre-configured for automated deployment via Docker.
 
 ---
 
+## 🧹 Automated Storage Cleanup (Optional)
+
+To keep your Supabase Storage clean while maintaining evaluation history, you can set up a periodic cleanup task using an external cron service.
+
+### 1. Configuration
+Add `CRON_SECRET_KEY` to your backend `.env` file:
+```env
+CRON_SECRET_KEY=your-secure-random-string
+```
+
+### 2. Triggering Cleanup
+Call the following endpoint from your cron service:
+- **URL**: `https://your-api.com/api/v1/cleanup?hours=24`
+- **Method**: `GET`
+- **Header**: `X-Cron-Token: your-secure-random-string`
+
+The cleanup logic will:
+1. Delete the physical file from Supabase Storage.
+2. Update the `file_path` in the database to `NULL`.
+3. **Keep** the evaluation report data for historical reference.
+
+---
+
 ## 🔒 Security & Privacy
 Built-in support for Cookie-safe JWT sessions and Supabase Row Level Security (RLS) to ensure your PRDs remain confidential and secure.
 

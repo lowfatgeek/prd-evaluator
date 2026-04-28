@@ -10,7 +10,7 @@ class Upload(Base):
 
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     filename = Column(String(255), nullable=False)
-    file_path = Column(Text, nullable=False)
+    file_path = Column(Text, nullable=True)
     file_size = Column(Integer, nullable=False)
     file_format = Column(String(10), nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)

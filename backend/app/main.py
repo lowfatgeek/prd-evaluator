@@ -22,9 +22,10 @@ def read_root():
     return {"message": "PRD Evaluator Backend API is running."}
 
 # Import routers
-from app.api.v1.endpoints import upload, evaluate, results, export
+from app.api.v1.endpoints import upload, evaluate, results, export, cleanup
 
 app.include_router(upload.router, prefix="/api/v1")
 app.include_router(evaluate.router, prefix="/api/v1")
 app.include_router(results.router, prefix="/api/v1")
 app.include_router(export.router, prefix="/api/v1")
+app.include_router(cleanup.router, prefix="/api/v1")
